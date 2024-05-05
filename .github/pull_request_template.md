@@ -6,8 +6,8 @@ Please include a summary of the changes and the related issue. Please also inclu
 
 ## Changes Made
 
-Describe the specific changes that have been made in this pull 
-request. Provide details on the approach taken to address the problem 
+Describe the specific changes that have been made in this pull
+request. Provide details on the approach taken to address the problem
 and any notable implementation details.
 
 ## Checklist

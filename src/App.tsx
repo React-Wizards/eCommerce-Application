@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <>
-      Welcome to eCommerce Application!
-    </>
-  );
+  return <>Welcome to eCommerce Application!</>;
 }
 
 export default App;

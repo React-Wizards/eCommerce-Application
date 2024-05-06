@@ -6,6 +6,8 @@ Users can browse through a vast range of products, view detailed descriptions, a
 
 An important aspect of our application is that it's responsive, ensuring it looks great on various devices with a minimum resolution of 390px. This feature makes the shopping experience enjoyable, irrespective of the device users prefer.
 
+The main goal of the project is to create a user-friendly and functional online shoe store that allows customers to buy shoes with delivery.
+
 Key pages in the application include:
 
 - Login and Registration pages
@@ -19,6 +21,31 @@ Key pages in the application include:
 The application is powered by CommerceTools, a leading provider of commerce solutions for B2C and B2B enterprises. CommerceTools offers a cloud-native, microservices-based commerce platform that enables brands to create unique and engaging digital commerce experiences.
 
 The application was developed by [React-Wizards team](https://github.com/orgs/React-Wizards/teams/rss-school-react-wizards) as a final task in RS School [JavaScript / Front-end course](https://rs.school/courses/javascript-mentoring-program).
+
+Technologies used:
+ - HTML, CSS: To create the structure of the website and design its appearance.
+ - JavaScript, TypeScript: To write the logic of the website's operation and interaction with the user.
+ - React: To create interactive components of the website.
+ - react-router-dom: To manage routing on the website.
+ - Vite: To quickly build and develop the project.
+ - Jest: To test the project's code.
+ - Axios: To make requests to the server.
+ - Editorconfig: To ensure code style consistency.
+ - Prettier: To automatically format code.
+ - ESLint: To check code for compliance with standards and rules.
+ - Redux-toolkit: To manage the state of the application.
+ - Husky: To automate the process of building and testing the project.
+
+The project has the following main functions:
+ - Search for products by name, category, or price.
+ - Sort products by popularity, novelty, price, and other parameters.
+ - Filter products by various criteria.
+ - Add products to the shopping cart.
+ - View the quantity and cost of products in the shopping cart.
+ - Place an order.
+ - Choose a delivery method and payment method.
+ - Pay for the order.
+ - The project uses the following technologies to implement its functions:
 
 # Instruction
 

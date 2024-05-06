@@ -19,3 +19,39 @@ Key pages in the application include:
 The application is powered by CommerceTools, a leading provider of commerce solutions for B2C and B2B enterprises. CommerceTools offers a cloud-native, microservices-based commerce platform that enables brands to create unique and engaging digital commerce experiences.
 
 The application was developed by [React-Wizards team](https://github.com/orgs/React-Wizards/teams/rss-school-react-wizards) as a final task in RS School [JavaScript / Front-end course](https://rs.school/courses/javascript-mentoring-program).
+
+# Instruction
+
+## NPM Scripts
+
+### dev
+
+Run the project in development mode - ```npm run dev```
+
+### build
+
+Run production build locally - ```npm run build```
+
+### preview
+
+Run the project in development mode - ```npm run preview```
+
+### test
+
+Run all test - ```npm run test```
+
+### lint
+
+Launch Eslint to parse code and fix problems - ```npm run lint```
+
+### format
+
+Run Prettier to automatically format code - ```npm run format```
+
+### prepare
+
+Creating git hooks - ```npm run prepare```
+
+### pre-commit
+
+Run git hook before commit - ```npm run pre-commit```

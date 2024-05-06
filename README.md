@@ -55,3 +55,22 @@ Creating git hooks - ```npm run prepare```
 ### pre-commit
 
 Run git hook before commit - ```npm run pre-commit```
+
+## Setting up and running the project locally
+
+### Setting up
+
+1. Install Node.js
+2. Clone this repo
+3. Go to folder `eCommerce-Application`
+4. To install all dependencies use `npm install`
+5. Modify an existing `.prettierrc` configuration file (optional)
+6. Modify an existing `.eslintrc.cjs` configuration file (optional)
+7. Modify an existing `.editorconfig` configuration file (optional)
+8. Create or modify git-hooks in `.husky` folder (optional)
+
+### local project launch
+
+If you require development mode, then use the `npm run dev` command, which will run the project locally for further development
+To deploy the project as a product, enter the `npm run build` command, which will create a `dist` folder in which a build of the project will be generated
+To view the project in a deployed form locally, enter the command `npm run preview`

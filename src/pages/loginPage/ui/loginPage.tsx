@@ -1,10 +1,7 @@
 import './loginPage.scss';
 
 function LoginPage() {
-  return(
-    <>
-    </>
-  )
+  return <></>;
 }
 
 export default LoginPage;

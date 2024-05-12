@@ -1,5 +1,30 @@
 .login-wrapper {
-  @apply flex flex-col justify-between w-[31.25rem] h-[37.5rem] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[50px] px-[100px] pb-[85px];
+  @apply flex flex-col justify-between w-[31.25rem] h-[37.5rem] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[50px] px-[100px] pb-[85px] border-b-[10px] border-[#46A358];
+}
+
+.login-header {
+  @apply flex justify-center gap-3;
+}
+
+.login-caption,
+.login-link {
+  @apply text-lg font-medium;
+}
+
+.login-divider {
+  @apply text-[18px] leading-4 font-thin;
+}
+
+.login-caption {
+  @apply text-[#46A358];
+}
+
+.login-link {
+  @apply text-[#3D3D3D];
+}
+
+.login-text {
+  @apply text-[#3D3D3D] text-[13px] mt-0 -mb-10;
 }
 
 .form {

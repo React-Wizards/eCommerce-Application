@@ -26,6 +26,16 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className={styles['login-wrapper']}>
+      <div className={styles['login-header']}>
+        <span className={styles['login-caption']}>Login</span>
+        <span className={styles['login-divider']}>I</span>
+        <a href='/register' className={styles['login-link']}>
+          Register
+        </a>
+      </div>
+      <p className={styles['login-text']}>
+        Enter your username and password to login.
+      </p>
       <form className={styles['form']}>
         <div className={styles['input-wrapper']}>
           {inputList.map((input, index) => (

@@ -14,7 +14,7 @@ const Address = () => {
         placeholder='Street'
       />
       <input type='text' className={styles['input-field']} placeholder='City' />
-      <select className={styles['coutnry-select']} value='Country'>
+      <select className={styles['coutnry-select']}>
         <option value='Belarus'>Belarus</option>
         <option value='Germany'>Germany</option>
         <option value='Kazakhstan'>Kazakhstan</option>

@@ -18,7 +18,7 @@ const RegistrationPage = () => {
           <p className={styles['form-text']}>
             Enter your registration details:
           </p>
-          <form className='' action=''>
+          <form>
             <UserDetails />
             <BillingAddress />
             <ShippingAddress />

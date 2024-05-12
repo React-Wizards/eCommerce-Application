@@ -1,8 +1,8 @@
-import styles from './FormDivider.module.scss';
+import styles from './BlockDivider.module.scss';
 
-const FormDivider = (props: { text: string }) => {
+const BlockDivider = (props: { text: string }) => {
   return (
-    <p className={styles['form-divider']}>
+    <p className={styles['block-divider']}>
       <span className={styles['divider-line']}></span>
       <span className={styles['divider-text']}>{props.text}</span>
       <span className={styles['divider-line']}></span>
@@ -10,4 +10,4 @@ const FormDivider = (props: { text: string }) => {
   );
 };
 
-export default FormDivider;
+export default BlockDivider;

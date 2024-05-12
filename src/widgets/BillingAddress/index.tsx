@@ -1,1 +1,1 @@
-export { default } from './BillingAddress';
+export { default } from './ui/BillingAddress';

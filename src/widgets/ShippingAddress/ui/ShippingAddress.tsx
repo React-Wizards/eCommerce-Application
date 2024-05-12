@@ -1,16 +1,15 @@
-import Address from '../Address';
-import FormDivider from '../FormDivider';
+import Address from '@/features/Address';
+import BlockDivider from '@/shared/BlockDivider';
 import styles from './ShippingAddress.module.scss';
 
 const ShippingAddress = () => {
   return (
     <>
-      <FormDivider text={'Shipping address'} />
+      <BlockDivider text={'Shipping address'} />
       <label className={styles['from-text__left']} htmlFor='same-as-bill'>
         <input
           className={styles['form-checkbox-left']}
           type='checkbox'
-          name=''
           id='same-as-bill'
         />
         Same as billing address
@@ -21,7 +20,6 @@ const ShippingAddress = () => {
         <input
           className={styles['form-checkbox-right']}
           type='checkbox'
-          name=''
           id='shipp-default'
         />
       </label>

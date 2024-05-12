@@ -1,6 +1,7 @@
 import React from 'react';
 import { InputProps } from '@/shared/ui/input/input';
 import Input from '@/shared/ui/input/input';
+import logo from '@/shared/assets/img/logo.svg';
 
 import styles from './loginPage.module.scss';
 
@@ -35,6 +36,9 @@ const LoginPage: React.FC = () => {
           ))}
         </div>
       </form>
+      <div className={styles['img-wrapper']}>
+        <img src={logo} alt='Green shop Logo' />
+      </div>
     </div>
   );
 };

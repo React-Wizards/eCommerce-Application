@@ -1,0 +1,11 @@
+.login-wrapper {
+  @apply flex flex-col justify-between w-[31.25rem] h-[37.5rem] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[50px] px-[100px] pb-[85px];
+}
+
+.form {
+  @apply w-[18.75rem] mx-auto;
+}
+
+.input-wrapper {
+  @apply flex flex-col justify-between;
+}

@@ -1,3 +1,11 @@
 .input {
   @apply rounded-[5px] appearance-none w-full max-h-10 px-3.5 py-3 mb-[17px] border border-[#EAEAEA] placeholder-[#A5A5A5] text-[#A5A5A5] focus:outline-none focus:border-[#46A358] sm:text-sm;
 }
+
+.input-container {
+  @apply flex justify-between items-center relative;
+}
+
+.hide-icon {
+  @apply absolute right-3 top-[10px] cursor-pointer;
+}

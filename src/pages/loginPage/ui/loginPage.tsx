@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputProps } from '@/shared/ui/input/input';
 import Input from '@/shared/ui/input/input';
 import Button from '@/shared/ui/button/button';
 import logo from '@/shared/assets/img/logo.svg';
+import { ChangeEvent } from 'react';
+import hideIcon from '@/shared/assets/img/hide-icon.svg';
+import showIcon from '@/shared/assets/img/show-icon.svg';
 
 import styles from './loginPage.module.scss';
 
 const inputList: InputProps[] = [
   {
+    id: 'email address',
     type: 'text',
     name: 'email',
     isRequired: true,
-    placeholder: 'Email address'
+    placeholder: 'Email address',
+    handleChange: () => {},
+    onClick: () => {},
+    src: ''
   },
   {
+    id: 'password',
     type: 'password',
     name: 'password',
     isRequired: true,
-    placeholder: 'Password'
+    placeholder: 'Password',
+    handleChange: () => {},
+    onClick: () => {},
+    src: hideIcon
   }
 ];
 
 const LoginPage: React.FC = () => {
   const btnText = 'Login';
+  const [value, setValue] = useState('');
+  const [isChanged, setChange] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePwdVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
+  const onChangeinputData = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setChange(true);
+    console.log(value);
+    console.log(isChanged);
+  };
 
   return (
     <div className={styles['login-wrapper']}>
@@ -37,13 +62,31 @@ const LoginPage: React.FC = () => {
         Enter your username and password to login.
       </p>
       <form className={styles['form']}>
-        <div className={styles['input-wrapper']}>
+        <div className={styles['inputs-wrapper']}>
           {inputList.map((input, index) => (
             <Input
-              type={input.type}
+              id={input.id}
+              type={
+                input.name === 'email'
+                  ? 'text'
+                  : passwordShown
+                    ? 'text'
+                    : 'password'
+              }
               name={input.name}
               isRequired={input.isRequired}
               placeholder={input.placeholder}
+              handleChange={onChangeinputData}
+              onClick={
+                input.name === 'password' ? togglePwdVisiblity : () => {}
+              }
+              src={
+                input.name === 'email'
+                  ? ''
+                  : passwordShown
+                    ? showIcon
+                    : hideIcon
+              }
               key={index}
             />
           ))}

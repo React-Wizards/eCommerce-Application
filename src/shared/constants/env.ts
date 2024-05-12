@@ -1,40 +1,41 @@
 interface IScopes {
-  readonly view_published_products: string;
-  readonly manage_my_orders: string;
-  readonly manage_my_business_units: string;
-  readonly view_categories: string;
-  readonly manage_my_quotes: string;
-  readonly manage_my_profile: string;
-  readonly manage_my_payments: string;
-  readonly create_anonymous_token: string;
-  readonly manage_my_shopping_lists: string;
-  readonly manage_my_quote_requests: string;
+  readonly MANAGE_MY_SHOPPING_LISTS: string;
+  readonly MANAGE_MY_QUOTE_REQUESTS: string;
+  readonly MANAGE_MY_BUSINESS_UNITS: string;
+  readonly MANAGE_MY_PAYMENTS: string;
+  readonly MANAGE_MY_PROFILE: string;
+  readonly MANAGE_MY_ORDERS: string;
+  readonly MANAGE_MY_QUOTES: string;
+  readonly VIEW_PUBLISHED_PRODUCTS: string;
+  readonly VIEW_CATEGORIES: string;
+  readonly CREATE_ANONYMOUS_TOKEN: string;
 }
 
-const PROJECT_KEY: string = import.meta.env.VITE_PROJECT_KEY;
-const CLIENT_SECRET: string = import.meta.env.VITE_CLIENT_SECRET;
-const CLIENT_ID: string = import.meta.env.VITE_CLIENT_ID;
-const AUTH_URL: string = import.meta.env.VITE_AUTH_URL;
-const API_URL: string = import.meta.env.VITE_API_URL;
-const SCOPES: IScopes = Object.freeze(
-  import.meta.env.VITE_SCOPES.split(/\s/).reduce(
-    (obj: IScopes, scope: string): IScopes => {
-      const [key, value]: string[] = scope.split(':');
+interface IEnv extends IScopes {
+  readonly CLIENT_SECRET: string;
+  readonly PROJECT_KEY: string;
+  readonly CLIENT_ID: string;
+  readonly AUTH_URL: string;
+  readonly API_URL: string;
+}
 
-      return {
-        ...obj,
-        [key]: value
-      };
+function getEnv(): IEnv {
+  const scopes: IScopes = import.meta.env.VITE_SCOPES.split(/s/).reduce(
+    (obj: IScopes, scope: string) => {
+      const [key, value]: string[] = scope.split(':');
+      return Object.assign(obj, { [key]: value });
     },
     {} as IScopes
-  )
-);
+  );
 
-export default {
-  PROJECT_KEY,
-  CLIENT_SECRET,
-  CLIENT_ID,
-  AUTH_URL,
-  API_URL,
-  SCOPES
-};
+  return {
+    PROJECT_KEY: import.meta.env.VITE_PROJECT_KEY,
+    CLIENT_SECRET: import.meta.env.VITE_CLIENT_SECRET,
+    CLIENT_ID: import.meta.env.VITE_CLIENT_ID,
+    AUTH_URL: import.meta.env.VITE_AUTH_URL,
+    API_URL: import.meta.env.VITE_API_URL,
+    ...scopes
+  };
+}
+
+export const env: IEnv = getEnv();

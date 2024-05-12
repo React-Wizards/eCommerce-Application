@@ -1,0 +1,55 @@
+.page-wrapper {
+  @apply flex justify-center bg-zinc-200 min-h-screen;
+
+  @media screen and (min-width: 672px) {
+    @apply w-screen;
+  }
+}
+
+.registration-page {
+  @apply min-w-[380px] px-5 flex justify-center self-center py-8 rounded-lg bg-white border-b-[10px] border-[#46a358];
+
+  @media screen and (min-width: 792px) {
+    @apply w-[792px];
+  }
+}
+
+.form-wrapper {
+  @apply max-w-[632px];
+
+  @media screen and (max-width: 671px) {
+    @apply max-w-[352px];
+  }
+}
+
+.form-header {
+  @apply mb-8 flex justify-center gap-3;
+}
+
+.form-header__link {
+  @apply text-xl font-["Cera_Pro_Medium"];
+}
+
+.form-header__divider {
+  @apply w-px h-[16px] bg-[#3D3D3D] self-center;
+}
+
+.form-header__caption {
+  @apply text-xl font-["Cera_Pro_Medium"] text-[#46a358];
+}
+
+.form-text {
+  @apply text-sm font-["Cera_Pro_Regular"];
+
+  @media screen and (max-width: 671px) {
+    @apply ml-[26px];
+  }
+}
+
+.controls-wrapper {
+  @apply mt-4 flex justify-center;
+}
+
+.register-button {
+  @apply w-[300px] h-[45px] rounded-[5px] text-white bg-[#46A358];
+}

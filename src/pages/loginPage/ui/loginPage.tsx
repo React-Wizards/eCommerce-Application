@@ -8,6 +8,7 @@ import hideIcon from '@/shared/assets/img/hide-icon.svg';
 import showIcon from '@/shared/assets/img/show-icon.svg';
 
 import styles from './loginPage.module.scss';
+import { emailValidator } from '@/features/validation/emailValidator';
 
 const inputList: InputProps[] = [
   {
@@ -45,6 +46,7 @@ const LoginPage: React.FC = () => {
   const onChangeinputData = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setChange(true);
+    console.log(emailValidator(value));
     console.log(value);
     console.log(isChanged);
   };

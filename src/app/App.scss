@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Cera Pro Medium';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(src/assets/fonts/Cera\ Pro\ Medium.otf);
+  }
+
+  @font-face {
+    font-family: 'Cera Pro Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(src/assets/fonts/Cera\ Pro\ Regular.otf);
+  }
+}

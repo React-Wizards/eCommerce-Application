@@ -1,0 +1,11 @@
+.block-divider {
+  @apply mt-8 flex align-middle;
+}
+
+.divider-line {
+  @apply self-center w-full h-[1px] bg-[#EAEAEA];
+}
+
+.divider-text {
+  @apply mx-1 text-nowrap text-sm;
+}

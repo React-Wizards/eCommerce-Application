@@ -3,12 +3,12 @@ import { InputProps } from '@/shared/ui/input/input';
 import Input from '@/shared/ui/input/input';
 import Button from '@/shared/ui/button/button';
 import logo from '@/shared/assets/img/logo.svg';
-import { ChangeEvent } from 'react';
 import hideIcon from '@/shared/assets/img/hide-icon.svg';
 import showIcon from '@/shared/assets/img/show-icon.svg';
 
 import styles from './loginPage.module.scss';
-import { emailValidator } from '@/features/validation/emailValidator';
+// import { emailValidator } from '@/features/validation/emailValidator';
+// import { passwordValidator } from '@/features/validation/passwordValidator';
 
 const inputList: InputProps[] = [
   {
@@ -35,20 +35,12 @@ const inputList: InputProps[] = [
 
 const LoginPage: React.FC = () => {
   const btnText = 'Login';
-  const [value, setValue] = useState('');
-  const [isChanged, setChange] = useState(false);
+  // const [value, setValue] = useState('');
+  // const [isChanged, setChange] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePwdVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-  };
-
-  const onChangeinputData = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setChange(true);
-    console.log(emailValidator(value));
-    console.log(value);
-    console.log(isChanged);
   };
 
   return (
@@ -78,7 +70,6 @@ const LoginPage: React.FC = () => {
               name={input.name}
               isRequired={input.isRequired}
               placeholder={input.placeholder}
-              handleChange={onChangeinputData}
               onClick={
                 input.name === 'password' ? togglePwdVisiblity : () => {}
               }

@@ -1,6 +1,8 @@
 import styles from './input.module.scss';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 // import hideIcon from '@/shared/assets/img/hide-icon.svg';
+import { emailValidator } from '@/features/validation/emailValidator';
+import { passwordValidator } from '@/features/validation/passwordValidator';
 
 type InputProps = {
   id: string;
@@ -8,7 +10,7 @@ type InputProps = {
   name?: string;
   isRequired: boolean;
   placeholder?: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick: () => void;
   src: string;
 };
@@ -29,6 +31,21 @@ const Input: React.FC<InputProps> = ({
   onClick,
   src
 }) => {
+  const [value, setValue] = useState('');
+  const [isChanged, setChange] = useState(false);
+
+  const handleKeyUpInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
+    setChange(true);
+    if (e.currentTarget.name === 'email') {
+      const ans = emailValidator(value);
+      console.log(ans);
+    }
+    if (e.currentTarget.name === 'password')
+      console.log(passwordValidator(value));
+    console.log(value);
+    console.log(isChanged);
+  };
   return (
     <div className={styles['input-container']}>
       <input
@@ -39,6 +56,7 @@ const Input: React.FC<InputProps> = ({
         required={isRequired}
         name={name}
         onChange={handleChange}
+        onKeyUp={handleKeyUpInput}
       />
       <img src={src} alt='' className={styles['hide-icon']} onClick={onClick} />
     </div>

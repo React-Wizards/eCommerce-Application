@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { InputProps } from '@/shared/ui/input/input';
 import Input from '@/shared/ui/input/input';
 import Button from '@/shared/ui/button/button';
@@ -43,12 +44,20 @@ const LoginPage: React.FC = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles['login-wrapper']}>
       <div className={styles['login-header']}>
         <span className={styles['login-caption']}>Login</span>
         <span className={styles['login-divider']}>I</span>
-        <a href='/register' className={styles['login-link']}>
+        <a
+          href='/register'
+          className={styles['login-link']}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate('/register');
+          }}>
           Register
         </a>
       </div>

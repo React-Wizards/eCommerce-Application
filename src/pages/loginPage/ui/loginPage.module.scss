@@ -8,11 +8,11 @@
 
 .login-caption,
 .login-link {
-  @apply text-lg font-medium;
+  @apply text-lg font-medium font-["Cera_Pro_Medium"];
 }
 
 .login-divider {
-  @apply text-[18px] leading-4 font-thin;
+  @apply w-px h-[16px] bg-[#3D3D3D] self-center;
 }
 
 .login-caption {
@@ -24,7 +24,7 @@
 }
 
 .login-text {
-  @apply text-[#3D3D3D] text-[13px] mt-0 -mb-10;
+  @apply text-[#3D3D3D] text-[14px] mt-0 -mb-10 font-["Cera_Pro_Regular"];
 }
 
 .form {

@@ -14,7 +14,7 @@ const LoginPage = () => {
     <div className={styles['login-wrapper']}>
       <div className={styles['login-header']}>
         <span className={styles['login-caption']}>Login</span>
-        <span className={styles['login-divider']}>I</span>
+        <span className={styles['login-divider']}></span>
         <a
           href='/register'
           className={styles['login-link']}

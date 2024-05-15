@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./*.html', './src/**/*.{html,js,ts,tsx,jsx}', './src/**/*'],
+  content: ['./src/**/*.{html,ts,tsx}'],
   theme: {
     fontSize: {
       sm: ['14px', '20px'],

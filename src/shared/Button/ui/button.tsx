@@ -1,21 +1,20 @@
 import styles from './button.module.scss';
-import React from 'react';
 
 type ButtonProps = {
   text: string;
-  callback: () => void;
+  callback?: () => void;
   disabled?: boolean;
   focus?: boolean;
   submit?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({
+const Button = ({
   text,
   callback,
   submit = false,
   disabled = false,
   focus = false
-}) => {
+}: ButtonProps) => {
   return (
     <button
       className={styles['btn']}

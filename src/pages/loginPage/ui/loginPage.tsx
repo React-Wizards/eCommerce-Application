@@ -1,48 +1,12 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InputProps } from '@/shared/ui/input/input';
-import Input from '@/shared/ui/input/input';
-import Button from '@/shared/ui/button/button';
+import Input from '@/features/InputLogin/ui/input';
+import Button from '@/shared/Button/ui/button';
 import logo from '@/shared/assets/img/logo.svg';
-import hideIcon from '@/shared/assets/img/hide-icon.svg';
-import showIcon from '@/shared/assets/img/show-icon.svg';
 
 import styles from './loginPage.module.scss';
-// import { emailValidator } from '@/features/validation/emailValidator';
-// import { passwordValidator } from '@/features/validation/passwordValidator';
 
-const inputList: InputProps[] = [
-  {
-    id: 'email address',
-    type: 'text',
-    name: 'email',
-    isRequired: true,
-    placeholder: 'Email address',
-    handleChange: () => {},
-    onClick: () => {},
-    src: ''
-  },
-  {
-    id: 'password',
-    type: 'password',
-    name: 'password',
-    isRequired: true,
-    placeholder: 'Password',
-    handleChange: () => {},
-    onClick: () => {},
-    src: hideIcon
-  }
-];
-
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const btnText = 'Login';
-  // const [value, setValue] = useState('');
-  // const [isChanged, setChange] = useState(false);
-  const [passwordShown, setPasswordShown] = useState(false);
-
-  const togglePwdVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-  };
 
   const navigate = useNavigate();
 
@@ -65,41 +29,8 @@ const LoginPage: React.FC = () => {
         Enter your username and password to login.
       </p>
       <form className={styles['form']}>
-        <div className={styles['inputs-wrapper']}>
-          {inputList.map((input, index) => (
-            <Input
-              id={input.id}
-              type={
-                input.name === 'email'
-                  ? 'text'
-                  : passwordShown
-                    ? 'text'
-                    : 'password'
-              }
-              name={input.name}
-              isRequired={input.isRequired}
-              placeholder={input.placeholder}
-              onClick={
-                input.name === 'password' ? togglePwdVisiblity : () => {}
-              }
-              src={
-                input.name === 'email'
-                  ? ''
-                  : passwordShown
-                    ? showIcon
-                    : hideIcon
-              }
-              key={index}
-            />
-          ))}
-        </div>
-        <Button
-          text={btnText}
-          callback={() => {}}
-          disabled={true}
-          focus={true}
-          submit={true}
-        />
+        <Input />
+        <Button text={btnText} disabled={false} focus submit />
       </form>
       <div className={styles['img-wrapper']}>
         <img src={logo} alt='Green shop Logo' />

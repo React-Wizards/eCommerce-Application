@@ -5,7 +5,7 @@ export type ValidationResult = {
 
 const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-const enum errorMessagesEmail {
+const enum ErrorMessagesEmail {
   Whitespace = 'Email address cannot contain leading or trailing whitespace.',
   AtSymbol = "Email address must contain an '@' symbol.",
   MultipleAtSymbols = "Email address cannot contain more than one '@' symbol.",
@@ -13,30 +13,26 @@ const enum errorMessagesEmail {
   InvalidFormat = 'Email address is not properly formatted.'
 }
 
-const emailValidator = (value: string): ValidationResult => {
+export const emailValidator = (value: string): ValidationResult => {
   const res: ValidationResult = {
-    result: false,
+    result: true,
     message: ''
   };
 
   if (!regex.test(value)) {
     if (/\s/.test(value)) {
-      res.message = errorMessagesEmail.Whitespace;
+      res.message = ErrorMessagesEmail.Whitespace;
     } else if (value.indexOf('@') === -1) {
-      res.message = errorMessagesEmail.AtSymbol;
+      res.message = ErrorMessagesEmail.AtSymbol;
     } else if (value.split('@').length > 2) {
-      res.message = errorMessagesEmail.MultipleAtSymbols;
+      res.message = ErrorMessagesEmail.MultipleAtSymbols;
     } else if (!/\./.test(value.split('@')[1])) {
-      res.message = errorMessagesEmail.MissingDomain;
+      res.message = ErrorMessagesEmail.MissingDomain;
     } else {
-      res.message = errorMessagesEmail.InvalidFormat;
+      res.message = ErrorMessagesEmail.InvalidFormat;
     }
     res.result = false;
-  } else {
-    res.result = true;
-    res.message = '';
   }
+
   return res;
 };
-
-export { emailValidator };

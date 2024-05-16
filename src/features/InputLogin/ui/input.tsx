@@ -12,7 +12,6 @@ import { emailValidator } from '@/features/Validation/emailValidator';
 import { passwordValidator } from '@/features/Validation/passwordValidator';
 
 type InputProps = {
-  id?: string;
   type?: HTMLInputTypeAttribute;
   name?: string;
   isRequired: boolean;
@@ -21,7 +20,6 @@ type InputProps = {
 };
 
 const inputEmail: InputProps = {
-  id: 'email address',
   type: 'email',
   name: 'email',
   isRequired: true,
@@ -29,7 +27,6 @@ const inputEmail: InputProps = {
 };
 
 const inputPassword: InputProps = {
-  id: 'password',
   name: 'password',
   isRequired: true,
   placeholder: 'Password'
@@ -96,7 +93,6 @@ const Input = () => {
                 ? [styles['input-error'], styles['input']].join(' ')
                 : styles['input']
             }
-            id={inputEmail.id}
             placeholder={inputEmail.placeholder}
             type={inputEmail.type}
             required={inputEmail.isRequired}
@@ -121,7 +117,6 @@ const Input = () => {
                 ? [styles['input-error'], styles['input']].join(' ')
                 : styles['input']
             }
-            id={inputPassword.id}
             placeholder={inputPassword.placeholder}
             type={passwordShown ? 'text' : 'password'}
             required={inputPassword.isRequired}

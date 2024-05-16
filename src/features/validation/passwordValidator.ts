@@ -4,18 +4,14 @@ type ValidationResult = {
 };
 
 const errorMessagePassword =
-  'Password must be 8+ characters with only letters (upper/lowercase) and digits';
+  'Password must be 8+ characters with only letters (upper/lowercase), digits and [!@#$%^&*]';
 
-const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+const regex =
+  /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-const minLength = 8;
-
-function passwordValidator(value: string): ValidationResult {
-  const isValid = regex.test(value) && value.length >= minLength;
+export const passwordValidator = (value: string): ValidationResult => {
   return {
-    result: isValid,
-    message: !isValid ? errorMessagePassword : ''
+    result: regex.test(value),
+    message: !regex.test(value) ? errorMessagePassword : ''
   };
-}
-
-export { passwordValidator };
+};

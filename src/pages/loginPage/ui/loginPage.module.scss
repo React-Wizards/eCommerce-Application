@@ -1,5 +1,5 @@
 .login-wrapper {
-  @apply flex flex-col justify-between w-[31.25rem] h-[37.5rem] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[50px] px-[100px] pb-[85px] border-b-[10px] border-[#46A358];
+  @apply flex flex-col justify-between w-[31.25rem] h-[37.5rem] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[50px] px-[100px] pb-[70px] border-b-[10px] border-[#46A358];
 }
 
 .login-header {
@@ -24,7 +24,7 @@
 }
 
 .login-text {
-  @apply text-[#3D3D3D] text-[14px] mt-0 -mb-10 font-["Cera_Pro_Regular"];
+  @apply text-[#3D3D3D] text-[14px] mt-0 -mb-2 font-["Cera_Pro_Regular"];
 }
 
 .form {

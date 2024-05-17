@@ -1,5 +1,5 @@
 .login-wrapper {
-  @apply flex flex-col justify-between min-w-[400px] min-h-[480px] sm:min-w-[500px] sm:h-[600px] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[30px] px-[40px] pb-[50px] sm:pt-[50px] sm:px-[100px] sm:pb-[70px] border-b-[10px] border-[#46A358];
+  @apply flex flex-col justify-between max-w-[400px] min-h-[480px] sm:min-w-[500px] sm:h-[600px] mx-auto shadow absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 pt-[30px] px-[40px] pb-[50px] sm:pt-[50px] sm:px-[100px] sm:pb-[70px] border-b-[10px] border-[#46A358];
 }
 
 .login-wrapper-desktop {
@@ -48,10 +48,6 @@
 .login-text {
   @apply text-[#3D3D3D] text-[14px] mt-0 -mb-2 font-["Cera_Pro_Regular"];
 }
-
-// .form {
-//   @apply w-[18.75rem] mx-auto;
-// }
 
 .inputs-wrapper {
   @apply flex flex-col justify-between;

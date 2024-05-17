@@ -10,8 +10,9 @@ const regex =
   /^(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
 export const passwordValidator = (value: string): ValidationResult => {
+  const isValidRes = regex.test(value);
   return {
-    result: regex.test(value),
-    message: !regex.test(value) ? errorMessagePassword : ''
+    result: isValidRes,
+    message: isValidRes ? '' : errorMessagePassword
   };
 };

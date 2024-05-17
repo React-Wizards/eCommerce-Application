@@ -32,7 +32,6 @@ const inputPassword: InputProps = {
   placeholder: 'Password'
 };
 
-// custom hook for input validation
 const useValidation = (value: string) => {
   const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
   const [isEmailErrorTxt, setIsEmailErrorTxt] = useState('');
@@ -44,16 +43,14 @@ const useValidation = (value: string) => {
 
   useEffect(() => {
     const resEmail = emailValidator(value);
-    resEmail.result ? setIsValidEmail(true) : setIsValidEmail(false);
-    resEmail.message
-      ? setIsEmailErrorTxt(resEmail.message)
-      : setIsEmailErrorTxt('');
+    setIsValidEmail(resEmail.result);
+    setIsEmailErrorTxt(resEmail.message || '');
 
     const resPwd = passwordValidator(value);
-    resPwd.result ? setIsValidPwd(true) : setIsValidPwd(false);
-    resEmail.message ? setIsPwdErrorTxt(resPwd.message) : setIsPwdErrorTxt('');
+    setIsValidPwd(resPwd.result);
+    setIsPwdErrorTxt(resPwd.message || '');
 
-    value ? setIsEmpty(false) : setIsEmpty(true);
+    setIsEmpty(!value);
   }, [value]);
 
   return { isValidEmail, isEmailErrorTxt, isValidPwd, isPwdErrorTxt, isEmpty };

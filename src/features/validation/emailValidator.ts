@@ -10,8 +10,9 @@ const errorMessageEmail =
   'Email address is not properly formatted, e.g. user@gmail.com';
 
 export const emailValidator = (value: string): ValidationResult => {
+  const isValidRes = regex.test(value);
   return {
-    result: regex.test(value),
-    message: !regex.test(value) ? errorMessageEmail : ''
+    result: isValidRes,
+    message: isValidRes ? '' : errorMessageEmail
   };
 };

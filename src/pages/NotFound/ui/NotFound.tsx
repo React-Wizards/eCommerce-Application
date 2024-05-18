@@ -1,6 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './NotFound.module.scss';
 
 const NotFound = () => {
+  const navigate = useNavigate();
+
+  const goBack = (): void => {
+    navigate(-1);
+  };
+
+  const goHome = (): void => {
+    navigate('/home', {
+      replace: true
+    });
+  };
+
   return (
     <div className={styles.window}>
       <div className={styles.wrapper}>
@@ -12,8 +25,12 @@ const NotFound = () => {
           faucibus mollis interdum.
         </span>
         <div className={styles.navigation}>
-          <button className={styles.navigation__back}>Go back</button>
-          <button className={styles.navigation__home}>Home</button>
+          <button onClick={goBack} className={styles.navigation__back}>
+            Go back
+          </button>
+          <button onClick={goHome} className={styles.navigation__home}>
+            Home
+          </button>
         </div>
       </div>
     </div>

@@ -56,4 +56,8 @@
 
 .register-button {
   @apply w-[300px] h-[45px] rounded-[5px] text-white bg-[#46A358];
+
+  &:disabled {
+    @apply bg-gray-400 text-gray-300;
+  }
 }

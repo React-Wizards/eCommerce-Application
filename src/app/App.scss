@@ -26,4 +26,64 @@
     font-display: swap;
     src: url(src/shared/assets/fonts/Cera\ Pro\ Bold.otf);
   }
+
+  .input-label {
+    position: relative;
+
+    & > .field-name {
+      position: absolute;
+      top: -18px;
+      left: 0px;
+      color: gray;
+      font-size: smaller;
+    }
+
+    &::after {
+      position: absolute;
+      width: 110%;
+      top: calc(100% - 19px);
+      left: 3px;
+      z-index: 10;
+      content: attr(data-error-message);
+      color: red;
+      font-size: smaller;
+    }
+
+    &:not([data-error-message='']) > input {
+      box-shadow: 0 0 10px red;
+    }
+
+    &:not([data-error-message=''])::before {
+      position: absolute;
+      content: '⚠️';
+      font-size: larger;
+      top: calc(50% - 16px);
+      left: -25px;
+      z-index: 10;
+    }
+
+    & > input[type='date']::before {
+      content: attr(data-placeholder);
+      position: absolute;
+      color: gray;
+      font-size: smaller;
+      top: 12px;
+      left: 105px;
+    }
+
+    & > input[type='date']:focus::before {
+      display: none;
+    }
+
+    & > input[type='date']:valid::before {
+      display: none;
+    }
+
+    & > input[type='password'] {
+      padding-right: 30px;
+    }
+    & > input[type='password']::-ms-reveal {
+      display: none;
+    }
+  }
 }

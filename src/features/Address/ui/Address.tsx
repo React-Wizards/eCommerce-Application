@@ -1,36 +1,44 @@
+import { ValidableField } from '@/pages/registration-page/model/types';
 import styles from './Address.module.scss';
 
-const Address = () => {
+const Address: React.FC<{
+  fieldsList: Array<ValidableField>;
+  isDisabled: boolean;
+}> = (props: { fieldsList: Array<ValidableField>; isDisabled: boolean }) => {
   return (
     <div className={styles['adress-wrapper']}>
-      <input
-        type='text'
-        className={styles['input-field']}
-        placeholder='Address'
-      />
-      <input
-        type='text'
-        className={styles['input-field']}
-        placeholder='Street'
-      />
-      <input type='text' className={styles['input-field']} placeholder='City' />
-      <select className={styles['coutnry-select']}>
-        <option value='Belarus'>Belarus</option>
-        <option value='Germany'>Germany</option>
-        <option value='Kazakhstan'>Kazakhstan</option>
-        <option value='Russia'>Russia</option>
-        <option value='USA'>USA</option>
-      </select>
-      <input
-        type='text'
-        className={styles['input-field']}
-        placeholder='Postal code'
-      />
-      <input
-        type='text'
-        className={styles['input-field']}
-        placeholder='Phone number'
-      />
+      {props.fieldsList.map((field, ind) => (
+        <label
+          className='input-label'
+          key={ind}
+          data-error-message={field.error || ''}>
+          <p className='field-name'>{!!field.value && field.placeHolder}</p>
+          {field.type == 'select' ? (
+            <select
+              value={field.value}
+              className={styles['coutnry-select']}
+              onChange={field.onChangeHandler}
+              disabled={props.isDisabled}>
+              {field.options?.map((opt, idx) => (
+                <option value={opt} key={idx}>
+                  {opt}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              id={field.id}
+              type={field.type}
+              value={field.value}
+              className={styles['input-field']}
+              placeholder={field.placeHolder}
+              onChange={field.onChangeHandler}
+              onBlur={field.onBlurHandler}
+              disabled={props.isDisabled}
+            />
+          )}
+        </label>
+      ))}
     </div>
   );
 };

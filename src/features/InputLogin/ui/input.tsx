@@ -8,8 +8,8 @@ import {
 } from 'react';
 import hideIcon from '@/shared/assets/img/hide-icon.svg';
 import showIcon from '@/shared/assets/img/show-icon.svg';
-import { emailValidator } from '@/features/Validation/emailValidator';
-import { passwordValidator } from '@/features/Validation/passwordValidator';
+import { emailValidator } from '@/features/validation/emailValidator';
+import { passwordValidator } from '@/features/validation/passwordValidator';
 
 type InputProps = {
   type?: HTMLInputTypeAttribute;

@@ -38,7 +38,7 @@ interface IEnv extends IScopes {
 }
 
 function getEnv(): IEnv {
-  const scopes: IScopes = import.meta.env.VITE_SCOPES.split(/s/).reduce(
+  const scopes: IScopes = import.meta.env.VITE_SCOPES.split(/\s/).reduce(
     (obj: IScopes, scope: string) => {
       const [key, value]: string[] = scope.split(':');
       return Object.assign(obj, { [key]: value });

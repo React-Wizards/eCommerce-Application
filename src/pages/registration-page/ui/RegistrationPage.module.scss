@@ -27,7 +27,7 @@
 }
 
 .form-header {
-  @apply mb-4 flex justify-center gap-3;
+  @apply relative mb-4 flex justify-center gap-3;
 }
 
 .form-header__link {
@@ -40,6 +40,14 @@
 
 .form-header__caption {
   @apply text-xl font-["Cera_Pro_Medium"] text-[#46a358];
+}
+
+.from-header__home-link {
+  @apply absolute w-16 right-2 top-2;
+}
+
+.form-header__logo {
+  @apply max-w-full;
 }
 
 .form-text {

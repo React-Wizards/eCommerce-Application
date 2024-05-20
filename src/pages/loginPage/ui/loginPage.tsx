@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Input from '@/features/InputLogin/ui/input';
 import Button from '@/shared/Button/ui/button';
 import logo from '@/shared/assets/img/logo.svg';
@@ -7,8 +7,6 @@ import styles from './loginPage.module.scss';
 
 const LoginPage = () => {
   const btnText = 'Login';
-
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -21,15 +19,9 @@ const LoginPage = () => {
         <div className={styles['login-header']}>
           <span className={styles['login-caption']}>Login</span>
           <span className={styles['login-divider']}></span>
-          <a
-            href='/register'
-            className={styles['login-link']}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/register');
-            }}>
+          <Link to='/register' className={styles['login-link']}>
             Register
-          </a>
+          </Link>
         </div>
         <p className={styles['login-text']}>
           Enter your username and password to login.
@@ -60,15 +52,9 @@ const LoginPage = () => {
         </form>
         <div className='flex justify-center items-center'>
           <span className='text-[15px]'>Don’t have an account? </span>
-          <a
-            href='/register'
-            className={styles['login-link']}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/register');
-            }}>
+          <Link to='/register' className={styles['login-link']}>
             Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </div>

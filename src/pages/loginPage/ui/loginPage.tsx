@@ -10,14 +10,15 @@ const LoginPage = () => {
 
   return (
     <div>
-      {/* DESKTOP */}
       <div
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-desktop']
         ].join(' ')}>
         <div className={styles['login-header']}>
-          <span className={styles['login-caption']}>Login</span>
+          <Link className={styles['login-caption']} to='/login'>
+            Login
+          </Link>
           <span className={styles['login-divider']}></span>
           <Link to='/register' className={styles['login-link']}>
             Register
@@ -30,19 +31,18 @@ const LoginPage = () => {
           <Input />
           <Button text={btnText} disabled={false} focus submit />
         </form>
-        <div className={styles['img-wrapper']}>
+        <Link className={styles['img-wrapper']} to='/home'>
           <img src={logo} alt='Green shop Logo' />
-        </div>
+        </Link>
       </div>
-      {/* MOBILE */}
       <div
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-mobile']
         ].join(' ')}>
-        <div className={styles['img-wrapper']}>
+        <Link className={styles['img-wrapper']} to='/home'>
           <img src={logo} alt='Green shop Logo' />
-        </div>
+        </Link>
         <div className={styles['login-header']}>
           <span className={styles['login-caption']}>Login</span>
         </div>

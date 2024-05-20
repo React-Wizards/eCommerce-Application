@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import passwordConfirm from '../lib/validators/password-confirm';
 import postCode from '../lib/validators/post-code';
 import { Link } from 'react-router-dom';
+import logo from '@/shared/assets/img/logo.svg';
 
 const RegistrationPage = () => {
   const validableUserDetailsFields = UserDetailsFields();
@@ -106,7 +107,16 @@ const RegistrationPage = () => {
               Login
             </Link>
             <span className={styles['form-header__divider']}></span>
-            <span className={styles['form-header__caption']}>Register</span>
+            <Link className={styles['form-header__caption']} to='/register'>
+              Register
+            </Link>
+            <Link className={styles['from-header__home-link']} to='/home'>
+              <img
+                className={styles['from-header__logo']}
+                src={logo}
+                alt='logo'
+              />
+            </Link>
           </div>
           <p className={styles['form-text']}>
             Enter your registration details:

@@ -4,14 +4,14 @@ import styles from './NotFound.module.scss';
 const NotFound = () => {
   const navigate = useNavigate();
 
-  const goBack = (): void => {
-    navigate(-1);
-  };
-
   const goHome = (): void => {
     navigate('/home', {
       replace: true
     });
+  };
+
+  const goBack = (): void => {
+    navigate(-1);
   };
 
   return (
@@ -25,10 +25,18 @@ const NotFound = () => {
           faucibus mollis interdum.
         </span>
         <div className={styles.navigation}>
-          <button onClick={goBack} className={styles.navigation__back}>
+          <button
+            className={styles.navigation__back}
+            onClick={() => {
+              goBack();
+            }}>
             Go back
           </button>
-          <button onClick={goHome} className={styles.navigation__home}>
+          <button
+            className={styles.navigation__home}
+            onClick={() => {
+              goHome();
+            }}>
             Home
           </button>
         </div>

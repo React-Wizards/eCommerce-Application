@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Input from '@/features/InputLogin/ui/input';
 import Button from '@/shared/Button/ui/button';
 import logo from '@/shared/assets/img/logo.svg';
@@ -8,28 +8,21 @@ import styles from './loginPage.module.scss';
 const LoginPage = () => {
   const btnText = 'Login';
 
-  const navigate = useNavigate();
-
   return (
     <div>
-      {/* DESKTOP */}
       <div
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-desktop']
         ].join(' ')}>
         <div className={styles['login-header']}>
-          <span className={styles['login-caption']}>Login</span>
+          <Link className={styles['login-caption']} to='/login'>
+            Login
+          </Link>
           <span className={styles['login-divider']}></span>
-          <a
-            href='/register'
-            className={styles['login-link']}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/register');
-            }}>
+          <Link to='/register' className={styles['login-link']}>
             Register
-          </a>
+          </Link>
         </div>
         <p className={styles['login-text']}>
           Enter your username and password to login.
@@ -38,19 +31,18 @@ const LoginPage = () => {
           <Input />
           <Button text={btnText} disabled={false} focus submit />
         </form>
-        <div className={styles['img-wrapper']}>
+        <Link className={styles['img-wrapper']} to='/home'>
           <img src={logo} alt='Green shop Logo' />
-        </div>
+        </Link>
       </div>
-      {/* MOBILE */}
       <div
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-mobile']
         ].join(' ')}>
-        <div className={styles['img-wrapper']}>
+        <Link className={styles['img-wrapper']} to='/home'>
           <img src={logo} alt='Green shop Logo' />
-        </div>
+        </Link>
         <div className={styles['login-header']}>
           <span className={styles['login-caption']}>Login</span>
         </div>
@@ -60,15 +52,9 @@ const LoginPage = () => {
         </form>
         <div className='flex justify-center items-center'>
           <span className='text-[15px]'>Don’t have an account? </span>
-          <a
-            href='/register'
-            className={styles['login-link']}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/register');
-            }}>
+          <Link to='/register' className={styles['login-link']}>
             Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </div>

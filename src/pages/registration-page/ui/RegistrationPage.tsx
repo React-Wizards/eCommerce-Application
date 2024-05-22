@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { apiRoot } from '../api/BuildClient';
 import { ValidableField } from '../model/types';
 import { BaseAddress, CountryCode, CustomerDraft } from '../api/types';
+import { Link } from 'react-router-dom';
+import logo from '@/shared/assets/img/logo.svg';
 
 const RegistrationPage = () => {
   const validableUserDetailsFields = UserDetailsFields();
@@ -239,11 +241,20 @@ const RegistrationPage = () => {
       <div className={styles['registration-page']}>
         <div className={styles['form-wrapper']}>
           <div className={styles['form-header']}>
-            <a className={styles['form-header__link']} href='/login'>
+            <Link className={styles['form-header__link']} to='/login'>
               Login
-            </a>
+            </Link>
             <span className={styles['form-header__divider']}></span>
-            <span className={styles['form-header__caption']}>Register</span>
+            <Link className={styles['form-header__caption']} to='/register'>
+              Register
+            </Link>
+            <Link className={styles['from-header__home-link']} to='/home'>
+              <img
+                className={styles['from-header__logo']}
+                src={logo}
+                alt='logo'
+              />
+            </Link>
           </div>
           <p className={styles['form-text']}>
             Enter your registration details:

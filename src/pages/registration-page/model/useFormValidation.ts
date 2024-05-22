@@ -3,8 +3,8 @@ import { ValidableField, ValidableForm } from './types';
 
 type FormProps = {
   fields: Array<ValidableField>;
-  apiCall?: () => Promise<Response>;
-  onSuccess?: (response: Response) => void;
+  apiCall: () => void;
+  onSuccess?: () => void;
   onFailure?: (error: string) => void;
 };
 
@@ -21,7 +21,23 @@ function useFormValidation(props: FormProps): ValidableForm {
     props.fields.forEach((field) => {
       field.onBlurHandler();
     });
-    console.log('submit!');
+    setIsWaiting(true);
+    setServerError('');
+    
+    try {
+      await props.apiCall();
+      props.onSuccess?.();
+    } catch (err) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Something goes wrong! try again";
+
+      setServerError(msg);
+      props.onFailure?.(msg);
+    } finally {
+      setIsWaiting(false);
+    }
   };
 
   return {

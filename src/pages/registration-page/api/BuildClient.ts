@@ -1,18 +1,30 @@
-const { ClientBuilder } = window['@commercetools/sdk-client-v2'];
-const { createApiBuilderFromCtpClient } = window['@commercetools/platform-sdk'];
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import { env } from '@/shared/constants';
 
-const projectKey = import.meta.env.VITE_PROJECT_KEY;
-const oauthUri = import.meta.env.VITE_AUTH_URL;
-const baseUri = import.meta.env.VITE_API_URL;
-const credentials = {
-  clientId: import.meta.env.VITE_CLIENT_ID,
-  clientSecret: import.meta.env.VITE_CLIENT_SECRET
+const authMiddlewareOptions = {
+  host: env.AUTH_URL,
+  projectKey: env.PROJECT_KEY,
+  credentials: {
+    clientId: env.CLIENT_ID,
+    clientSecret: env.CLIENT_SECRET
+  },
+  scopes: [`manage_project:${env.PROJECT_KEY}`],
+  fetch
 };
 
 const client = new ClientBuilder()
-  .defaultClient(baseUri, credentials, oauthUri, projectKey)
+  .withProjectKey(env.PROJECT_KEY)
+  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withHttpMiddleware({
+    host: env.API_URL,
+    fetch
+  })
+  .withLoggerMiddleware()
   .build();
 
-export const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
-  projectKey
-});
+export const getApiRoot = () => {
+  return createApiBuilderFromCtpClient(client).withProjectKey({
+    projectKey: env.PROJECT_KEY
+  });
+};

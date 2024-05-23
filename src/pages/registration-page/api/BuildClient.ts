@@ -1,6 +1,5 @@
 const { ClientBuilder } = window['@commercetools/sdk-client-v2'];
-const { createApiBuilderFromCtpClient } =
-  window['@commercetools/platform-sdk'];
+const { createApiBuilderFromCtpClient } = window['@commercetools/platform-sdk'];
 
 const projectKey = import.meta.env.VITE_PROJECT_KEY;
 const oauthUri = import.meta.env.VITE_AUTH_URL;
@@ -11,10 +10,9 @@ const credentials = {
 };
 
 const client = new ClientBuilder()
-.defaultClient(baseUri, credentials, oauthUri, projectKey)
-.build();
+  .defaultClient(baseUri, credentials, oauthUri, projectKey)
+  .build();
 
 export const apiRoot = createApiBuilderFromCtpClient(client).withProjectKey({
   projectKey
 });
-

@@ -23,15 +23,13 @@ function useFormValidation(props: FormProps): ValidableForm {
     });
     setIsWaiting(true);
     setServerError('');
-    
+
     try {
       await props.apiCall();
       props.onSuccess?.();
     } catch (err) {
       const msg =
-        err instanceof Error
-          ? err.message
-          : "Something goes wrong! try again";
+        err instanceof Error ? err.message : 'Something goes wrong! try again';
 
       setServerError(msg);
       props.onFailure?.(msg);

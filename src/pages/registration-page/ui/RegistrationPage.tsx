@@ -9,9 +9,6 @@ import { ShippingAddressFields } from '../config/ShippingAddressFields';
 import { useEffect, useState } from 'react';
 import passwordConfirm from '../lib/validators/password-confirm';
 import postCode from '../lib/validators/post-code';
-import LoadingHandler from '@/features/inputWaiter';
-import ModalHandler from '@/features/inputModal';
-import { useNavigate } from 'react-router-dom';
 import { apiRoot } from '../api/BuildClient';
 import { ValidableField } from '../model/types';
 import { BaseAddress, CountryCode, CustomerDraft } from '../api/types';
@@ -52,9 +49,7 @@ const RegistrationPage = () => {
       ...validableBillingAddressFields,
       ...validableShippingAddressFields
     ],
-    apiCall,
-    onSuccess,
-    onFailure
+    apiCall
   });
 
   const [isSameAddress, setSameAddress] = useState(false);
@@ -106,17 +101,6 @@ const RegistrationPage = () => {
     validableBillingAddressFields,
     validableShippingAddressFields
   ]);
-
-  const [isModalActive, setModalActive] = useState<boolean>(false);
-  const [isError, setError] = useState<boolean>(false);
-
-  const navigate = useNavigate();
-  const closeModal = () => {
-    setModalActive(false);
-    if (!isError) {
-      navigate('/main');
-    }
-  };
 
   function getFieldById(
     array: Array<ValidableField>,
@@ -225,17 +209,6 @@ const RegistrationPage = () => {
       });
   }
 
-  function onSuccess() {
-    setError(false);
-    setModalActive(true);
-  }
-
-  function onFailure(message: string) {
-    console.log('Error:', message);
-    setError(true);
-    setModalActive(true);
-  }
-
   return (
     <div className={styles['page-wrapper']}>
       <div className={styles['registration-page']}>
@@ -282,19 +255,6 @@ const RegistrationPage = () => {
               </button>
             </div>
           </form>
-          {registrationForm.isWaiting ? (
-            <LoadingHandler text={'Registration pending...'} />
-          ) : null}
-          {isModalActive ? (
-            <ModalHandler
-              text={
-                isError
-                  ? registrationForm.serverError
-                  : 'Registration successfull!'
-              }
-              callback={closeModal}
-            />
-          ) : null}
         </div>
       </div>
     </div>

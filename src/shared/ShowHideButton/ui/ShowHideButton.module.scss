@@ -1,0 +1,17 @@
+.show-hide-button {
+  padding: 5px;
+  position: absolute;
+  z-index: 100;
+  right: 5px;
+  top: calc(50% - 15px);
+  cursor: pointer;
+
+  & > svg {
+    stroke: #727272;
+  }
+
+  &:hover > svg {
+    stroke: #227733;
+    stroke-width: 2;
+  }
+}

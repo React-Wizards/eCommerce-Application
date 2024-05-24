@@ -1,5 +1,5 @@
-import { ChangeEvent, useCallback, useState } from 'react';
-import { Field } from './types';
+import { type ChangeEvent, useCallback, useState } from 'react';
+import type { Field } from './types';
 import validateValue from '../lib/validators';
 
 function useFieldValidation(fieldDefinition: Field) /* : ValidableField */ {

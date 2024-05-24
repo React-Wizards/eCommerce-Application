@@ -1,4 +1,4 @@
-import { Validator } from '../../model/types';
+import type { Validator } from '../../model/types';
 
 type StringOrNull = string | null;
 

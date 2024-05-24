@@ -1,4 +1,4 @@
-import { Validator } from '../../model/types';
+import type { Validator } from '../../model/types';
 
 const DEFAULT_MIN_CHAR_COUNT = 1;
 const ERROR_MESSAGE = 'The number of characters cannot be less than';

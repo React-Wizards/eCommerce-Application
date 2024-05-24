@@ -1,4 +1,4 @@
-import { ValidableField, Validator } from '../../model/types';
+import type { ValidableField, Validator } from '../../model/types';
 
 const REGEXES: { [key: string]: RegExp } = {
   Belarus: /^\d{6}$/,

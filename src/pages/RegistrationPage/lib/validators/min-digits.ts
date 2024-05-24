@@ -1,4 +1,4 @@
-import { Validator } from '../../model/types';
+import type { Validator } from '../../model/types';
 
 const DEFAULT_MIN_DIGITS_COUNT = 1;
 const ERROR_MESSAGE = 'The number of digits cannot be less than';

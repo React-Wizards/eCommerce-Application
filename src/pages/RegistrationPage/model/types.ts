@@ -1,8 +1,4 @@
-import type {
-  ChangeEvent,
-  FormEventHandler,
-  HTMLInputTypeAttribute
-} from 'react';
+import type { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
 type Validator<T> = (params: T) => Promise<string | null>;
 
@@ -34,7 +30,6 @@ interface ValidableForm {
   isWaiting: boolean;
   serverError: string;
   isFormValid: boolean;
-  onFormSubmit: FormEventHandler<HTMLFormElement>;
   setIsWaiting: React.Dispatch<React.SetStateAction<boolean>>;
   setServerError: React.Dispatch<React.SetStateAction<string>>;
 }

@@ -1,4 +1,4 @@
-import { Validator } from '../../model/types';
+import type { Validator } from '../../model/types';
 
 const DEFAULT_MIN_AGE = 18;
 const ERROR_MESSAGE = 'The age must be above than ';

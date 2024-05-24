@@ -1,4 +1,4 @@
-import { Validator } from '../../model/types';
+import type { Validator } from '../../model/types';
 
 const REGEX = /[а-яА-Яa-zA-Z]+/gi;
 

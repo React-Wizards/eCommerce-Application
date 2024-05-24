@@ -8,7 +8,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(src/shared/assets/fonts/Cera\ Pro\ Medium.otf);
+    src: url('/fonts/Cera-Pro-Medium.otf');
   }
 
   @font-face {
@@ -16,7 +16,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(src/shared/assets/fonts/Cera\ Pro\ Regular.otf);
+    src: url('/fonts/Cera-Pro-Regular.otf');
   }
 
   @font-face {
@@ -24,7 +24,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url(src/shared/assets/fonts/Cera\ Pro\ Bold.otf);
+    src: url('/fonts/Cera-Pro-Bold.otf');
   }
 
   .input-label {

@@ -1,10 +1,10 @@
-import { ValidableField } from '@/pages/registration-page/model/types';
+import type { ValidableField } from '@/pages/RegistrationPage/model/types';
 import styles from './Address.module.scss';
 
-const Address: React.FC<{
+const Address = (props: {
   fieldsList: Array<ValidableField>;
   isDisabled: boolean;
-}> = (props: { fieldsList: Array<ValidableField>; isDisabled: boolean }) => {
+}) => {
   return (
     <div className={styles['adress-wrapper']}>
       {props.fieldsList.map((field, ind) => (

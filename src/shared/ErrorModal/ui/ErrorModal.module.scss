@@ -1,0 +1,7 @@
+.wrapper {
+  @apply fixed z-10 transition-transform duration-300 px-5 py-2 rounded-xl text-center text-wrap bg-red-600 left-1/2 bottom-full -translate-x-1/2;
+}
+
+.visible {
+  @apply translate-y-[120%];
+}

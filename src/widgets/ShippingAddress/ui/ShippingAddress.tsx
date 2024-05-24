@@ -1,15 +1,9 @@
+import type { ValidableField } from '@/pages/RegistrationPage/model/types';
 import Address from '@/features/Address';
 import BlockDivider from '@/shared/BlockDivider';
 import styles from './ShippingAddress.module.scss';
-import { ValidableField } from '@/pages/registration-page/model/types';
 
-const ShippingAddress: React.FC<{
-  fieldsList: Array<ValidableField>;
-  isSameAddress: boolean;
-  onCheckSameAddressHandler: () => void;
-  isShippingDefault: boolean;
-  onCheckShippingDefaultHandler: () => void;
-}> = (props: {
+const ShippingAddress = (props: {
   fieldsList: Array<ValidableField>;
   isSameAddress: boolean;
   onCheckSameAddressHandler: () => void;

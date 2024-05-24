@@ -1,15 +1,16 @@
-import styles from './input.module.scss';
 import {
-  ChangeEvent,
-  MouseEvent,
+  type ChangeEvent,
+  type MouseEvent,
+  type HTMLInputTypeAttribute,
   useState,
-  HTMLInputTypeAttribute,
   useEffect
 } from 'react';
+import { CustomerSignin } from '@commercetools/platform-sdk';
+import { passwordValidator } from '@/features/Validation/passwordValidator';
+import { emailValidator } from '@/features/Validation/emailValidator';
 import hideIcon from '@/shared/assets/img/hide-icon.svg';
 import showIcon from '@/shared/assets/img/show-icon.svg';
-import { emailValidator } from '@/features/validation/emailValidator';
-import { passwordValidator } from '@/features/validation/passwordValidator';
+import styles from './Input.module.scss';
 
 type InputProps = {
   type?: HTMLInputTypeAttribute;
@@ -69,7 +70,11 @@ const useInput = (initialValue: string) => {
   return { value, isChanged, onChange, ...valid };
 };
 
-const Input = () => {
+const Input = ({
+  setClient
+}: {
+  setClient: React.Dispatch<React.SetStateAction<CustomerSignin>>;
+}) => {
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
   const togglePwdVisiblity = () => {
@@ -78,6 +83,14 @@ const Input = () => {
 
   const email = useInput('');
   const password = useInput('');
+
+  useEffect(() => {
+    setClient({
+      email: email.value,
+      password: password.value
+    });
+  }, [email.value, password.value]);
+
   return (
     <div className={styles['inputs-wrapper']}>
       <div className='flex flex-col mb-4'>

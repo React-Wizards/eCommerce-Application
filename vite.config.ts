@@ -1,15 +1,16 @@
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
-import React from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [React()],
+  plugins: [react()],
   base: '/',
   resolve: {
     alias: {
+      'node-fetch': 'isomorphic-fetch',
       '@': path.resolve(__dirname, './src')
     }
   },
@@ -29,7 +30,10 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      define: {
+        global: {}
+      },
+      // eslint-disable-next-line
       // @ts-ignore
       plugins: [rollupNodePolyFill()]
     }

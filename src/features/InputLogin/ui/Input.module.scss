@@ -1,0 +1,23 @@
+.input {
+  @apply rounded-[5px] appearance-none w-full max-h-10 pl-3.5 pr-10 py-3 border border-[#EAEAEA] focus:outline-none focus:border-[#46A358] sm:text-sm font-["Cera_Pro_Regular"] box-border;
+
+  @media screen and (max-width: 449px) {
+    @apply min-h-[50px] rounded-[10px];
+  }
+}
+
+.input-container {
+  @apply flex justify-between items-center relative box-border;
+}
+
+.input-error {
+  @apply border-[#FF0000] focus:border-[#FF0000];
+}
+
+.hide-icon {
+  @apply absolute right-3 top-[10px] cursor-pointer;
+}
+
+.error {
+  @apply text-sm text-red-600;
+}

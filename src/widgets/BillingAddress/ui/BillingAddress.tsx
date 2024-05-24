@@ -1,13 +1,13 @@
+import type { ValidableField } from '@/pages/RegistrationPage/model/types';
 import Address from '@/features/Address';
 import BlockDivider from '@/shared/BlockDivider';
 import styles from './BillingAddress.module.scss';
-import { ValidableField } from '@/pages/registration-page/model/types';
 
-const BillingAddress: React.FC<{
+const BillingAddress = (props: {
   fieldsList: Array<ValidableField>;
   isBillingDefault: boolean;
   onCheckBillingDefaultHandler: () => void;
-}> = (props) => {
+}) => {
   return (
     <>
       <BlockDivider text={'Billing address'} />

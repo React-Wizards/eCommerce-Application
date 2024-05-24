@@ -1,13 +1,11 @@
-import { ValidableField } from '@/pages/registration-page/model/types';
-import styles from './UserDetails.module.scss';
+import type { ValidableField } from '@/pages/RegistrationPage/model/types';
 import { Dispatch, SetStateAction, useState } from 'react';
 import ShowHideButton from '@/shared/ShowHideButton';
+import styles from './UserDetails.module.scss';
 
 type PassVisibility = { [key: string]: boolean };
 
-const UserDetails: React.FC<{ fieldsList: Array<ValidableField> }> = (
-  props
-) => {
+const UserDetails = (props: { fieldsList: Array<ValidableField> }) => {
   const initialVisibility: PassVisibility = Object.fromEntries(
     props.fieldsList
       .filter((field) => field.type == 'password')

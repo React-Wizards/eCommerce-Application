@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { customerReducer } from '@/entities/customer';
+import { categoriesReducer } from '@/entities/category';
 
 export const store = configureStore({
   reducer: {
-    customer: customerReducer
+    customer: customerReducer,
+    categories: categoriesReducer
   }
 });
 

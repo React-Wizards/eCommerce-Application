@@ -19,9 +19,11 @@
     "editorconfig": "^2.0.0",
     "eslint-config-prettier": "^9.1.0",
     "react": "^18.2.0",
+    "react-cookie": "^7.1.4",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.2",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "react-slider": "^2.0.6"
   },
   "devDependencies": {
     "@commercetools/platform-sdk": "^7.8.0",
@@ -34,6 +36,7 @@
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-redux": "^7.1.33",
+    "@types/react-slider": "^1.3.6",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",

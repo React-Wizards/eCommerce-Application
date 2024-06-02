@@ -1,0 +1,20 @@
+.container {
+  @apply mt-10 w-[310px] min-h-[500px] bg-[#FBFBFB] p-3.5;
+}
+
+.title {
+  @apply text-m font-bold text-[#3D3D3D] font-["Cera_Pro_Bold"];
+}
+
+.categories-list {
+  @apply p-3;
+}
+
+.categories-item {
+  @apply text-[15px] font-["Cera_Pro_Regular"] text-[#3D3D3D] leading-10 flex justify-between;
+}
+
+.categories-item:hover,
+.item-active {
+  @apply font-["Cera_Pro_Bold"] text-[#46A358];
+}

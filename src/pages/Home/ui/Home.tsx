@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { logout } from '@/entities/customer';
 import logo from '@/shared/assets/img/logo.svg';
 import styles from './Home.module.scss';
+import Categories from '@/widgets/Categories';
+import Breadcrumbs from '@/features/Breadcrumbs';
+import ProductList from '@/widgets/ProductList';
 
 const Home = () => {
   const customer: Customer | null = useSelector(
@@ -38,6 +41,13 @@ const Home = () => {
           </Link>
         </div>
       </nav>
+      <div className='flex gap-[100px]'>
+        <Categories />
+        <div className='flex flex-col mt-10'>
+          <Breadcrumbs />
+          <ProductList />
+        </div>
+      </div>
     </div>
   );
 };

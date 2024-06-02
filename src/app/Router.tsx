@@ -11,7 +11,9 @@ const Router = () => {
   const customer: Customer | null = useSelector(
     (store: RootState): Customer | null => store.customer.user
   );
-
+  const categories = useSelector(
+    (state: RootState) => state.categories.categories
+  );
   return (
     <BrowserRouter>
       <Routes>
@@ -23,6 +25,14 @@ const Router = () => {
         />
         <Route path='/register' element={<RegistrationPage />} />
         <Route path='*' element={<NotFound />} />
+        <Route path='/home/all' element={<Home />} />
+        <Route path='/home/category' element={<Home />} />
+        {categories.map((category) => (
+          <Route
+            path={'/home/category/' + category.slug['en-US']}
+            element={<Home />}
+          />
+        ))}
       </Routes>
     </BrowserRouter>
   );

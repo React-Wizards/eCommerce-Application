@@ -8,21 +8,21 @@ const scope = import.meta.env.VITE_SCOPES;
 const basicAuth = btoa(`${clientId}:${clientSecret}`);
 
 const getAuthToken = async () => {
-    const tokenResponse = await axios.post(
-      `${authURL}/oauth/token`,
-      new URLSearchParams({
-        grant_type: 'client_credentials',
-        scope: `${scope}`
-      }),
-      {
-        headers: {
-          Authorization: `Basic ${basicAuth}`,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+  const tokenResponse = await axios.post(
+    `${authURL}/oauth/token`,
+    new URLSearchParams({
+      grant_type: 'client_credentials',
+      scope: `${scope}`
+    }),
+    {
+      headers: {
+        Authorization: `Basic ${basicAuth}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
-    );
-    console.log(tokenResponse.data.access_token);
-    return tokenResponse.data.access_token;
+    }
+  );
+  console.log(tokenResponse.data.access_token);
+  return tokenResponse.data.access_token;
 };
 
 export default getAuthToken;

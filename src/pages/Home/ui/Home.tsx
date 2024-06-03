@@ -22,6 +22,14 @@ const Home = () => {
         <Link to='/home'>
           <img className={styles.logo} src={logo} alt='logo' />
         </Link>
+        <div className='flex justify-between gap-12'>
+          <Link className={styles['nav-item']} to='/home'>
+            Home
+          </Link>
+          <Link className={styles['nav-item']} to='/home/shop'>
+            Shop
+          </Link>
+        </div>
         <div className={styles.links}>
           {customer ? (
             <button
@@ -41,9 +49,9 @@ const Home = () => {
           </Link>
         </div>
       </nav>
-      <div className='flex gap-[100px]'>
+      <div className='flex gap-[30px]'>
         <Categories />
-        <div className='flex flex-col mt-10'>
+        <div className='flex flex-col mt-10 max-w-[840px]'>
           <Breadcrumbs />
           <ProductList />
         </div>

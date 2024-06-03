@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LoginPage from '@/pages/LoginPage';
 import RegistrationPage from '@/pages/RegistrationPage';
+import ShopPage from '@/pages/Shop';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 
@@ -24,12 +25,14 @@ const Router = () => {
           element={customer ? <Navigate to='/home' replace /> : <LoginPage />}
         />
         <Route path='/register' element={<RegistrationPage />} />
+        <Route path='/home/shop' element={<ShopPage />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/home/all' element={<Home />} />
         <Route path='/home/category' element={<Home />} />
         {categories.map((category) => (
           <Route
             path={'/home/category/' + category.slug['en-US']}
+            key={category.id}
             element={<Home />}
           />
         ))}

@@ -1,13 +1,16 @@
 .modal-overlay {
-  @apply fixed top-0 left-0 w-[100%] h-[100%] flex justify-center items-center flex-col bg-black/[0.7] overflow-hidden z-[999] overflow-y-auto transition-opacity;
+  @apply fixed top-0 left-0 w-[100%] max-h-[100%] flex justify-center items-center flex-col bg-black/[0.7] overflow-hidden z-[999] overflow-y-auto transition-opacity;
 }
 
 .modal-window {
-  @apply relative flex flex-col justify-center items-center w-[50%] bg-white rounded-[5px];
+  @apply relative flex flex-col justify-center items-center w-[70%] bg-white rounded-[5px];
+  @media screen and (max-width: 415px) {
+    @apply hidden;
+  }
 }
 
 .modal-close-btn {
-  @apply absolute top-[20px] right-[26px] w-[30px] h-[30px] cursor-pointer;
+  @apply absolute top-[20px] right-[26px] w-[30px] h-[30px] cursor-pointer z-[999];
 }
 
 .ReactModal__Overlay--after-open {

@@ -22,7 +22,7 @@ const ShopPage = () => {
         <Link to='/home'>
           <img className={homeStyles.logo} src={logo} alt='logo' />
         </Link>
-        <div className='flex justify-between gap-12'>
+        <div className={homeStyles['page-links']}>
           <Link className={homeStyles['nav-item']} to='/home'>
             Home
           </Link>
@@ -51,7 +51,7 @@ const ShopPage = () => {
       </nav>
       <Breadcrumbs />
       <DetailedProduct />
-      <div className='mt-[90px] w-[1200px]'>
+      <div className={styles.container}>
         <h2 className={styles.title}>Product Description</h2>
         <div className={styles['description-container']}>
           <p className={styles['description-text']}>

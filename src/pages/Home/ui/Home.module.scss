@@ -20,6 +20,16 @@
 
 .links {
   @apply flex items-center gap-2;
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
+}
+
+.page-links {
+  @apply flex justify-between gap-12;
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
 }
 
 .login,
@@ -27,3 +37,9 @@
   @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium  font-["Cera_Pro_Medium"];
   border-radius: 6px;
 }
+
+// .mobile-menu-icon {
+//   @media screen and (min-width: 641px) {
+//     @apply hidden;
+//   }
+// }

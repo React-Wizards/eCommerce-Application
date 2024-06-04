@@ -1,5 +1,8 @@
 .breadcrumbs {
   @apply max-w-[1200px] flex my-[20px];
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
 }
 
 .breadcrumbs > * {

@@ -3,7 +3,7 @@ import ProductInfo from '@/features/ProductInfo';
 
 const DetailedProduct = () => {
   return (
-    <div className='flex gap-[100px] mt-[43px]'>
+    <div className='flex gap-[60px] mt-[43px]'>
       <ProductSlider />
       <ProductInfo />
     </div>

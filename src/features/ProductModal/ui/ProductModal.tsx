@@ -1,5 +1,6 @@
 import styles from './ProductModal.module.scss';
 import Modal from 'react-modal';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 const ProductModal = ({ isOpen, onClose, children }) => {
   return (
@@ -9,9 +10,10 @@ const ProductModal = ({ isOpen, onClose, children }) => {
       className={styles['modal-window']}
       ariaHideApp={false}
       onRequestClose={() => onClose()}>
-      <button className={styles['modal-close-btn']} onClick={() => onClose()}>
-        X
-      </button>
+      <IoCloseCircleOutline
+        className={styles['modal-close-btn']}
+        onClick={() => onClose()}
+      />
       {children}
     </Modal>
   );

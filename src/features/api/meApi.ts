@@ -8,11 +8,12 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import TokenStorage from '@/shared/api/tokenStorage';
 import { TokenResponse, authApi } from './authApi';
+import { env } from '@/shared/constants';
 
 const tokenStorage = new TokenStorage('ecom');
 
 const meBaseQuery = fetchBaseQuery({
-  baseUrl: `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/me`,
+  baseUrl: `${env.API_URL}/${env.PROJECT_KEY}/me`,
   prepareHeaders: async (headers) => {
     const token = tokenStorage.getItem('user-token');
     if (token) {
@@ -31,13 +32,13 @@ const meBaseQueryWithPreauth: BaseQueryFn<
   const userRefreshToken = tokenStorage.getItem('user-refresh-token');
 
   if (!userToken && userRefreshToken) {
-    const tokenRefreshResult = (await api
+    const tokenRefreshResult: TokenResponse = await api
       .dispatch(
         authApi.endpoints.refreshToken.initiate(
           decodeURIComponent(userRefreshToken)
         )
       )
-      .unwrap()) as TokenResponse;
+      .unwrap();
     tokenStorage.setItem(
       'user-token',
       tokenRefreshResult.access_token,

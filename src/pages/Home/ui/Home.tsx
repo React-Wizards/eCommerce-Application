@@ -30,11 +30,10 @@ const Home = () => {
         <Link to='/home'>
           <img className={styles.logo} src={logo} alt='logo' />
         </Link>
-        <div className={styles.links}>
+        <Link to={'/profile'} className={styles.links}>
           {customer ? (
             <div className={styles.user}>
-              {' '}
-              {`${customer.firstName} ${customer.lastName}`}{' '}
+              {`${customer.firstName} ${customer.lastName}`}
             </div>
           ) : null}
           {customer ? (
@@ -49,13 +48,10 @@ const Home = () => {
           <Link className={styles.register} to='/register'>
             Register
           </Link>
-        </div>
+        </Link>
       </nav>
-      {/* <Header /> */}
-      {/* <Welcome /> */}
-
       <main className={styles.mainContainer}>
-        <FiltersContainer /> {/*// TODO: add hidding filter panel to burger */}
+        <FiltersContainer />
         <ProductsContainer />
       </main>
     </div>

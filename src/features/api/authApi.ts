@@ -1,3 +1,4 @@
+import { env } from '@/shared/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface LoginRequest {
@@ -16,16 +17,11 @@ export interface TokenResponse {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_AUTH_URL}`,
+    baseUrl: `${env.AUTH_URL}`,
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        'Basic ' +
-          btoa(
-            import.meta.env.VITE_CLIENT_ID +
-              ':' +
-              import.meta.env.VITE_CLIENT_SECRET
-          )
+        `Basic ${btoa(`${env.CLIENT_ID}:${env.CLIENT_SECRET}`)}`
       );
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       return headers;
@@ -44,7 +40,7 @@ export const authApi = createApi({
     meToken: builder.mutation<TokenResponse, LoginRequest>({
       query: (credentials) => {
         return {
-          url: `/oauth/${import.meta.env.VITE_PROJECT_KEY}/customers/token`,
+          url: `/oauth/${env.PROJECT_KEY}/customers/token`,
           method: 'POST',
           params: {
             grant_type: 'password',
@@ -66,12 +62,11 @@ export const authApi = createApi({
     }),
     anonymousToken: builder.mutation<TokenResponse, void>({
       query: () => ({
-        url: `/oauth/${import.meta.env.VITE_PROJECT_KEY}/anonymous/token`,
+        url: `/oauth/${env.PROJECT_KEY}/anonymous/token`,
         method: 'POST',
         params: {
           grant_type: 'client_credentials',
-          scope: `view_published_products:${import.meta.env.VITE_PROJECT_KEY} manage_my_orders:${import.meta.env.VITE_PROJECT_KEY} manage_my_profile:${import.meta.env.VITE_PROJECT_KEY}`
-          // anonymous_id={uniqueId}"
+          scope: `view_published_products:${env.PROJECT_KEY} manage_my_orders:${env.PROJECT_KEY} manage_my_profile:${env.PROJECT_KEY}`
         }
       })
     })

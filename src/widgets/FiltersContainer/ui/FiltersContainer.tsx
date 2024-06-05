@@ -18,9 +18,9 @@ import { defaultLocale } from '@/shared/constants/settings';
 
 const FiltersContainer = () => {
   const dispatch = useDispatch();
-  const [requestCategories /* , { isCategoriesLoading } */] =
+  const [requestCategories] =
     useGetCategoriesMutation();
-  const [requestProductsInCategories /* , { isProductsLoading } */] =
+  const [requestProductsInCategories] =
     useGetProductsByCategoryIdMutation();
   const categories = useAppSelector((state) => state.categories.categories);
   const selectedCategory = useAppSelector(
@@ -31,7 +31,7 @@ const FiltersContainer = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await requestCategories(); // as unknown as CategoryPagedQueryResponse;
+      const result = await requestCategories();
       const fetchedCategories = (result as { data: CategoryPagedQueryResponse })
         .data.results;
       dispatch(setCategories(fetchedCategories));
@@ -39,18 +39,18 @@ const FiltersContainer = () => {
 
       const sizes = new Map<string, number>();
       fetchedCategories.forEach(async (category: Category) => {
-        const queryResult = (await requestProductsInCategories({
+        const queryResult: ProductProjectionPagedQueryResponse = await requestProductsInCategories({
           categoryId: category.id,
           pageSize: 1,
           currentPage: 1,
           sortOption: `name.${defaultLocale} asc`
-        })) as unknown as { data: ProductProjectionPagedQueryResponse };
-        sizes.set(category.id, Number(queryResult.data.total));
+        }).unwrap();
+        sizes.set(category.id, Number(queryResult.total));
       });
       setCategorySizes(sizes);
     }
     fetchData();
-  }, []);
+  }, [dispatch, requestCategories, requestProductsInCategories]);
 
   return (
     <div className={styles.filtersContainer}>
@@ -59,9 +59,6 @@ const FiltersContainer = () => {
         selectedCategory={selectedCategory}
         categorySizes={categorySizes}
       />
-      {/* <SizeFilter /> */}
-      {/* <PriceFilter /> */}
-      {/* <ActionBanner /> */}
     </div>
   );
 };

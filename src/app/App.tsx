@@ -10,15 +10,14 @@ import { useEffect } from 'react';
 const App = () => {
   const tokenStorage = new TokenStorage('ecom');
   const dispatch = useDispatch();
-  const [requestProfile /* , { isLoading } */] = useGetProfileMutation();
+  const [requestProfile] = useGetProfileMutation();
 
   useEffect(() => {
     async function fetchData() {
       const token = tokenStorage.getItem('user-token');
       if (token) {
-        const profile = (await requestProfile().unwrap()) as Customer;
+        const profile: Customer = await requestProfile().unwrap();
         dispatch(login(profile));
-        // TODO: add try...catch
       }
     }
     fetchData();

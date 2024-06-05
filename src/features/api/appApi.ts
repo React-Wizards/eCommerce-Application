@@ -13,11 +13,12 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import TokenStorage from '@/shared/api/tokenStorage';
 import { TokenResponse, authApi } from './authApi';
+import { env } from '@/shared/constants';
 
 const tokenStorage = new TokenStorage('ecom');
 
 const appBaseQuery = fetchBaseQuery({
-  baseUrl: `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}`,
+  baseUrl: `${env.API_URL}/${env.PROJECT_KEY}`,
   prepareHeaders: async (headers) => {
     const token = tokenStorage.getItem('app-token');
     if (token) {
@@ -34,9 +35,9 @@ const appBaseQueryWithPreauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const appToken = tokenStorage.getItem('app-token');
   if (!appToken) {
-    const tokenRequestResult = (await api
+    const tokenRequestResult: TokenResponse = await api
       .dispatch(authApi.endpoints.rootToken.initiate())
-      .unwrap()) as TokenResponse;
+      .unwrap();
     tokenStorage.setItem(
       'app-token',
       tokenRequestResult.access_token,
@@ -46,9 +47,9 @@ const appBaseQueryWithPreauth: BaseQueryFn<
   let result = await appBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    const tokenRequestResult = (await api
+    const tokenRequestResult: TokenResponse = await api
       .dispatch(authApi.endpoints.rootToken.initiate())
-      .unwrap()) as TokenResponse;
+      .unwrap();
     tokenStorage.setItem(
       'app-token',
       tokenRequestResult.access_token,

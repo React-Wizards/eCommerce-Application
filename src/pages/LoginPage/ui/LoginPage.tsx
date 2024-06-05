@@ -21,7 +21,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [getUserToken /* , { isTokenLoading } */] = useMeTokenMutation();
+  const [getUserToken] = useMeTokenMutation();
   const tokenStorage = new TokenStorage('ecom');
 
   function CustomerErrorHandler(message: string): void {
@@ -30,10 +30,10 @@ const LoginPage = () => {
 
     setTimeout(() => {
       seIsVisible(false);
-    }, 5000);
+    }, 3000);
   }
 
-  const [requestProfile /* , { isProfileLoading } */] = useGetProfileMutation();
+  const [requestProfile] = useGetProfileMutation();
 
   const signIn = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -43,9 +43,9 @@ const LoginPage = () => {
     };
 
     try {
-      const result = (await getUserToken(
+      const result: TokenResponse = await getUserToken(
         _credentials
-      ).unwrap()) as TokenResponse;
+      ).unwrap();
       if (result.access_token) {
         tokenStorage.setItem(
           'user-token',
@@ -57,7 +57,7 @@ const LoginPage = () => {
         tokenStorage.setItem(
           'user-refresh-token',
           result.refresh_token,
-          17280000 // default expiration time in seconds for each refresh token obtained by the APIClient
+          17280000
         );
       }
 

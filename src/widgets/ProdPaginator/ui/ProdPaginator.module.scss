@@ -1,0 +1,15 @@
+.prodPaginatorContrainer {
+  @apply font-["Cera_Pro_Regular"] flex gap-2 justify-end;
+}
+
+.pageButton {
+  @apply w-[35px] h-[35px] ml-2.5 rounded-[3px] cursor-pointer flex justify-center items-center border border-[#E5E5E5];
+
+  &:hover {
+    @apply border-2 border-[#46A358];
+  }
+}
+
+.currentPageButton {
+  @apply bg-[#46A358] text-white font-["Cera_Pro_Regular"];
+}

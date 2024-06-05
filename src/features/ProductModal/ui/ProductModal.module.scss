@@ -1,9 +1,15 @@
 .modal-overlay {
-  @apply fixed top-0 left-0 w-[100%] max-h-[100%] flex justify-center items-center flex-col bg-black/[0.7] overflow-hidden z-[999] overflow-y-auto transition-opacity;
+  @apply fixed top-0 left-0 w-[100%] h-[100%] flex justify-center items-center flex-col bg-black/[0.7] overflow-hidden z-[999] overflow-y-auto transition-opacity;
+  @media screen and (max-width: 415px) {
+    @apply hidden;
+  }
 }
 
 .modal-window {
-  @apply relative flex flex-col justify-center items-center w-[70%] bg-white rounded-[5px];
+  @apply relative flex flex-col justify-center items-center w-[60%] h-[90%] bg-white rounded-[5px];
+  @media screen and (max-width: 900px) {
+    @apply w-[80%] h-[80%];
+  }
   @media screen and (max-width: 415px) {
     @apply hidden;
   }

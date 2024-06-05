@@ -15,9 +15,9 @@
 }
 
 .container {
-  @apply mt-[90px] xl:w-[1000px] lg:w-[900px] w-[1200px] md:w-[720px] sm:w-[500px];
+  @apply mt-[90px] max-w-[1200px] min-w-[350px];
   @media screen and (max-width: 640px) {
-    @apply w-[350px];
+    @apply mt-[45px];
   }
   @media screen and (max-width: 415px) {
     @apply hidden;

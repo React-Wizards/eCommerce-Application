@@ -14,12 +14,14 @@ import { setCategories } from '@/entities/category/model/categorySlice';
 const projectKey = import.meta.env.VITE_PROJECT_KEY;
 const apiURL = import.meta.env.VITE_API_URL;
 
-const Categories = () => {
+const Categories = ({
+  additionalClassname
+}: {
+  additionalClassname?: string;
+}) => {
   const [cookies, setCookie] = useCookies(['AppToken']);
   const [appToken, setAppToken] = useState<string>('');
   const dispatch = useDispatch();
-
-  // console.log(appToken);
 
   const fetchAppToken = async () => {
     try {
@@ -70,7 +72,8 @@ const Categories = () => {
   );
 
   return (
-    <aside className={styles.container}>
+    <aside
+      className={`${additionalClassname ? additionalClassname : styles.container}`}>
       <div>
         <h4 className={styles.title}>Categories</h4>
         <ul className={styles['categories-list']}>

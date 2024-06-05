@@ -1,8 +1,6 @@
 import styles from './ProductInfo.module.scss';
-// import { useState } from 'react';
 
 const ProductInfo = () => {
-  // const [selectedSize, setSelectedSize] = useState('');
   return (
     <div className={styles.container}>
       <div className={styles['product-header']}>

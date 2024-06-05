@@ -1,5 +1,11 @@
 .container {
-  @apply max-w-[574px];
+  @apply max-w-[50%];
+  @media screen and (max-width: 950px) {
+    @apply max-w-[45%];
+  }
+  @media screen and (max-width: 640px) {
+    @apply max-w-[80%] mb-4;
+  }
 }
 
 .product-header {
@@ -8,14 +14,23 @@
 
 .product-title {
   @apply text-[#3D3D3D] font-["Cera_Pro_Bold"] text-[28px] leading-4 mb-[21px];
+  @media screen and (max-width: 415px) {
+    @apply text-[20px];
+  }
 }
 
 .product-price-sale {
   @apply text-[#46A358] font-["Cera_Pro_Bold"] text-[22px] leading-4 mr-2;
+  @media screen and (max-width: 415px) {
+    @apply text-[20px];
+  }
 }
 
 .product-price {
   @apply text-[#3D3D3D] font-["Cera_Pro_Bold"] text-[16px] leading-4 line-through;
+  @media screen and (max-width: 415px) {
+    @apply text-[18px];
+  }
 }
 
 .product-subtitle {

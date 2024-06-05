@@ -1,9 +1,10 @@
 import ProductSlider from '@/features/ProductSlider';
 import ProductInfo from '@/features/ProductInfo';
+import styles from './DetailedProduct.module.scss';
 
 const DetailedProduct = () => {
   return (
-    <div className='flex gap-[60px] mt-[43px]'>
+    <div className={styles['detailed-container']}>
       <ProductSlider />
       <ProductInfo />
     </div>

@@ -38,8 +38,20 @@
   border-radius: 6px;
 }
 
-// .mobile-menu-icon {
-//   @media screen and (min-width: 641px) {
-//     @apply hidden;
-//   }
-// }
+.burger-icon {
+  @apply w-[40px] h-[40px];
+  @media screen and (min-width: 641px) {
+    @apply hidden;
+  }
+}
+.burger-menu {
+  @apply flex flex-col flex-wrap basis-full w-full h-full bg-white top-0 fixed items-center justify-center gap-3;
+}
+
+.page-links-mobile {
+  @apply flex flex-col justify-between gap-2;
+}
+
+.links-mobile {
+  @apply flex flex-col items-center gap-2;
+}

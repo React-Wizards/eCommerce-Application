@@ -8,6 +8,7 @@ export interface ProductsViewState {
   totalItemsCount: number;
   selectedCategoryId: string;
   sortOption: string;
+  searchText: string;
 }
 
 const initialState: ProductsViewState = {
@@ -15,7 +16,8 @@ const initialState: ProductsViewState = {
   pageSize: 9,
   totalItemsCount: 0,
   selectedCategoryId: '',
-  sortOption: `name.${defaultLocale} asc`
+  sortOption: `name.${defaultLocale} asc`,
+  searchText: ''
 };
 
 export const productsViewSlice = createSlice({
@@ -33,6 +35,9 @@ export const productsViewSlice = createSlice({
     },
     setSortOption: (state, action: PayloadAction<string>) => {
       state.sortOption = action.payload;
+    },
+    setSearchText: (state, action: PayloadAction<string>) => {
+      state.searchText = action.payload;
     }
   }
 });
@@ -41,7 +46,8 @@ const {
   setCurrentPage,
   setTotalItemsCount,
   setSelectedCategoryId,
-  setSortOption
+  setSortOption,
+  setSearchText
 } = productsViewSlice.actions;
 const productsViewReducer = productsViewSlice.reducer;
 
@@ -50,5 +56,6 @@ export {
   setTotalItemsCount,
   setSelectedCategoryId,
   setSortOption,
+  setSearchText,
   productsViewReducer
 };

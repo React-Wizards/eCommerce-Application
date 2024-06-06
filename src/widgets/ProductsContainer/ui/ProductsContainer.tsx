@@ -13,7 +13,7 @@ import {
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
 
-const ProductsContainer = () => {
+const ProductsContainer = (props: { searchText: string }) => {
   const currentPage = useAppSelector((state) => state.productsView.currentPage);
   const pageSize = useAppSelector((state) => state.productsView.pageSize);
   const totalItemsCount = useAppSelector(
@@ -39,7 +39,8 @@ const ProductsContainer = () => {
           categoryId: selectedCategory,
           pageSize,
           currentPage,
-          sortOption
+          sortOption,
+          searchText: props.searchText
         }
       ).unwrap();
       dispatch(setProducts(result.results));
@@ -50,6 +51,7 @@ const ProductsContainer = () => {
     selectedCategory,
     currentPage,
     sortOption,
+    props.searchText,
     requestProducts,
     pageSize,
     dispatch

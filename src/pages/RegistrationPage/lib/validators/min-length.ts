@@ -1,7 +1,7 @@
 import type { Validator } from '../../model/types';
 
 const DEFAULT_MIN_CHAR_COUNT = 1;
-const ERROR_MESSAGE = 'The number of characters cannot be less than';
+const ERROR_MESSAGE = 'The length cannot be less than';
 
 const minLength: (opt?: number) => Validator<string> = (
   minCharCount = DEFAULT_MIN_CHAR_COUNT

@@ -1,7 +1,14 @@
 import { useLocation, Link } from 'react-router-dom';
 import styles from './Breadcrumbs.module.scss';
 
-const breadcrumbData: { [key: string]: string } = {
+interface BreadcrumbData extends Record<string, string> {
+  home: string;
+  shop: string;
+  category: string;
+  all: string;
+}
+
+const breadcrumbData: BreadcrumbData = {
   home: 'Home',
   shop: 'Shop',
   category: 'Category',

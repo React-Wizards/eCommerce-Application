@@ -1,6 +1,6 @@
 import styles from './Categories.module.scss';
 import { Category } from '@commercetools/platform-sdk';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useCookies } from 'react-cookie';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,15 +10,13 @@ import { RootState } from '@/app/store';
 import PriceRange from '@/widgets/PriceRange';
 import Size from '@/widgets/Size';
 import { setCategories } from '@/entities/category/model/categorySlice';
+import { env } from '@/shared/constants';
 
-const projectKey = import.meta.env.VITE_PROJECT_KEY;
-const apiURL = import.meta.env.VITE_API_URL;
+interface CategoryResponse {
+  results: Category[];
+}
 
-const Categories = ({
-  additionalClassname
-}: {
-  additionalClassname?: string;
-}) => {
+const Categories = () => {
   const [cookies, setCookie] = useCookies(['AppToken']);
   const [appToken, setAppToken] = useState<string>('');
   const dispatch = useDispatch();
@@ -42,8 +40,8 @@ const Categories = ({
   }, []);
 
   const fetchCategories = async (): Promise<Array<Category>> => {
-    const categoriesResponse = await axios.get(
-      `${apiURL}/${projectKey}/categories`,
+    const categoriesResponse: AxiosResponse<CategoryResponse> = await axios.get(
+      `${env.API_URL}/${env.PROJECT_KEY}/categories`,
       {
         headers: {
           Authorization: `Bearer ${appToken}`
@@ -56,9 +54,8 @@ const Categories = ({
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const categoryData = await fetchCategories();
+        const categoryData: Category[] = await fetchCategories();
         dispatch(setCategories(categoryData));
-        console.log(categoryData);
       } catch (error) {
         console.error('Error setting categories:', error);
       }
@@ -72,21 +69,18 @@ const Categories = ({
   );
 
   return (
-    <aside
-      className={`${additionalClassname ? additionalClassname : styles.container}`}>
+    <aside className={styles.container}>
       <div>
         <h4 className={styles.title}>Categories</h4>
         <ul className={styles['categories-list']}>
           <li className={styles['categories-item']}>
             <Link to='/home/all'>All</Link>
-            {/* <span>()</span> */}
           </li>
           {categories.map((category) => (
             <li className={styles['categories-item']} key={category.id}>
               <Link to={'/home/category/' + category.slug['en-US']}>
                 {category.name['en-US']}
               </Link>
-              {/* <span>()</span> */}
             </li>
           ))}
         </ul>

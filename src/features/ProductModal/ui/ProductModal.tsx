@@ -2,7 +2,15 @@ import styles from './ProductModal.module.scss';
 import Modal from 'react-modal';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 
-const ProductModal = ({ isOpen, onClose, children }) => {
+const ProductModal = ({
+  isOpen,
+  onClose,
+  children
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: JSX.Element;
+}) => {
   return (
     <Modal
       isOpen={isOpen}

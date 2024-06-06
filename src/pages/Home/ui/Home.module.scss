@@ -25,3 +25,12 @@
 
 .register {
 }
+
+.mainContainer {
+  display: flex;
+  gap: 50px;
+}
+
+.user {
+  @apply px-2 text-[#46A358] font-["Cera_Pro_Bold"];
+}

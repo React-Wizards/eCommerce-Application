@@ -1,0 +1,41 @@
+.productCard {
+  @apply font-["Cera_Pro_Regular"] flex-col flex justify-between max-w-[250px];
+
+  @apply transition-all;
+
+  &:hover {
+    scale: 1.03;
+    border-top: 1px solid #46a358;
+  }
+}
+
+.imageContainer {
+  @apply relative h-[350px] bg-[FBFBFB];
+}
+
+.discount {
+  @apply absolute py-2 px-3 text-white bg-[#46A358] top-5 left-0 capitalize;
+}
+
+.productImage {
+  width: 250px;
+}
+
+.productName {
+  // @apply text-lg
+}
+
+.productDescription {
+}
+
+.productPrice {
+  @apply font-["Cera_Pro_Bold"] flex gap-1.5;
+}
+
+.actualPrice {
+  @apply text-[#46A358];
+}
+
+.oldPrice {
+  @apply line-through text-gray-400;
+}

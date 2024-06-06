@@ -1,0 +1,24 @@
+.categoryFilterCointainer {
+  @apply font-["Cera_Pro_Regular"];
+}
+
+.categoryFilterHeading {
+  @apply font-["Cera_Pro_Bold"] text-[18px];
+}
+
+.categoriesList {
+}
+
+.categoryElement {
+  @apply px-5 text-[15px] text-[#3D3D3D] cursor-pointer flex justify-between;
+
+  line-height: 40px;
+
+  &:hover {
+    @apply bg-[#46A358] bg-opacity-50;
+  }
+
+  &._selected {
+    @apply text-[#46A358] font-["Cera_Pro_Bold"];
+  }
+}

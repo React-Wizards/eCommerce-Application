@@ -37,6 +37,16 @@ const RegistrationPage = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const countryCode: Record<
+    'Belarus' | 'Germany' | 'Russia' | 'Kazakhstan' | 'USA',
+    string
+  > = {
+    Belarus: 'BY',
+    Germany: 'DE',
+    Russia: 'RU',
+    Kazakhstan: 'KZ',
+    USA: 'US'
+  };
 
   const passwordField = validableUserDetailsFields.filter(
     (field) => field.id == 'password1'
@@ -144,8 +154,10 @@ const RegistrationPage = () => {
 
     const billingAddress: BaseAddress = {
       key: 'address1',
-      country: getFieldById(validableBillingAddressFields, 'billing-country')
-        .value,
+      country:
+        countryCode[
+          getFieldById(validableBillingAddressFields, 'billing-country').value
+        ],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(validableBillingAddressFields, 'billing-address')
@@ -163,8 +175,10 @@ const RegistrationPage = () => {
 
     const shippingAddress: BaseAddress = {
       key: 'address2',
-      country: getFieldById(validableShippingAddressFields, 'shipping-country')
-        .value,
+      country:
+        countryCode[
+          getFieldById(validableBillingAddressFields, 'billing-country').value
+        ],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(

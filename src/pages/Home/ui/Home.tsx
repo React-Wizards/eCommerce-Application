@@ -1,17 +1,28 @@
-import type { RootState } from '@/app/store';
-import type { Customer } from '@commercetools/platform-sdk';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { RootState } from '@/app/store';
+import { Customer } from '@commercetools/platform-sdk';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '@/entities/customer';
 import logo from '@/shared/assets/img/logo.svg';
 import styles from './Home.module.scss';
+import ProductsContainer from '@/widgets/ProductsContainer';
+import TokenStorage from '@/shared/api/tokenStorage';
+import { logout } from '@/entities/customer';
+import FiltersContainer from '@/widgets/FiltersContainer';
 
 const Home = () => {
   const customer: Customer | null = useSelector(
     (store: RootState): Customer | null => store.customer.user
   );
+
+  const tokenStorage = new TokenStorage('ecom');
+
   const dispatch = useDispatch();
+
+  const logoutHandler = async () => {
+    tokenStorage.removeItem('user-token');
+    tokenStorage.removeItem('user-refresh-token');
+    dispatch(logout());
+  };
 
   return (
     <div className={styles.container}>
@@ -21,11 +32,12 @@ const Home = () => {
         </Link>
         <div className={styles.links}>
           {customer ? (
-            <button
-              className={styles.login}
-              onClick={(): void => {
-                dispatch(logout());
-              }}>
+            <Link to={'/profile'} className={styles.user}>
+              {`${customer.firstName} ${customer.lastName}`}
+            </Link>
+          ) : null}
+          {customer ? (
+            <button className={styles.login} onClick={logoutHandler}>
               Logout
             </button>
           ) : (
@@ -38,6 +50,10 @@ const Home = () => {
           </Link>
         </div>
       </nav>
+      <main className={styles.mainContainer}>
+        <FiltersContainer />
+        <ProductsContainer />
+      </main>
     </div>
   );
 };

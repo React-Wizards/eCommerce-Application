@@ -50,21 +50,20 @@
   border-radius: 5px;
 
   &:not(:disabled):hover {
-    scale: 1.05
+    scale: 1.05;
   }
 
   &:focus {
-    border: 1px solid #46A358;
+    border: 1px solid #46a358;
   }
 
   &:not(:disabled) > svg {
-    fill: #3D3D3D;
+    fill: #3d3d3d;
   }
 
   &:disabled > svg {
     fill: #888888;
   }
-
 }
 
 .clearSearchTextBtn {

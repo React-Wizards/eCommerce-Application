@@ -43,7 +43,7 @@ const FiltersContainer = () => {
             pageSize: 1,
             currentPage: 1,
             sortOption: `name.${defaultLocale} asc`,
-            searchText: '',
+            searchText: ''
           }).unwrap();
         sizes.set(category.id, Number(queryResult.total));
       });

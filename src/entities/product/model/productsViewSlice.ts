@@ -17,7 +17,7 @@ const initialState: ProductsViewState = {
   totalItemsCount: 0,
   selectedCategoryId: '',
   sortOption: `name.${defaultLocale} asc`,
-  searchText: '',
+  searchText: ''
 };
 
 export const productsViewSlice = createSlice({
@@ -47,7 +47,7 @@ const {
   setTotalItemsCount,
   setSelectedCategoryId,
   setSortOption,
-  setSearchText,
+  setSearchText
 } = productsViewSlice.actions;
 const productsViewReducer = productsViewSlice.reducer;
 

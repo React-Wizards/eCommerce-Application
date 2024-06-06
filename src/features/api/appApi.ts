@@ -81,23 +81,28 @@ export const appApi = createApi({
         searchText: string;
       }
     >({
-      query: ({ categoryId, pageSize = 1, currentPage = 1, sortOption, searchText }) => {
-        const result: FetchArgs  =
-        {
-            url: `/product-projections/search`,
-            method: 'POST',
-            params: {
-              filter: `categories.id:"${categoryId}"`,
-              limit: pageSize,
-              offset: (currentPage - 1) * pageSize,
-              sort: sortOption,
-            }
-        }
+      query: ({
+        categoryId,
+        pageSize = 1,
+        currentPage = 1,
+        sortOption,
+        searchText
+      }) => {
+        const result: FetchArgs = {
+          url: `/product-projections/search`,
+          method: 'POST',
+          params: {
+            filter: `categories.id:"${categoryId}"`,
+            limit: pageSize,
+            offset: (currentPage - 1) * pageSize,
+            sort: sortOption
+          }
+        };
         const searchStrParamName: string = `text.${defaultLocale}`;
         if (searchText && result.params) {
           result.params[searchStrParamName] = `"${searchText || ''}"`;
           result.params['fuzzy'] = true;
-          result.params['fuzzyLevel'] = 1; 
+          result.params['fuzzyLevel'] = 1;
         }
         return result;
       }

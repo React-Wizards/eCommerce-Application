@@ -48,3 +48,15 @@
 .size-btn {
   @apply rounded-[50%] cursor-pointer border border-[#EAEAEA] w-[28px] h-[28px];
 }
+
+.productPrice {
+  @apply font-["Cera_Pro_Bold"] flex gap-1.5;
+}
+
+.actualPrice {
+  @apply text-[#46A358];
+}
+
+.oldPrice {
+  @apply line-through text-gray-400;
+}

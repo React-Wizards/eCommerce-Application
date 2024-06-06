@@ -5,6 +5,7 @@ import { appApi } from '@/features/api/appApi';
 import { authApi } from '@/features/api/authApi';
 import { productsReducer, productsViewReducer } from '@/entities/product';
 import { categoriesReducer } from '@/entities/category';
+import { selectedProductReducer } from '@/entities/selectedProduct';
 import { meApi } from '@/features/api/meApi';
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
   productsView: productsViewReducer,
+  selectedProduct: selectedProductReducer,
   [appApi.reducerPath]: appApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer

@@ -1,15 +1,37 @@
 import styles from './ProductSlider.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductModal from '@/features/ProductModal';
 import ImgCarousel from '@/features/ImgCarousel';
 import { useAppSelector } from '@/app/store';
 import { Image } from '@commercetools/platform-sdk';
+import { useLocation } from 'react-router-dom';
+import { useGetProductByKeyMutation } from '@/features/api/appApi';
+import { ProductProjection } from '@commercetools/platform-sdk';
+import { setProduct } from '@/entities/selectedProduct';
+import { useDispatch } from 'react-redux';
 
 const ProductSlider = () => {
-  const [currentImg, setCurrentImage] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const products = useAppSelector((state) => state.products.products);
+  const dispatch = useDispatch();
+
+  const location = useLocation();
+  const urlParamsArr: string[] = location.pathname.split('/');
+  const urlParamsArrLen: number = urlParamsArr.length;
+  const productKey = urlParamsArr[urlParamsArrLen - 1];
+
+  const [requestProductByKey] = useGetProductByKeyMutation();
+
+  const product = useAppSelector((state) => state.selectedProduct.product);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result: ProductProjection =
+        await requestProductByKey(productKey).unwrap();
+      dispatch(setProduct(result));
+    }
+    fetchData();
+  }, [productKey]);
 
   return (
     <div>
@@ -17,45 +39,32 @@ const ProductSlider = () => {
         <div className={styles['slider-left']}>
           <img
             className={styles['product-img']}
-            src={(products[0].masterVariant.images as Image[])[0].url}
+            src={(product?.masterVariant.images as Image[])[0].url}
             alt='Product Image'
-            onClick={() => setCurrentImage(0)}
-          />
-          <img
-            className={styles['product-img']}
-            src={(products[1].masterVariant.images as Image[])[0].url}
-            alt='Product Image'
-            onClick={() => setCurrentImage(0)}
-          />
-          <img
-            className={styles['product-img']}
-            src={(products[2].masterVariant.images as Image[])[0].url}
-            alt='Product Image'
-            onClick={() => setCurrentImage(2)}
-          />
-          <img
-            className={styles['product-img']}
-            src={(products[3].masterVariant.images as Image[])[0].url}
-            alt='Product Image'
-            onClick={() => setCurrentImage(3)}
           />
         </div>
         <div>
           <img
             className={styles['product-img-big']}
-            src={(products[currentImg].masterVariant.images as Image[])[0].url}
+            src={(product?.masterVariant.images as Image[])[0].url}
             alt='Product Image'
             onClick={() => setModalIsOpen(true)}
           />
         </div>
       </div>
-      <ImgCarousel classname={'mobile-slider-container'} imgArr={['']} />
+      <ImgCarousel
+        classname={'mobile-slider-container'}
+        imgArr={[(product?.masterVariant.images as Image[])[0].url]}
+      />
       <ProductModal
         isOpen={modalIsOpen}
         onClose={() => {
           setModalIsOpen(false);
         }}>
-        <ImgCarousel classname={'slider-container'} imgArr={['']} />
+        <ImgCarousel
+          classname={'slider-container'}
+          imgArr={[(product?.masterVariant.images as Image[])[0].url]}
+        />
       </ProductModal>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   setSelectedCategoryId
 } from '@/entities/product/model/productsViewSlice';
 import { defaultLocale } from '@/shared/constants/settings';
+import { Link } from 'react-router-dom';
 
 const CategoryFilter = (props: {
   categories: Array<Category>;
@@ -34,13 +35,23 @@ const CategoryFilter = (props: {
                 onCategoryClickHandler(category.id);
               }}
               key={category.id}>
-              <div className={styles.categoryName}>
+              {/* <div className={styles.categoryName}>
                 {category.name[defaultLocale]}
-              </div>
-              <div
+              </div> */}
+              <Link
+                to={'/home/category/' + category.slug['en-US']}
+                className={styles.categoryName}>
+                {category.name[defaultLocale]}
+              </Link>
+              {/* <div
                 className={
                   styles.categorySize
-                }>{`(${props.categorySizes?.get(category.id) || 0})`}</div>
+                }>{`(${props.categorySizes?.get(category.id) || 0})`}</div> */}
+              <Link
+                to={'/home/category/' + category.slug['en-US']}
+                className={
+                  styles.categorySize
+                }>{`(${props.categorySizes?.get(category.id) || 0})`}</Link>
             </li>
           );
         })}

@@ -15,6 +15,7 @@ const Router = () => {
   const categories = useSelector(
     (state: RootState) => state.categories.categories
   );
+  const products = useSelector((state: RootState) => state.products.products);
   return (
     <BrowserRouter>
       <Routes>
@@ -25,15 +26,23 @@ const Router = () => {
           element={customer ? <Navigate to='/home' replace /> : <LoginPage />}
         />
         <Route path='/register' element={<RegistrationPage />} />
-        <Route path='/home/shop' element={<ShopPage />} />
+        <Route path='/shop' element={<ShopPage />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/home/all' element={<Home />} />
+        <Route path='/home/product' element={<Home />} />
         <Route path='/home/category' element={<Home />} />
         {categories.map((category) => (
           <Route
             path={'/home/category/' + category.slug['en-US']}
             key={category.id}
             element={<Home />}
+          />
+        ))}
+        {products.map((product) => (
+          <Route
+            path={'/home/product/' + product.key}
+            key={product.id}
+            element={<ShopPage />}
           />
         ))}
       </Routes>

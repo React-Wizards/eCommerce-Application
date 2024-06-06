@@ -16,6 +16,7 @@ import minLength from '@/pages/RegistrationPage/lib/validators/min-length';
 import onlyLetters from '@/pages/RegistrationPage/lib/validators/only-letters';
 import useFormValidation from '@/pages/RegistrationPage/model/useFormValidation';
 import { logout } from '@/entities/customer';
+import Breadcrumbs from '@/features/Breadcrumbs';
 
 const Home = () => {
   const customer: Customer | null = useSelector(
@@ -124,6 +125,14 @@ const Home = () => {
             </svg>
           </button>
         </form>
+        <div className={`${styles['page-links']} ${styles['hidden']}`}>
+          <Link className={styles['nav-item']} to='/home'>
+            Home
+          </Link>
+          <Link className={styles['nav-item']} to='/shop'>
+            Shop
+          </Link>
+        </div>
         <div className={styles.links}>
           {customer ? (
             <Link to={'/profile'} className={styles.user}>
@@ -142,14 +151,6 @@ const Home = () => {
           <Link className={styles.register} to='/register'>
             Register
           </Link>
-          <div className={`${styles['page-links']} ${styles['hidden']}`}>
-            <Link className={styles['nav-item']} to='/home'>
-              Home
-            </Link>
-            <Link className={styles['nav-item']} to='/home/shop'>
-              Shop
-            </Link>
-          </div>
           <img
             className={styles['burger-icon']}
             src={burgerMenuIcon}
@@ -202,7 +203,10 @@ const Home = () => {
       )}
       <main className={styles.mainContainer}>
         <FiltersContainer />
-        <ProductsContainer searchText={searchText} />
+        <div className='flex flex-col justify-between w-[74%]'>
+          <Breadcrumbs />
+          <ProductsContainer searchText={searchText} />
+        </div>
       </main>
     </div>
   );

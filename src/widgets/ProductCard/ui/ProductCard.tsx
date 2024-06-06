@@ -46,7 +46,7 @@ const ProductCard = (props: { product: ProductProjection }) => {
 
   return (
     <div className={styles.productCard}>
-      <Link to={`/product/${props.product.key}`}>
+      <Link to={`/home/product/${props.product.key}`}>
         <div className={styles.imageContainer}>
           <img
             alt='product image'

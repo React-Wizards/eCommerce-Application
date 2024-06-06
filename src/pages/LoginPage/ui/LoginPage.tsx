@@ -1,18 +1,16 @@
 import { type FormEvent, useState } from 'react';
-import type {
-  ClientResponse,
-  CustomerSignInResult,
-  CustomerSignin
-} from '@commercetools/platform-sdk';
+import { Customer, type CustomerSignin } from '@commercetools/platform-sdk';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '@/entities/customer/model/customerSlice';
 import Input from '@/features/InputLogin';
 import Modal from '@/shared/ErrorModal';
 import Button from '@/shared/Button';
-import { authRoot } from '@/shared/api';
 import logo from '@/shared/assets/img/logo.svg';
 import styles from './LoginPage.module.scss';
+import { TokenResponse, useMeTokenMutation } from '@/features/api/authApi';
+import TokenStorage from '@/shared/api/tokenStorage';
+import { useGetProfileMutation } from '@/features/api/meApi';
 
 const LoginPage = () => {
   const [customer, setCustomer] = useState<CustomerSignin>(
@@ -23,28 +21,47 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [getUserToken] = useMeTokenMutation();
+  const tokenStorage = new TokenStorage('ecom');
+
   function CustomerErrorHandler(message: string): void {
     seIsVisible(true);
     setErrorMessage(message);
 
     setTimeout(() => {
       seIsVisible(false);
-    }, 1500);
+    }, 3000);
   }
+
+  const [requestProfile] = useGetProfileMutation();
 
   const signIn = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
+    const _credentials = {
+      username: customer.email,
+      password: customer.password
+    };
 
     try {
-      const result: ClientResponse<CustomerSignInResult> = await authRoot
-        .me()
-        .login()
-        .post({
-          body: customer
-        })
-        .execute();
+      const result: TokenResponse = await getUserToken(_credentials).unwrap();
+      if (result.access_token) {
+        tokenStorage.setItem(
+          'user-token',
+          result.access_token,
+          result.expires_in
+        );
+      }
+      if (result.refresh_token) {
+        tokenStorage.setItem(
+          'user-refresh-token',
+          result.refresh_token,
+          17280000
+        );
+      }
 
-      dispatch(login(result.body.customer));
+      const profile = (await requestProfile().unwrap()) as Customer;
+      dispatch(login(profile));
+
       navigate('/home');
     } catch (error: unknown) {
       if (error instanceof Error) {

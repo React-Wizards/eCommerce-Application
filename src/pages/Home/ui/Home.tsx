@@ -1,7 +1,7 @@
-import type { RootState } from '@/app/store';
+import type { RootState, useAppSelector } from '@/app/store';
 import type { Customer } from '@commercetools/platform-sdk';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '@/entities/customer';
 import logo from '@/shared/assets/img/logo-horiz.svg';
@@ -9,13 +9,78 @@ import styles from './Home.module.scss';
 import Categories from '@/widgets/Categories';
 import Breadcrumbs from '@/features/Breadcrumbs';
 import burgerMenuIcon from '@/shared/assets/img/burger-menu-icon.svg';
+import ProductsContainer from '@/widgets/ProductsContainer';
 import { FaTimes } from 'react-icons/fa';
+import TokenStorage from '@/shared/api/tokenStorage';
+import { setSearchText } from '@/entities/product/model/productsViewSlice';
+import FiltersContainer from '@/widgets/FiltersContainer';
+import useFieldValidation from '@/pages/RegistrationPage/model/useFieldValidation';
+import minLength from '@/pages/RegistrationPage/lib/validators/min-length';
+import onlyLetters from '@/pages/RegistrationPage/lib/validators/only-letters';
+import useFormValidation from '@/pages/RegistrationPage/model/useFormValidation';
 
 const Home = () => {
   const customer: Customer | null = useSelector(
     (store: RootState): Customer | null => store.customer.user
   );
+  const tokenStorage = new TokenStorage('ecom');
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleBurgerMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const searchText = useAppSelector(
+    (state: RootState) => state.productsView.searchText
+  );
+
+  const logoutHandler = async () => {
+    tokenStorage.removeItem('user-token');
+    tokenStorage.removeItem('user-refresh-token');
+    dispatch(logout());
+  };
+
+  const searchTextInput = useFieldValidation({
+    type: 'text',
+    id: 'searchtext',
+    placeHolder: 'Search text',
+    validators: [minLength(3), onlyLetters()]
+  });
+
+  const searchForm = useFormValidation({ fields: [searchTextInput] });
+
+  const onSearchTextChangeHandler = async (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.target.value) {
+      searchTextInput.onChangeHandler(e);
+    } else {
+      searchTextInput.setValue('');
+      searchTextInput.setError('');
+    }
+  };
+
+  const onBlurSearchTextHandler = async () => {
+    if (!searchTextInput.value) {
+      dispatch(setSearchText(''));
+    }
+  };
+
+  const onClearSearchTextHandler = async () => {
+    dispatch(setSearchText(''));
+    searchTextInput.setValue('');
+    searchTextInput.setError('');
+  };
+
+  const onSearchSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(setSearchText(searchTextInput.value));
+  };
+
+  useEffect(() => {
+    searchTextInput.setValue(searchText);
+  }, [searchText]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -106,6 +171,10 @@ const Home = () => {
           </div>
         </div>
       )}
+      <main className={styles.mainContainer}>
+        <FiltersContainer />
+        <ProductsContainer searchText={searchText} />
+      </main>
     </div>
   );
 };

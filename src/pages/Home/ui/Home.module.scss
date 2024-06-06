@@ -34,3 +34,48 @@
 .user {
   @apply px-2 text-[#46A358] font-["Cera_Pro_Bold"];
 }
+
+.searchBox {
+  position: relative;
+  display: flex;
+}
+
+.searchInput {
+  @apply rounded-[5px] appearance-none max-h-10 pl-3.5 pr-20 py-3 border border-[#EAEAEA] focus:outline-none focus:border-[#46A358] sm:text-sm font-["Cera_Pro_Regular"] box-border;
+}
+
+.searchButton {
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
+
+  &:not(:disabled):hover {
+    scale: 1.05
+  }
+
+  &:focus {
+    border: 1px solid #46A358;
+  }
+
+  &:not(:disabled) > svg {
+    fill: #3D3D3D;
+  }
+
+  &:disabled > svg {
+    fill: #888888;
+  }
+
+}
+
+.clearSearchTextBtn {
+  position: absolute;
+  top: -2px;
+  right: 60px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+    font-size: large;
+  }
+}

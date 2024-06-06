@@ -73,13 +73,7 @@ const Home = () => {
       {isOpen && (
         <div className={styles['burger-menu']}>
           <FaTimes
-            style={{
-              position: 'absolute',
-              top: '20px',
-              right: '20px',
-              color: '#46A358',
-              cursor: 'pointer'
-            }}
+            className={styles['close-btn']}
             onClick={() => {
               setIsOpen(false);
             }}

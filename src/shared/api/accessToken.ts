@@ -1,18 +1,14 @@
 import axios from 'axios';
+import { env } from '@/shared/constants';
 
-const clientId = import.meta.env.VITE_CLIENT_ID;
-const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
-const authURL = import.meta.env.VITE_AUTH_URL;
-const scope = import.meta.env.VITE_SCOPES;
-
-const basicAuth = btoa(`${clientId}:${clientSecret}`);
+const basicAuth = btoa(`${env.CLIENT_ID}:${env.CLIENT_SECRET}`);
 
 const getAuthToken = async () => {
   const tokenResponse = await axios.post(
-    `${authURL}/oauth/token`,
+    `${env.AUTH_URL}/oauth/token`,
     new URLSearchParams({
       grant_type: 'client_credentials',
-      scope: `${scope}`
+      scope: `manage_project:${env.PROJECT_KEY}}`
     }),
     {
       headers: {
@@ -21,7 +17,6 @@ const getAuthToken = async () => {
       }
     }
   );
-  console.log(tokenResponse.data.access_token);
   return tokenResponse.data.access_token;
 };
 

@@ -55,3 +55,7 @@
 .links-mobile {
   @apply flex flex-col items-center gap-2;
 }
+
+.close-btn {
+  @apply absolute top-5 right-5 text-[#46A358] cursor-pointer;
+}

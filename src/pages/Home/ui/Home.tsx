@@ -30,11 +30,11 @@ const Home = () => {
         <Link to='/home'>
           <img className={styles.logo} src={logo} alt='logo' />
         </Link>
-        <Link to={'/profile'} className={styles.links}>
+        <div className={styles.links}>
           {customer ? (
-            <div className={styles.user}>
+            <Link to={'/profile'} className={styles.user}>
               {`${customer.firstName} ${customer.lastName}`}
-            </div>
+            </Link>
           ) : null}
           {customer ? (
             <button className={styles.login} onClick={logoutHandler}>
@@ -48,7 +48,7 @@ const Home = () => {
           <Link className={styles.register} to='/register'>
             Register
           </Link>
-        </Link>
+        </div>
       </nav>
       <main className={styles.mainContainer}>
         <FiltersContainer />

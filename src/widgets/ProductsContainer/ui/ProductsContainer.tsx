@@ -23,8 +23,7 @@ const ProductsContainer = () => {
 
   const dispatch = useDispatch();
   const products = useAppSelector((state) => state.products.products);
-  const [requestProducts] =
-    useGetProductsByCategoryIdMutation();
+  const [requestProducts] = useGetProductsByCategoryIdMutation();
   const selectedCategory = useAppSelector(
     (state) => state.productsView.selectedCategoryId
   );
@@ -35,17 +34,26 @@ const ProductsContainer = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result: ProductProjectionPagedQueryResponse = await requestProducts({
-        categoryId: selectedCategory,
-        pageSize,
-        currentPage,
-        sortOption
-      }).unwrap();
+      const result: ProductProjectionPagedQueryResponse = await requestProducts(
+        {
+          categoryId: selectedCategory,
+          pageSize,
+          currentPage,
+          sortOption
+        }
+      ).unwrap();
       dispatch(setProducts(result.results));
       dispatch(setTotalItemsCount(result.total || 0));
     }
     fetchData();
-  }, [selectedCategory, currentPage, sortOption, requestProducts, pageSize, dispatch]);
+  }, [
+    selectedCategory,
+    currentPage,
+    sortOption,
+    requestProducts,
+    pageSize,
+    dispatch
+  ]);
 
   return (
     <div className={styles.productsContainer}>

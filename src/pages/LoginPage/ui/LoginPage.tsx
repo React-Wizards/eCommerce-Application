@@ -43,9 +43,7 @@ const LoginPage = () => {
     };
 
     try {
-      const result: TokenResponse = await getUserToken(
-        _credentials
-      ).unwrap();
+      const result: TokenResponse = await getUserToken(_credentials).unwrap();
       if (result.access_token) {
         tokenStorage.setItem(
           'user-token',

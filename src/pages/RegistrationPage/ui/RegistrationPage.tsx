@@ -37,7 +37,10 @@ const RegistrationPage = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const countryCode: Record<'Belarus' | 'Germany' | 'Russia' | 'Kazakhstan' | 'USA', string> = {
+  const countryCode: Record<
+    'Belarus' | 'Germany' | 'Russia' | 'Kazakhstan' | 'USA',
+    string
+  > = {
     Belarus: 'BY',
     Germany: 'DE',
     Russia: 'RU',

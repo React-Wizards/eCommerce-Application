@@ -89,6 +89,10 @@ export const appApi = createApi({
         searchText
       }) => {
         const result: FetchArgs = {
+      }
+    >({
+      query: ({ categoryId, pageSize = 1, currentPage = 1, sortOption }) => {
+        return {
           url: `/product-projections/search`,
           method: 'POST',
           params: {

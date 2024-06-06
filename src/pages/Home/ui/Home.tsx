@@ -2,12 +2,14 @@ import { RootState, useAppSelector } from '@/app/store';
 import { Customer } from '@commercetools/platform-sdk';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import logo from '@/shared/assets/img/logo.svg';
+import logo from '@/shared/assets/img/logo-horiz.svg';
 import styles from './Home.module.scss';
 import ProductsContainer from '@/widgets/ProductsContainer';
 import TokenStorage from '@/shared/api/tokenStorage';
+import burgerMenuIcon from '@/shared/assets/img/burger-menu-icon.svg';
+import { FaTimes } from 'react-icons/fa';
 import FiltersContainer from '@/widgets/FiltersContainer';
-import { ChangeEvent, FormEvent, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { setSearchText } from '@/entities/product/model/productsViewSlice';
 import useFieldValidation from '@/pages/RegistrationPage/model/useFieldValidation';
 import minLength from '@/pages/RegistrationPage/lib/validators/min-length';
@@ -19,10 +21,13 @@ const Home = () => {
   const customer: Customer | null = useSelector(
     (store: RootState): Customer | null => store.customer.user
   );
-
   const tokenStorage = new TokenStorage('ecom');
-
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleBurgerMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   const searchText = useAppSelector(
     (state: RootState) => state.productsView.searchText
@@ -137,8 +142,64 @@ const Home = () => {
           <Link className={styles.register} to='/register'>
             Register
           </Link>
+          <div className={`${styles['page-links']} ${styles['hidden']}`}>
+            <Link className={styles['nav-item']} to='/home'>
+              Home
+            </Link>
+            <Link className={styles['nav-item']} to='/home/shop'>
+              Shop
+            </Link>
+          </div>
+          <img
+            className={styles['burger-icon']}
+            src={burgerMenuIcon}
+            alt='Burger Menu Icon'
+            onClick={() => toggleBurgerMenu()}
+          />
         </div>
       </nav>
+      {isOpen && (
+        <div className={styles['burger-menu']}>
+          <FaTimes
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              color: '#46A358',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          />
+          <div className={styles['page-links-mobile']}>
+            <Link className={styles['nav-item']} to='/home'>
+              Home
+            </Link>
+            <Link className={styles['nav-item']} to='/home/shop'>
+              Shop
+            </Link>
+          </div>
+          <div className={styles['links-mobile']}>
+            {customer ? (
+              <button
+                className={styles.login}
+                onClick={(): void => {
+                  dispatch(logout());
+                }}>
+                Logout
+              </button>
+            ) : (
+              <Link className={styles.login} to='/login'>
+                Login
+              </Link>
+            )}
+            <Link className={styles.register} to='/register'>
+              Register
+            </Link>
+          </div>
+        </div>
+      )}
       <main className={styles.mainContainer}>
         <FiltersContainer />
         <ProductsContainer searchText={searchText} />

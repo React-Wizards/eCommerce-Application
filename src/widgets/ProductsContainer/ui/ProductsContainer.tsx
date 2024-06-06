@@ -39,8 +39,7 @@ const ProductsContainer = (props: { searchText: string }) => {
           categoryId: selectedCategory,
           pageSize,
           currentPage,
-          sortOption,
-          searchText: props.searchText
+          sortOption
         }
       ).unwrap();
       dispatch(setProducts(result.results));

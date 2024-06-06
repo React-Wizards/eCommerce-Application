@@ -42,8 +42,7 @@ const FiltersContainer = () => {
             categoryId: category.id,
             pageSize: 1,
             currentPage: 1,
-            sortOption: `name.${defaultLocale} asc`,
-            searchText: ''
+            sortOption: `name.${defaultLocale} asc`
           }).unwrap();
         sizes.set(category.id, Number(queryResult.total));
       });

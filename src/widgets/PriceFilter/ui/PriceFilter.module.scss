@@ -1,0 +1,35 @@
+.priceFilterCointainer {
+  @apply font-["Cera_Pro_Regular"] flex flex-col;
+}
+
+.priceFilterHeading {
+  @apply mb-6 font-["Cera_Pro_Bold"] text-[18px];
+}
+
+.slider {
+  @apply mb-3 relative w-[100%] h-1 bg-[#46A358]/[0.2] rounded-[6px];
+}
+
+.slider {
+  :global {
+    .thumb {
+      @apply rounded-[50%] border-[3px] border-solid border-white cursor-pointer w-5 h-5 bg-[#46A358] pointer-events-auto top-[-8px];
+      &.active {
+        @apply border-white;
+      }
+    }
+    .track-1 {
+      @apply bg-[#46A358];
+      height: 0.25rem;
+      padding-rigth: 10px;
+    }
+  }
+}
+
+.values {
+  @apply mt-2 font-["Cera_Pro_Regular"] text-[15px];
+}
+
+.valuesRange {
+  @apply font-bold text-[#46A358];
+}

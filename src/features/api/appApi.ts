@@ -14,6 +14,8 @@ import {
 import TokenStorage from '@/shared/api/tokenStorage';
 import { TokenResponse, authApi } from './authApi';
 import { env } from '@/shared/constants';
+import { defaultLocale } from '@/shared/constants/settings';
+import { SizesType } from '@/entities/product/model/productsViewSlice';
 
 const tokenStorage = new TokenStorage('ecom');
 
@@ -77,19 +79,58 @@ export const appApi = createApi({
         pageSize?: number;
         currentPage?: number;
         sortOption: string;
+        searchText?: string;
+        priceRange?: { min: number; max: number };
+        sizes?: SizesType;
       }
     >({
-      query: ({ categoryId, pageSize = 1, currentPage = 1, sortOption }) => {
-        return {
-          url: `/product-projections/search`,
-          method: 'POST',
+      query: ({
+        categoryId,
+        pageSize = 1,
+        currentPage = 1,
+        sortOption,
+        searchText,
+        priceRange,
+        sizes
+      }) => {
+        const result: FetchArgs = {
+          url: `/product-projections/search?limit=${pageSize}`,
+          method: 'GET',
           params: {
-            filter: `categories.id:"${categoryId}"`,
-            limit: pageSize,
             offset: (currentPage - 1) * pageSize,
             sort: sortOption
           }
         };
+
+        if (categoryId) {
+          result.url +=
+            '&filter=' + encodeURIComponent(`categories.id:"${categoryId}"`);
+        }
+
+        if (priceRange) {
+          result.url += `&filter=variants.price.centAmount%3Arange+%28${priceRange.min * 100}+to+${priceRange.max * 100}%29`;
+        }
+
+        if (sizes) {
+          const selectedSizes = [];
+          for (const size in sizes) {
+            if (sizes[size as keyof SizesType]) {
+              selectedSizes.push(`"${size}"`);
+            }
+          }
+          result.url +=
+            '&filter=' +
+            encodeURIComponent(
+              `variants.attributes.size.key:${selectedSizes.join(',')}`
+            );
+        }
+        const searchStrParamName: string = `text.${defaultLocale}`;
+        if (searchText && result.params) {
+          result.params[searchStrParamName] = `"${searchText || ''}"`;
+          result.params['fuzzy'] = true;
+          result.params['fuzzyLevel'] = 1;
+        }
+        return result;
       }
     }),
     getCategories: builder.mutation<CategoryPagedQueryResponse, void>({

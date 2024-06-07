@@ -8,13 +8,23 @@ import { setCategories } from '@/entities/category';
 import {
   Category,
   CategoryPagedQueryResponse,
+  Price,
+  ProductProjection,
   ProductProjectionPagedQueryResponse
 } from '@commercetools/platform-sdk';
-import { setSelectedCategoryId } from '@/entities/product/model/productsViewSlice';
+import {
+  setPriceRange,
+  setSelectedCategoryId
+} from '@/entities/product/model/productsViewSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/app/store';
-import { defaultLocale } from '@/shared/constants/settings';
+import {
+  defaultCurrencyCode,
+  defaultLocale
+} from '@/shared/constants/settings';
+import PriceFilter from '@/widgets/PriceFilter';
+import SizeFilter from '@/widgets/SizeFilter';
 
 const FiltersContainer = () => {
   const dispatch = useDispatch();
@@ -25,7 +35,13 @@ const FiltersContainer = () => {
     (state) => state.productsView.selectedCategoryId
   );
 
+  const priceRange = useAppSelector((state) => state.productsView.priceRange);
+  const sizes = useAppSelector((state) => state.productsView.sizes);
+
   const [categorySizes, setCategorySizes] = useState<Map<string, number>>();
+
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(999);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,11 +58,54 @@ const FiltersContainer = () => {
             categoryId: category.id,
             pageSize: 1,
             currentPage: 1,
-            sortOption: `name.${defaultLocale} asc`
+            sortOption: `name.${defaultLocale} asc`,
+            searchText: ''
           }).unwrap();
         sizes.set(category.id, Number(queryResult.total));
       });
       setCategorySizes(sizes);
+
+      function getPriceFromProduct(
+        product: ProductProjection,
+        currencyCode: string
+      ) {
+        const prices: Price[] | undefined = product.masterVariant.prices;
+        const currencyPrice: Price | undefined = prices?.filter(
+          (price: Price) => price.value.currencyCode == currencyCode
+        )[0];
+        return (
+          (currencyPrice?.value.centAmount || 0) /
+          10 ** (currencyPrice?.value.fractionDigits || 1)
+        );
+      }
+      let pricesRequestResult: ProductProjectionPagedQueryResponse =
+        await requestProductsInCategories({
+          categoryId: '',
+          pageSize: 1,
+          currentPage: 1,
+          sortOption: `price asc`,
+          searchText: ''
+        }).unwrap();
+      const min = getPriceFromProduct(
+        pricesRequestResult.results[0],
+        defaultCurrencyCode
+      );
+      setMinPrice(min);
+
+      pricesRequestResult = await requestProductsInCategories({
+        categoryId: '',
+        pageSize: 1,
+        currentPage: 1,
+        sortOption: `price desc`,
+        searchText: ''
+      }).unwrap();
+
+      const max = getPriceFromProduct(
+        pricesRequestResult.results[0],
+        defaultCurrencyCode
+      );
+      setMaxPrice(max);
+      dispatch(setPriceRange({ min, max }));
     }
     fetchData();
   }, [dispatch, requestCategories, requestProductsInCategories]);
@@ -58,6 +117,12 @@ const FiltersContainer = () => {
         selectedCategory={selectedCategory}
         categorySizes={categorySizes}
       />
+      <PriceFilter
+        priceRange={priceRange}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
+      <SizeFilter sizes={sizes} />
     </div>
   );
 };

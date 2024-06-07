@@ -12,6 +12,7 @@ import {
   setCurrentPage,
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
+import Loader from '@/shared/Loader';
 
 const ProductsContainer = (props: { searchText: string }) => {
   const currentPage = useAppSelector((state) => state.productsView.currentPage);
@@ -23,10 +24,12 @@ const ProductsContainer = (props: { searchText: string }) => {
 
   const dispatch = useDispatch();
   const products = useAppSelector((state) => state.products.products);
-  const [requestProducts] = useGetProductsByCategoryIdMutation();
+  const [requestProducts, { isLoading }] = useGetProductsByCategoryIdMutation();
   const selectedCategory = useAppSelector(
     (state) => state.productsView.selectedCategoryId
   );
+  const priceRange = useAppSelector((state) => state.productsView.priceRange);
+  const sizes = useAppSelector((state) => state.productsView.sizes);
 
   const setCurrentPageHandler = (p: number) => {
     dispatch(setCurrentPage(p));
@@ -39,7 +42,10 @@ const ProductsContainer = (props: { searchText: string }) => {
           categoryId: selectedCategory,
           pageSize,
           currentPage,
-          sortOption
+          sortOption,
+          searchText: props.searchText,
+          priceRange,
+          sizes
         }
       ).unwrap();
       dispatch(setProducts(result.results));
@@ -53,11 +59,14 @@ const ProductsContainer = (props: { searchText: string }) => {
     props.searchText,
     requestProducts,
     pageSize,
+    priceRange,
+    sizes,
     dispatch
   ]);
 
   return (
     <div className={styles.productsContainer}>
+      {isLoading ? <Loader /> : null}
       <ProdViewControls />
       <ProductsList products={products}></ProductsList>
       <ProdPaginator

@@ -1,9 +1,17 @@
 .container {
-  @apply mx-auto px-10 pt-6;
+  @apply mx-auto px-10 py-8 max-w-[1440px];
 }
 
 .nav {
-  @apply flex justify-between items-center;
+  @apply flex justify-between items-center border-b-[1px] border-[#46A358]/[0.5] pb-[20px];
+}
+
+.nav-item {
+  @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
+}
+
+.nav-item:hover {
+  @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
 }
 
 .logo {
@@ -12,16 +20,95 @@
 
 .links {
   @apply flex items-center gap-2;
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
+}
+
+.page-links {
+  @apply flex justify-between gap-12;
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
 }
 
 .login,
 .register {
-  @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium font-["Cera_Pro_Medium"];
+  @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium  font-["Cera_Pro_Medium"];
   border-radius: 6px;
 }
 
-.login {
+.burger-icon {
+  @apply w-[40px] h-[40px];
+  @media screen and (min-width: 641px) {
+    @apply hidden;
+  }
+}
+.burger-menu {
+  @apply flex flex-col flex-wrap basis-full w-full h-full bg-white top-0 fixed items-center justify-center gap-3;
 }
 
-.register {
+.page-links-mobile {
+  @apply flex flex-col justify-between gap-2;
+}
+
+.links-mobile {
+  @apply flex flex-col items-center gap-2;
+}
+
+.close-btn {
+  @apply absolute top-5 right-5 text-[#46A358] cursor-pointer;
+}
+
+.mainContainer {
+  display: flex;
+  gap: 50px;
+}
+
+.user {
+  @apply px-2 text-[#46A358] font-["Cera_Pro_Bold"];
+}
+
+.searchBox {
+  position: relative;
+  display: flex;
+}
+
+.searchInput {
+  @apply rounded-[5px] appearance-none max-h-10 pl-3.5 pr-20 py-3 border border-[#EAEAEA] focus:outline-none focus:border-[#46A358] sm:text-sm font-["Cera_Pro_Regular"] box-border;
+}
+
+.searchButton {
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
+
+  &:not(:disabled):hover {
+    scale: 1.05;
+  }
+
+  &:focus {
+    border: 1px solid #46a358;
+  }
+
+  &:not(:disabled) > svg {
+    fill: #3d3d3d;
+  }
+
+  &:disabled > svg {
+    fill: #888888;
+  }
+}
+
+.clearSearchTextBtn {
+  position: absolute;
+  top: -2px;
+  right: 60px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+    font-size: large;
+  }
 }

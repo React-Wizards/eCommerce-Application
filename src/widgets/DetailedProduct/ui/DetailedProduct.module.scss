@@ -1,0 +1,18 @@
+.detailed-container {
+  @apply flex gap-[60px] mt-[43px];
+  @media screen and (max-width: 1200px) {
+    @apply gap-[40px];
+  }
+  @media screen and (max-width: 800px) {
+    @apply gap-[25px];
+  }
+  @media screen and (min-width: 641px) {
+    @apply items-center;
+  }
+  @media screen and (max-width: 640px) {
+    @apply flex-col;
+  }
+  @media screen and (max-width: 639px) {
+    @apply mt-[23px];
+  }
+}

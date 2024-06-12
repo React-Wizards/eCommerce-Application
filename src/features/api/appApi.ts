@@ -97,6 +97,11 @@ export const appApi = createApi({
         return { url: '/categories', method: 'GET' };
       }
     }),
+    getCategoryById: builder.mutation<Category, string>({
+      query: (categoryId) => {
+        return { url: `/categories/${categoryId}`, method: 'GET' };
+      }
+    }),
     getDiscounts: builder.mutation<DiscountCodePagedQueryResponse, void>({
       query: () => {
         return { url: '/product-discounts', method: 'GET' };
@@ -120,6 +125,7 @@ export const {
   useGetProductByIdMutation,
   useGetProductsByCategoryIdMutation,
   useGetCategoriesMutation,
+  useGetCategoryByIdMutation,
   useGetDiscountByIdMutation,
   useGetDiscountByKeyMutation
 } = appApi;

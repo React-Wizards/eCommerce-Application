@@ -1,3 +1,7 @@
 .productsList {
-  @apply font-["Cera_Pro_Regular"] flex flex-wrap gap-8 mt-4;
+  @apply font-["Cera_Pro_Regular"] flex flex-wrap gap-7;
+}
+
+.placeHolder {
+  @apply font-["Cera_Pro_Regular"] w-full pt-12 text-center;
 }

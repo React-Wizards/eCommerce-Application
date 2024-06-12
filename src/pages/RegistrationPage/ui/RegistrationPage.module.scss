@@ -1,7 +1,7 @@
 .page-wrapper {
   @apply flex justify-center bg-zinc-200 min-h-screen;
 
-  @media screen and (min-width: 712px) {
+  @media (min-width: 712px) {
     @apply w-screen;
   }
 }
@@ -9,11 +9,11 @@
 .registration-page {
   @apply min-w-[380px] px-5 flex justify-center self-center py-6 rounded-lg bg-white border-b-[10px] border-[#46a358];
 
-  @media screen and (min-width: 832px) {
+  @media (min-width: 832px) {
     @apply w-[792px];
   }
 
-  @media screen and (max-width: 712px) {
+  @media (max-width: 712px) {
     @apply my-5;
   }
 }
@@ -21,7 +21,7 @@
 .form-wrapper {
   @apply max-w-[632px];
 
-  @media screen and (max-width: 712px) {
+  @media (max-width: 712px) {
     @apply max-w-[352px];
   }
 }
@@ -53,7 +53,7 @@
 .form-text {
   @apply text-sm font-["Cera_Pro_Regular"];
 
-  @media screen and (max-width: 712px) {
+  @media (max-width: 712px) {
     @apply ml-[26px];
   }
 }

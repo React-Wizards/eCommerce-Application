@@ -1,7 +1,7 @@
 .input {
   @apply rounded-[5px] appearance-none w-full max-h-10 pl-3.5 pr-10 py-3 border border-[#EAEAEA] focus:outline-none focus:border-[#46A358] sm:text-sm font-["Cera_Pro_Regular"] box-border;
 
-  @media screen and (max-width: 449px) {
+  @media (max-width: 449px) {
     @apply min-h-[50px] rounded-[10px];
   }
 }

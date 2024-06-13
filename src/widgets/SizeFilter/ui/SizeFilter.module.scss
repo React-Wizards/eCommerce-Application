@@ -1,0 +1,21 @@
+.sizeFilterCointainer {
+  @apply font-["Cera_Pro_Regular"] flex flex-col;
+}
+
+.sizeFilterHeading {
+  @apply font-["Cera_Pro_Bold"] text-[18px];
+}
+
+.sizeElement {
+  @apply ml-5 text-[15px] text-[#3D3D3D] cursor-pointer flex gap-2;
+
+  line-height: 40px;
+
+  &:hover {
+    @apply bg-[#46A358] bg-opacity-50;
+  }
+
+  &._selected {
+    @apply text-[#46A358] font-["Cera_Pro_Bold"];
+  }
+}

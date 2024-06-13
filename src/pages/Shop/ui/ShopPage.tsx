@@ -37,7 +37,7 @@ const ShopPage = () => {
             <Link className={homeStyles['nav-item']} to='/home'>
               Home
             </Link>
-            <Link className={homeStyles['nav-item']} to='/shop'>
+            <Link className={homeStyles['nav-item']} to='/home/shop'>
               Shop
             </Link>
           </div>

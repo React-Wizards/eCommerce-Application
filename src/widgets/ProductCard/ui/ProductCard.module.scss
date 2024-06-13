@@ -22,10 +22,17 @@
 }
 
 .productName {
-  // @apply text-lg
+  @apply font-["Cera_Pro_Bold"];
 }
 
 .productDescription {
+  @apply h-14 text-sm;
+
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .productPrice {

@@ -1,4 +1,4 @@
-import { RootState, useAppSelector } from '@/app/store';
+import { type RootState, useAppSelector } from '@/app/store';
 import type { Customer } from '@commercetools/platform-sdk';
 import { useSelector } from 'react-redux';
 import styles from './Home.module.scss';

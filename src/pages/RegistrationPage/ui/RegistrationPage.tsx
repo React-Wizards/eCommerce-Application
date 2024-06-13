@@ -28,6 +28,8 @@ import { ShippingAddressFields } from '../config/ShippingAddressFields';
 import logo from '@/shared/assets/img/logo.svg';
 import styles from './RegistrationPage.module.scss';
 
+type TypeCountryCode = 'Belarus' | 'Germany' | 'Kazakhstan' | 'Russia' | 'USA';
+
 const RegistrationPage = () => {
   const validableUserDetailsFields = UserDetailsFields();
   const validableBillingAddressFields = BillingAddressFields();
@@ -152,12 +154,14 @@ const RegistrationPage = () => {
   ): Promise<void> => {
     event.preventDefault();
 
+    const code: TypeCountryCode = getFieldById(
+      validableBillingAddressFields,
+      'billing-country'
+    ).value as TypeCountryCode;
+
     const billingAddress: BaseAddress = {
       key: 'address1',
-      country:
-        countryCode[
-          getFieldById(validableBillingAddressFields, 'billing-country').value
-        ],
+      country: countryCode[code],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(validableBillingAddressFields, 'billing-address')
@@ -175,10 +179,7 @@ const RegistrationPage = () => {
 
     const shippingAddress: BaseAddress = {
       key: 'address2',
-      country:
-        countryCode[
-          getFieldById(validableBillingAddressFields, 'billing-country').value
-        ],
+      country: countryCode[code],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(
@@ -210,7 +211,6 @@ const RegistrationPage = () => {
     if (!isSameAddress) {
       newCustomer.addresses?.push(shippingAddress);
     }
-    console.log(newCustomer);
 
     try {
       const customer: ClientResponse<CustomerSignInResult> = await authRoot

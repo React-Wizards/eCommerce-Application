@@ -1,3 +1,7 @@
+.container {
+  @apply mx-auto px-10 pt-6;
+}
+
 .productsWrapper {
   @apply w-[74%] font-["Cera_Pro_Regular"] mx-auto;
 }
@@ -10,8 +14,32 @@
   }
 }
 
+.nav {
+  @apply flex justify-between items-center;
+}
+
+.logo {
+  @apply w-28;
+}
+
+.links {
+  @apply flex items-center gap-2;
+}
+
+.login,
+.register {
+  @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium font-["Cera_Pro_Medium"];
+  border-radius: 6px;
+}
+
 .mainContainer {
   @apply mx-auto px-10 pt-6 max-w-[1200px];
   display: flex;
   gap: 50px;
+}
+
+.login {
+}
+
+.register {
 }

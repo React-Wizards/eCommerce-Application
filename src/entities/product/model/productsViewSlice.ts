@@ -2,6 +2,7 @@ import { defaultLocale } from '@/shared/constants/settings';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+export type SizesType = { small: boolean; medium: boolean; large: boolean };
 export interface ProductsViewState {
   currentPage: number;
   pageSize: number;
@@ -9,6 +10,8 @@ export interface ProductsViewState {
   selectedCategoryId: string;
   sortOption: string;
   searchText: string;
+  priceRange: { min: number; max: number };
+  sizes: SizesType;
 }
 
 const initialState: ProductsViewState = {
@@ -17,7 +20,9 @@ const initialState: ProductsViewState = {
   totalItemsCount: 0,
   selectedCategoryId: '',
   sortOption: `name.${defaultLocale} asc`,
-  searchText: ''
+  searchText: '',
+  priceRange: { min: 0, max: 999 },
+  sizes: { small: true, medium: true, large: true }
 };
 
 export const productsViewSlice = createSlice({
@@ -38,6 +43,15 @@ export const productsViewSlice = createSlice({
     },
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
+    },
+    setPriceRange: (
+      state,
+      action: PayloadAction<{ min: number; max: number }>
+    ) => {
+      state.priceRange = action.payload;
+    },
+    setSizes: (state, action: PayloadAction<Partial<SizesType>>) => {
+      state.sizes = { ...state.sizes, ...action.payload };
     }
   }
 });
@@ -47,7 +61,9 @@ const {
   setTotalItemsCount,
   setSelectedCategoryId,
   setSortOption,
-  setSearchText
+  setSearchText,
+  setPriceRange,
+  setSizes
 } = productsViewSlice.actions;
 const productsViewReducer = productsViewSlice.reducer;
 
@@ -57,5 +73,7 @@ export {
   setSelectedCategoryId,
   setSortOption,
   setSearchText,
+  setPriceRange,
+  setSizes,
   productsViewReducer
 };

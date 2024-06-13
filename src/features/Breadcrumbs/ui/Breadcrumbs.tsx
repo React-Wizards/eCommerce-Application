@@ -1,53 +1,43 @@
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import styles from './Breadcrumbs.module.scss';
-import { Category, ProductProjection } from '@commercetools/platform-sdk';
-import { useAppSelector } from '@/app/store';
-import { defaultLocale } from '@/shared/constants/settings';
-import { useGetCategoryByIdMutation } from '@/features/api/appApi';
-import { useEffect, useState } from 'react';
 
-const Breadcrumbs = (props: { product: ProductProjection }) => {
-  const categories = useAppSelector((state) => state.categories.categories);
-  const [requestCategoryById] = useGetCategoryByIdMutation();
-  const [category, setCategory] = useState<Category | null>(null);
+interface BreadcrumbData extends Record<string, string> {
+  home: string;
+  shop: string;
+  category: string;
+  all: string;
+}
 
-  useEffect(() => {
-    async function fetchData(categoryId: string) {
-      return await requestCategoryById(categoryId).unwrap();
-    }
+const breadcrumbData: BreadcrumbData = {
+  home: 'Home',
+  shop: 'Shop',
+  category: 'Category',
+  all: 'All Products'
+};
 
-    if (props.product?.categories) {
-      if (categories.length) {
-        setCategory(
-          categories.filter(
-            (cat) => cat.id == props.product.categories[0].id
-          )[0]
-        );
-      } else {
-        fetchData(props.product.categories[0].id).then((cat) =>
-          setCategory(cat)
-        );
-      }
-    }
-  }, [props, categories, requestCategoryById]);
+const Breadcrumbs = () => {
+  const location = useLocation();
+  let currentLink = '';
 
-  return (
-    <div className={styles.breadcrumbs}>
-      <div className={styles.crumb}>
-        <Link to={'/home'}> Home </Link>
-      </div>
-      {category && (
-        <div className={styles.crumb}>
-          <Link to={`/categories/${category.id}`}>
-            {category.name[defaultLocale]}
+  const crumbs = location.pathname
+    .split('/')
+    .filter((crumb) => crumb !== '')
+    .map((crumb) => {
+      currentLink += `/${crumb}`;
+
+      return (
+        <div className={styles.crumb} key={crumb}>
+          <Link to={currentLink}>
+            {breadcrumbData[crumb] ||
+              crumb
+                .split('-')
+                .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+                .join(' ')}
           </Link>
         </div>
-      )}
-      <div className={styles.inactiveCrumb}>
-        {props.product.name[defaultLocale]}
-      </div>
-    </div>
-  );
+      );
+    });
+  return <div className={styles.breadcrumbs}>{crumbs}</div>;
 };
 
 export default Breadcrumbs;

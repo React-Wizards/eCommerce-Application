@@ -5,9 +5,15 @@ import ProductCard from '@/widgets/ProductCard';
 const ProductsList = (props: { products: Array<ProductProjection> }) => {
   return (
     <div className={styles.productsList}>
-      {props.products.map((product) => {
-        return <ProductCard key={product.id} product={product}></ProductCard>;
-      })}
+      {props.products.length ? (
+        props.products.map((product) => {
+          return <ProductCard key={product.id} product={product}></ProductCard>;
+        })
+      ) : (
+        <div className={styles.placeHolder}>
+          There are no matching products...
+        </div>
+      )}
     </div>
   );
 };

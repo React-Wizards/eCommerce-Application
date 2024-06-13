@@ -1,6 +1,6 @@
 .container {
   @apply mt-10 min-w-[280px] max-w-[310px] min-h-[500px] bg-[#FBFBFB] p-3.5;
-  @media screen and (max-width: 640px) {
+  @media (max-width: 640px) {
     @apply hidden;
   }
 }

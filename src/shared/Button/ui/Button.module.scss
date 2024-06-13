@@ -1,7 +1,7 @@
 .btn {
   @apply rounded-[5px] appearance-none w-full max-h-[45px] pt-4 pb-[13px] mt-[13px] text-[#fff] focus:outline-none bg-[#46A358] text-base font-bold font-["Cera_Pro_Bold"];
 
-  @media screen and (max-width: 449px) {
+  @media (max-width: 449px) {
     @apply min-h-[60px] rounded-[10px] text-[20px];
   }
 }

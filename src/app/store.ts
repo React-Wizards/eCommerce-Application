@@ -16,6 +16,24 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer
 });
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { appApi } from '@/features/api/appApi';
+import { authApi } from '@/features/api/authApi';
+import { productsReducer, productsViewReducer } from '@/entities/product';
+import { categoriesReducer } from '@/entities/category';
+import { selectedProductReducer } from '@/entities/selectedProduct';
+import { meApi } from '@/features/api/meApi';
+
+const rootReducer = combineReducers({
+  customer: customerReducer,
+  categories: categoriesReducer,
+  products: productsReducer,
+  productsView: productsViewReducer,
+  selectedProduct: selectedProductReducer,
+  [appApi.reducerPath]: appApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
+  [meApi.reducerPath]: meApi.reducer
+});
 
 export const store = configureStore({
   reducer: rootReducer,

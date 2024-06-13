@@ -9,7 +9,7 @@
 .title {
   @apply text-[16.25rem] text-[#46A358] mb-5 leading-none font-['Cera_Pro_Regular'];
 
-  @media screen and (max-width: 505px) {
+  @media (max-width: 505px) {
     @apply text-[12rem];
   }
 }
@@ -17,11 +17,11 @@
 .subtitle {
   @apply text-[2.625rem] text-[#3D3D3D] mb-10 font-['Cera_Pro_Regular'];
 
-  @media screen and (max-width: 650px) {
+  @media (max-width: 650px) {
     @apply text-[2.2rem];
   }
 
-  @media screen and (max-width: 480px) {
+  @media (max-width: 480px) {
     @apply text-[1.8rem] mb-5;
   }
 }
@@ -29,7 +29,7 @@
 .description {
   @apply text-[1.5rem] leading-8 text-[#3D3D3D] mb-16 font-['Cera_Pro_Regular'];
 
-  @media screen and (max-width: 650px) {
+  @media (max-width: 650px) {
     @apply text-[1.2rem] mb-10;
   }
 }
@@ -41,7 +41,7 @@
   &__home {
     @apply h-[3.875rem] w-52 bg-[#46A358] border-[1px] border-solid border-[#959595] rounded-[1.9375rem] text-white text-lg font-bold font-['Cera_Pro_Bold'];
 
-    @media screen and (max-width: 485px) {
+    @media (max-width: 485px) {
       @apply w-40;
     }
   }

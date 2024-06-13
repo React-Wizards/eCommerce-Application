@@ -1,6 +1,6 @@
 import styles from './ImgCarousel.module.scss';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
+import { RxDot, RxDotFilled } from 'react-icons/rx';
 import { useState } from 'react';
 
 const ImgCarousel = ({
@@ -24,9 +24,8 @@ const ImgCarousel = ({
     setCurrentIndex(newIndex);
   };
 
-  const goToSlide = (slide: string, slideIndex: number) => {
+  const goToSlide = (slideIndex: number) => {
     setCurrentIndex(slideIndex);
-    console.log(slide);
   };
 
   return (
@@ -41,12 +40,12 @@ const ImgCarousel = ({
         <BsChevronCompactRight size={15} onClick={nextSlide} />
       </div>
       <div className={styles['slider-navs']}>
-        {imgArr.map((slide, slideIndex) => (
+        {imgArr.map((_, slideIndex) => (
           <div
             key={slideIndex}
             className={styles['slider-nav']}
-            onClick={() => goToSlide(slide, slideIndex)}>
-            <RxDotFilled />
+            onClick={() => goToSlide(slideIndex)}>
+            {slideIndex == currentIndex ? <RxDotFilled /> : <RxDot />}
           </div>
         ))}
       </div>

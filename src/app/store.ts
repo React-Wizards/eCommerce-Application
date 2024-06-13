@@ -6,12 +6,14 @@ import { authApi } from '@/features/api/authApi';
 import { productsReducer, productsViewReducer } from '@/entities/product';
 import { categoriesReducer } from '@/entities/category';
 import { meApi } from '@/features/api/meApi';
+import { selectedProductReducer } from '@/entities/selectedProduct';
 
 const rootReducer = combineReducers({
   customer: customerReducer,
   categories: categoriesReducer,
   products: productsReducer,
   productsView: productsViewReducer,
+  selectedProduct: selectedProductReducer,
   [appApi.reducerPath]: appApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer

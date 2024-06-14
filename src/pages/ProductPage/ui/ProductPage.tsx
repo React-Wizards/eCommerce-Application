@@ -1,8 +1,7 @@
 import homeStyles from '@/pages/Home/ui/Home.module.scss';
 import Breadcrumbs from '@/features/Breadcrumbs';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { Customer, ProductProjection } from '@commercetools/platform-sdk';
-import { useSelector } from 'react-redux';
+import type { ProductProjection } from '@commercetools/platform-sdk';
 import { useAppSelector, type RootState } from '@/app/store';
 import { useEffect, useState } from 'react';
 import ProductDetails from '@/widgets/ProductDetails';
@@ -12,10 +11,6 @@ import Header from '@/features/Header';
 
 const ProductPage = () => {
   const { productKey } = useParams();
-  const customer: Customer | null = useSelector<RootState, Customer | null>(
-    (store: RootState): Customer | null => store.customer.user
-  );
-
   const products: ProductProjection[] = useAppSelector<
     RootState,
     ProductProjection[]
@@ -55,7 +50,7 @@ const ProductPage = () => {
 
   return (
     <div className={homeStyles.container}>
-      <Header customer={customer} />
+      <Header />
       <Breadcrumbs />
       <ProductDetails product={product} />
     </div>

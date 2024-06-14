@@ -1,9 +1,8 @@
 import ProdViewControls from '@/widgets/ProdViewControls';
-import styles from './ProductsContainer.module.scss';
 import ProductsList from '@/widgets/ProductsList';
 import ProdPaginator from '@/widgets/ProdPaginator';
 import { useGetProductsByCategoryIdMutation } from '@/features/api/appApi';
-import { useAppSelector } from '@/app/store';
+import { type RootState, useAppSelector } from '@/app/store';
 import { setProducts } from '@/entities/product';
 import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useDispatch } from 'react-redux';
@@ -13,14 +12,18 @@ import {
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
 import Loader from '@/shared/Loader';
+import styles from './ProductsContainer.module.scss';
 
-const ProductsContainer = (props: { searchText: string }) => {
+const ProductsContainer = () => {
   const currentPage = useAppSelector((state) => state.productsView.currentPage);
   const pageSize = useAppSelector((state) => state.productsView.pageSize);
   const totalItemsCount = useAppSelector(
     (state) => state.productsView.totalItemsCount
   );
   const sortOption = useAppSelector((state) => state.productsView.sortOption);
+  const searchText: string = useAppSelector<RootState, string>(
+    (state: RootState): string => state.productsView.searchText
+  );
 
   const dispatch = useDispatch();
   const products = useAppSelector((state) => state.products.products);
@@ -43,7 +46,7 @@ const ProductsContainer = (props: { searchText: string }) => {
           pageSize,
           currentPage,
           sortOption,
-          searchText: props.searchText,
+          searchText,
           priceRange,
           sizes
         }
@@ -56,7 +59,7 @@ const ProductsContainer = (props: { searchText: string }) => {
     selectedCategory,
     currentPage,
     sortOption,
-    props.searchText,
+    searchText,
     requestProducts,
     pageSize,
     priceRange,

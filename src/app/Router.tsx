@@ -19,6 +19,7 @@ const Router = () => {
   const categories: Category[] = useSelector<RootState, Category[]>(
     (state: RootState): Category[] => state.categories.categories
   );
+
   return (
     <BrowserRouter>
       <Routes>

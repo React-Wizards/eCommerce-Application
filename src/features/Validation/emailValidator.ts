@@ -4,7 +4,7 @@ type ValidationResult = {
 };
 
 const regex =
-  /^(?=[a-zA-Z0-9]*[a-z])[a-zA-Z0-9]+@[a-zA-Z0-9]{2,}(\.[a-zA-Z]{2,})+$/;
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 
 const errorMessageEmail =
   'Email address is not properly formatted, e.g. user@gmail.com';

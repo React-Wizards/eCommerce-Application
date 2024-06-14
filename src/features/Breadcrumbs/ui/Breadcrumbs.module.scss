@@ -1,0 +1,20 @@
+.breadcrumbs {
+  @apply max-w-[1200px] flex my-[20px];
+  @media screen and (max-width: 640px) {
+    @apply hidden;
+  }
+}
+
+.breadcrumbs > * {
+  @apply mr-[10px];
+}
+.crumb {
+  @apply text-[#3D3D3D] text-[15px] font-["Cera_Pro_Bold"] after:content-['/'] after:ml-[10px] last:after:content-[''];
+}
+
+.crumb:after {
+  @apply after:content-['*'];
+}
+.crumb:hover {
+  @apply text-[#46A358];
+}

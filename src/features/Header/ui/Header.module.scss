@@ -26,7 +26,7 @@
 .logoText {
   @apply text-[15px] text-[#46A358] font-["Cera_Pro_Bold"];
 
-  @media (max-width: 888px) {
+  @media (max-width: 967px) {
     @apply hidden;
   }
 }
@@ -35,17 +35,10 @@
   @apply flex items-center gap-2;
 }
 
-.page-links {
-  @apply flex justify-between gap-12;
-  @media (max-width: 640px) {
-    @apply hidden;
-  }
-}
-
 .headerControls {
   @apply flex justify-end items-center;
 
-  @media (max-width: 599px) {
+  @media (max-width: 665px) {
     @apply hidden;
   }
 }
@@ -57,19 +50,20 @@
     @apply bg-[#46A358] bg-opacity-50;
   }
 
-  @media (max-width: 549px) {
+  @media (max-width: 665px) {
     @apply hidden;
   }
 
   & > .btnLogo {
-    @apply h-6 px-2;
-    @media (min-width: 767px) {
+    @apply h-9 px-2 py-1;
+    @media (min-width: 967px) {
       @apply hidden;
     }
   }
 
-  @media (max-width: 767px) {
-    & > .btnText {
+  & > .btnText {
+    @apply min-h-9 max-w-32 flex justify-center items-center;
+    @media (max-width: 967px) {
       @apply hidden;
     }
   }
@@ -83,15 +77,15 @@
     @apply scale-105;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 968px) {
     @apply w-28;
   }
 
-  @media (max-width: 549px) {
+  @media (max-width: 665px) {
     @apply hidden;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 967px) {
     & > .btnLogo {
       @apply h-6 px-2;
     }
@@ -105,7 +99,7 @@
 .burger-icon {
   @apply w-[40px] h-[40px];
 
-  @media (min-width: 600px) {
+  @media (min-width: 666px) {
     @apply hidden;
   }
 }
@@ -148,11 +142,58 @@
 }
 
 .close-btn {
-  @apply p-2 h-auto w-auto absolute top-4 right-[45px] text-[#46A358] cursor-pointer;
+  @apply p-2 h-auto w-auto absolute top-4 right-[90px] text-[#46A358] cursor-pointer;
 }
 
 .searchBox {
-  @media (max-width: 480px) {
+  @media (max-width: 665px) {
     @apply hidden;
   }
+}
+
+.controlsWrapper {
+  @apply flex items-center;
+}
+
+.cartLink {
+  @apply mr-2 relative;
+
+  &:hover {
+    @apply scale-105;
+  }
+
+  &:not([data-items-count=''])::after {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 0px;
+    right: -6px;
+    z-index: 10;
+    content: attr(data-items-count);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+    background-color: #46a358;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+}
+
+.cartLogo {
+  @apply h-[26px] w-[26px];
+}
+
+.aboutLink {
+  @apply ml-1;
+
+  &:hover {
+    @apply scale-105;
+  }
+}
+
+.aboutLogo {
+  @apply h-[40px] w-[40px];
 }

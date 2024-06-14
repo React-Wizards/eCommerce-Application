@@ -9,6 +9,8 @@ import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 import ProductPage from '@/pages/ProductPage';
 import CategoryPage from '@/pages/CategoryPage';
+import AboutPage from '@/pages/AboutPage';
+import CartPage from '@/pages/CartPage';
 
 const Router = () => {
   const customer: Customer | null = useSelector(
@@ -36,6 +38,11 @@ const Router = () => {
           <Route index element={<Navigate to='/home' replace />} />
           <Route path=':categoryId' element={<CategoryPage />} />
         </Route>
+
+        <Route path='/about' element={<AboutPage />} />
+
+        <Route path='/cart' element={<CartPage />} />
+
         <Route path='/home/shop' element={<ShopPage />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/home/all' element={<Home />} />

@@ -13,8 +13,7 @@ import {
   ProductProjectionPagedQueryResponse
 } from '@commercetools/platform-sdk';
 import {
-  setPriceRange,
-  setSelectedCategoryId
+  setPriceRange
 } from '@/entities/product/model/productsViewSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -49,7 +48,6 @@ const FiltersContainer = () => {
       const fetchedCategories = (result as { data: CategoryPagedQueryResponse })
         .data.results;
       dispatch(setCategories(fetchedCategories));
-      dispatch(setSelectedCategoryId(fetchedCategories[0].id));
 
       const sizes = new Map<string, number>();
       fetchedCategories.forEach(async (category: Category) => {

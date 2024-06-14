@@ -15,26 +15,26 @@ const AboutPage = () => {
   };
 
   return (
-      <div className={styles.pageWrapper}>
-        <h1 className={styles.title}>About us...</h1>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.title}>About us...</h1>
 
-        <div className={styles.navigation}>
-          <button
-            className={styles.navigation__back}
-            onClick={() => {
-              goBack();
-            }}>
-            Go back
-          </button>
-          <button
-            className={styles.navigation__home}
-            onClick={() => {
-              goHome();
-            }}>
-            Home
-          </button>
-        </div>
+      <div className={styles.navigation}>
+        <button
+          className={styles.navigation__back}
+          onClick={() => {
+            goBack();
+          }}>
+          Go back
+        </button>
+        <button
+          className={styles.navigation__home}
+          onClick={() => {
+            goHome();
+          }}>
+          Home
+        </button>
       </div>
+    </div>
   );
 };
 

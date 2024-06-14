@@ -12,9 +12,7 @@ import {
   ProductProjection,
   ProductProjectionPagedQueryResponse
 } from '@commercetools/platform-sdk';
-import {
-  setPriceRange
-} from '@/entities/product/model/productsViewSlice';
+import { setPriceRange } from '@/entities/product/model/productsViewSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/app/store';

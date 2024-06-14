@@ -15,26 +15,26 @@ const CartPage = () => {
   };
 
   return (
-      <div className={styles.pageWrapper}>
-        <h1 className={styles.title}>Cart checkout...</h1>
+    <div className={styles.pageWrapper}>
+      <h1 className={styles.title}>Cart checkout...</h1>
 
-        <div className={styles.navigation}>
-          <button
-            className={styles.navigation__back}
-            onClick={() => {
-              goBack();
-            }}>
-            Go back
-          </button>
-          <button
-            className={styles.navigation__home}
-            onClick={() => {
-              goHome();
-            }}>
-            Home
-          </button>
-        </div>
+      <div className={styles.navigation}>
+        <button
+          className={styles.navigation__back}
+          onClick={() => {
+            goBack();
+          }}>
+          Go back
+        </button>
+        <button
+          className={styles.navigation__home}
+          onClick={() => {
+            goHome();
+          }}>
+          Home
+        </button>
       </div>
+    </div>
   );
 };
 

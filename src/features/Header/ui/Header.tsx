@@ -30,7 +30,10 @@ const Header = ({ customer }: { customer: Customer | null }) => {
   return (
     <div className={styles.headerContainer}>
       <nav className={styles.nav}>
-        <Link to='/home' className={styles.homeLink} title='Green Shop home page'>
+        <Link
+          to='/home'
+          className={styles.homeLink}
+          title='Green Shop home page'>
           <img className={styles.logo} src={logo} alt='logo' />
           <span className={styles.logoText}>GREENSHOP</span>
         </Link>
@@ -39,7 +42,11 @@ const Header = ({ customer }: { customer: Customer | null }) => {
         <SearchBox />
       </div>
       <div className={styles.controlsWrapper}>
-        <Link className={styles.cartLink} to='/cart' title='Checkout' data-items-count={cartItemsCoutn || ''}>
+        <Link
+          className={styles.cartLink}
+          to='/cart'
+          title='Checkout'
+          data-items-count={cartItemsCoutn || ''}>
           <img className={styles.cartLogo} src={cartIcon} />
         </Link>
 

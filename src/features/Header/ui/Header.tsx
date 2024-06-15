@@ -29,7 +29,7 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  const cartItemsCoutn = 6;
+  const cartItemsCount = 1;
 
   return (
     <div className={styles.headerContainer}>
@@ -50,7 +50,7 @@ const Header = () => {
           className={styles.cartLink}
           to='/cart'
           title='Checkout'
-          data-items-count={cartItemsCoutn || ''}>
+          data-items-count={cartItemsCount > 99 ? '99+' : cartItemsCount || ''}>
           <img className={styles.cartLogo} src={cartIcon} />
         </Link>
 

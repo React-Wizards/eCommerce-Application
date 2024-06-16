@@ -5,8 +5,18 @@ import {
   defaultCurrencyCode,
   defaultLocale
 } from '@/shared/constants/settings';
+import Button from '@/shared/Button';
+import { Customer } from '@commercetools/platform-sdk';
+import { useAddProductToCartMutation } from '@/features/api/meApi';
+import { Cart } from '@commercetools/platform-sdk';
+import Loader from '@/shared/Loader';
+import { useState } from 'react';
 
-const ProductCard = (props: { product: ProductProjection }) => {
+const ProductCard = (props: {
+  product: ProductProjection;
+  customer: Customer | null;
+  cart: Cart | null;
+}) => {
   const currencySign: { [key: string]: string } = {
     EUR: '€',
     USD: '$',
@@ -33,7 +43,7 @@ const ProductCard = (props: { product: ProductProjection }) => {
     ).toFixed(priceValue.fractionDigits)}`;
   };
 
-  const description = props.product.description;
+  // const description = props.product.description;
 
   const discountPercentage = currencyPrice.discounted
     ? Math.round(
@@ -44,8 +54,28 @@ const ProductCard = (props: { product: ProductProjection }) => {
       )
     : 0;
 
+  const [addProductToCart, { isLoading }] = useAddProductToCartMutation();
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  const addToCart = async (selectedProductId: string): Promise<void> => {
+    if (props.cart) {
+      const productInCart = props.cart?.lineItems.filter(
+        (item) => item.productId === selectedProductId
+      );
+      if (productInCart.length === 0) {
+        await addProductToCart({
+          cartVersion: props.cart.version,
+          cartId: props.cart.id,
+          productId: selectedProductId,
+          quantity: 1
+        });
+      }
+    }
+  };
+
   return (
     <div className={styles.productCard}>
+      {isLoading ? <Loader /> : null}
       <Link to={`/product/${props.product.key}`}>
         <div className={styles.imageContainer}>
           <img
@@ -60,9 +90,9 @@ const ProductCard = (props: { product: ProductProjection }) => {
         <div className={styles.productName}>
           {props.product.name[defaultLocale]}
         </div>
-        <div className={styles.productDescription}>
+        {/* <div className={styles.productDescription}>
           {description ? description[defaultLocale] : null}
-        </div>
+        </div> */}
         <div className={styles.productPrice}>
           <div className={styles.actualPrice}>
             {currencyPrice.discounted
@@ -76,6 +106,32 @@ const ProductCard = (props: { product: ProductProjection }) => {
           </div>
         </div>
       </Link>
+      {props.customer && (
+        <Button
+          text={
+            !isClicked &&
+            props.cart?.lineItems.filter(
+              (item) => item.productId === props.product.id
+            ).length === 0
+              ? 'Add to cart'
+              : 'Added to cart'
+          }
+          disabled={
+            isClicked ||
+            !(
+              props.cart?.lineItems.filter(
+                (item) => item.productId === props.product.id
+              ).length === 0
+            )
+              ? true
+              : false
+          }
+          callback={() => {
+            setIsClicked(true);
+            addToCart(props.product.id);
+          }}
+        />
+      )}
     </div>
   );
 };

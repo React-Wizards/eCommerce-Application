@@ -23,7 +23,7 @@ const Home = () => {
           <FiltersContainer />
         </div>
         <div className={styles.productsWrapper}>
-          <ProductsContainer searchText={searchText} />
+          <ProductsContainer searchText={searchText} customer={customer} />
         </div>
       </main>
     </div>

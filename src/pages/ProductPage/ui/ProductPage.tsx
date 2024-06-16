@@ -9,6 +9,13 @@ import ProductDetails from '@/widgets/ProductDetails';
 import { useGetProductByKeyMutation } from '@/features/api/appApi';
 import Loader from '@/shared/Loader';
 import Header from '@/features/Header';
+import { setCart } from '@/entities/cart';
+import { Cart } from '@commercetools/platform-sdk';
+import {
+  useGetActiveCartMutation,
+  useCreateActiveCartMutation
+} from '@/features/api/meApi';
+import { useDispatch } from 'react-redux';
 
 const ProductPage = () => {
   const { productKey } = useParams();
@@ -22,6 +29,10 @@ const ProductPage = () => {
   const [requestProduct, { isLoading }] = useGetProductByKeyMutation();
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const [requestCart] = useGetActiveCartMutation();
+  const [createCart] = useCreateActiveCartMutation();
 
   useEffect(() => {
     async function fetchData() {
@@ -44,7 +55,21 @@ const ProductPage = () => {
     } else {
       fetchData();
     }
-  }, [navigate, productKey, products, requestProduct]);
+
+    async function fetchActiveCart() {
+      try {
+        const activeCart: Cart = await requestCart().unwrap();
+        dispatch(setCart(activeCart));
+      } catch (error: unknown) {
+        if (error && error.status === 404) {
+          const newCart: Cart = await createCart().unwrap();
+          dispatch(setCart(newCart));
+        }
+      }
+    }
+
+    fetchActiveCart();
+  }, [navigate, productKey, products, requestProduct, requestCart, createCart]);
 
   if (!product || isLoading) {
     return <Loader />;
@@ -53,7 +78,7 @@ const ProductPage = () => {
   return (
     <div className={homeStyles.container}>
       <Header customer={customer} />
-      <Breadcrumbs product={product} />
+      <Breadcrumbs />
       <ProductDetails product={product} />
     </div>
   );

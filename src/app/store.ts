@@ -6,23 +6,8 @@ import { authApi } from '@/features/api/authApi';
 import { productsReducer, productsViewReducer } from '@/entities/product';
 import { categoriesReducer } from '@/entities/category';
 import { meApi } from '@/features/api/meApi';
-
-const rootReducer = combineReducers({
-  customer: customerReducer,
-  categories: categoriesReducer,
-  products: productsReducer,
-  productsView: productsViewReducer,
-  [appApi.reducerPath]: appApi.reducer,
-  [authApi.reducerPath]: authApi.reducer,
-  [meApi.reducerPath]: meApi.reducer
-});
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { appApi } from '@/features/api/appApi';
-import { authApi } from '@/features/api/authApi';
-import { productsReducer, productsViewReducer } from '@/entities/product';
-import { categoriesReducer } from '@/entities/category';
 import { selectedProductReducer } from '@/entities/selectedProduct';
-import { meApi } from '@/features/api/meApi';
+import { cartReducer } from '@/entities/cart';
 
 const rootReducer = combineReducers({
   customer: customerReducer,
@@ -30,6 +15,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   productsView: productsViewReducer,
   selectedProduct: selectedProductReducer,
+  cart: cartReducer,
   [appApi.reducerPath]: appApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer

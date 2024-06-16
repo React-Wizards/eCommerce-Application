@@ -13,8 +13,18 @@ import {
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
 import Loader from '@/shared/Loader';
+import { Customer } from '@commercetools/platform-sdk';
+import { setCart } from '@/entities/cart';
+import { Cart } from '@commercetools/platform-sdk';
+import {
+  useGetActiveCartMutation,
+  useCreateActiveCartMutation
+} from '@/features/api/meApi';
 
-const ProductsContainer = (props: { searchText: string }) => {
+const ProductsContainer = (props: {
+  searchText: string;
+  customer: Customer | null;
+}) => {
   const currentPage = useAppSelector((state) => state.productsView.currentPage);
   const pageSize = useAppSelector((state) => state.productsView.pageSize);
   const totalItemsCount = useAppSelector(
@@ -35,6 +45,10 @@ const ProductsContainer = (props: { searchText: string }) => {
     dispatch(setCurrentPage(p));
   };
 
+  const cart = useAppSelector((state) => state.cart.cart);
+  const [requestCart] = useGetActiveCartMutation();
+  const [createCart] = useCreateActiveCartMutation();
+
   useEffect(() => {
     async function fetchData() {
       const result: ProductProjectionPagedQueryResponse = await requestProducts(
@@ -52,6 +66,20 @@ const ProductsContainer = (props: { searchText: string }) => {
       dispatch(setTotalItemsCount(result.total || 0));
     }
     fetchData();
+
+    async function fetchActiveCart() {
+      try {
+        const activeCart: Cart = await requestCart().unwrap();
+        dispatch(setCart(activeCart));
+      } catch (error: unknown) {
+        if (error && error.status === 404) {
+          const newCart: Cart = await createCart().unwrap();
+          dispatch(setCart(newCart));
+        }
+      }
+    }
+
+    fetchActiveCart();
   }, [
     selectedCategory,
     currentPage,
@@ -61,14 +89,21 @@ const ProductsContainer = (props: { searchText: string }) => {
     pageSize,
     priceRange,
     sizes,
-    dispatch
+    dispatch,
+    requestCart,
+    createCart
   ]);
+
+  console.log(cart);
 
   return (
     <div className={styles.productsContainer}>
       {isLoading ? <Loader /> : null}
       <ProdViewControls />
-      <ProductsList products={products}></ProductsList>
+      <ProductsList
+        products={products}
+        customer={props.customer}
+        cart={cart}></ProductsList>
       <ProdPaginator
         currentPage={currentPage}
         totalItemsCount={totalItemsCount}

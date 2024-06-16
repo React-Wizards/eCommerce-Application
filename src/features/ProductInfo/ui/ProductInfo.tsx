@@ -16,6 +16,8 @@ import { useGetCategoriesMutation } from '@/features/api/appApi';
 import { Link } from 'react-router-dom';
 import { setCategories } from '@/entities/category';
 import { useDispatch } from 'react-redux';
+import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
+import Button from '@/shared/Button';
 
 const ProductInfo = (props: { product: ProductProjection }) => {
   const dispatch = useDispatch();
@@ -24,6 +26,17 @@ const ProductInfo = (props: { product: ProductProjection }) => {
   const [productCategories, setProductCategories] = useState<Category[]>([]);
   const currencyPrice = getPriceFromProduct(props.product, defaultCurrencyCode);
   const [selectedSize, setSelectedSize] = useState('');
+
+  const cart = useAppSelector((state) => state.cart.cart);
+  const [isInCart, setIsInCart] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [lineItemId, setLineItemId] = useState<string>('');
+  const [lineItemQuantity, setLineItemQuantity] = useState<number>(0);
+  const [removeFromCart] = useDeleteProductFromCartMutation();
+
+  const productInCart = cart?.lineItems.filter(
+    (item) => item.productId === props.product.id
+  );
 
   useEffect(() => {
     setSelectedSize(
@@ -45,10 +58,38 @@ const ProductInfo = (props: { product: ProductProjection }) => {
           .then((cats) => dispatch(setCategories(cats.results)));
       }
     }
-  }, [props, categories, requestCategories, dispatch]);
+
+    if (productInCart?.length) {
+      setIsInCart(true);
+      setLineItemId(productInCart[0].id);
+      setLineItemQuantity(productInCart[0].quantity);
+    } else {
+      setIsInCart(false);
+    }
+  }, [
+    props,
+    categories,
+    requestCategories,
+    dispatch,
+    cart,
+    isInCart,
+    lineItemId,
+    lineItemQuantity
+  ]);
 
   const onSizeSelectHandler = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     setSelectedSize(e.currentTarget.id);
+  };
+
+  const removeProduct = async (): Promise<void> => {
+    if (cart) {
+      await removeFromCart({
+        cartVersion: cart.version,
+        cartId: cart.id,
+        lineItemId: lineItemId,
+        lineItemQuantity: lineItemQuantity
+      }).unwrap();
+    }
   };
 
   return (
@@ -156,6 +197,16 @@ const ProductInfo = (props: { product: ProductProjection }) => {
             : null}
         </span>
       </div>
+      {isInCart && (
+        <Button
+          text='Remove from Cart'
+          disabled={isClicked ? true : false}
+          callback={() => {
+            setIsClicked(true);
+            removeProduct();
+          }}
+        />
+      )}
     </div>
   );
 };

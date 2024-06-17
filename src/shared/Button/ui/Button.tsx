@@ -17,7 +17,9 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={styles['btn']}
+      className={
+        disabled ? `${styles['btn-disabled']} ${styles['btn']}` : styles['btn']
+      }
       type={submit ? 'submit' : 'button'}
       onClick={callback}
       disabled={disabled}

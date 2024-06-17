@@ -11,6 +11,10 @@ import {
   setCurrentPage,
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
+import {
+  useGetActiveCartMutation,
+  useCreateActiveCartMutation
+} from '@/features/api/meApi';
 import Loader from '@/shared/Loader';
 import styles from './ProductsContainer.module.scss';
 
@@ -38,6 +42,10 @@ const ProductsContainer = () => {
     dispatch(setCurrentPage(p));
   };
 
+  const cart = useAppSelector((state) => state.cart.cart);
+  const [requestCart] = useGetActiveCartMutation();
+  const [createCart] = useCreateActiveCartMutation();
+
   useEffect(() => {
     async function fetchData() {
       const result: ProductProjectionPagedQueryResponse = await requestProducts(
@@ -55,6 +63,20 @@ const ProductsContainer = () => {
       dispatch(setTotalItemsCount(result.total || 0));
     }
     fetchData();
+
+    async function fetchActiveCart() {
+      try {
+        const activeCart: Cart = await requestCart().unwrap();
+        dispatch(setCart(activeCart));
+      } catch (error: unknown) {
+        if (error && error.status === 404) {
+          const newCart: Cart = await createCart().unwrap();
+          dispatch(setCart(newCart));
+        }
+      }
+    }
+
+    fetchActiveCart();
   }, [
     selectedCategory,
     currentPage,
@@ -64,14 +86,21 @@ const ProductsContainer = () => {
     pageSize,
     priceRange,
     sizes,
-    dispatch
+    dispatch,
+    requestCart,
+    createCart
   ]);
+
+  console.log(cart);
 
   return (
     <div className={styles.productsContainer}>
       {isLoading ? <Loader /> : null}
       <ProdViewControls />
-      <ProductsList products={products}></ProductsList>
+      <ProductsList
+        products={products}
+        customer={props.customer}
+        cart={cart}></ProductsList>
       <ProdPaginator
         currentPage={currentPage}
         totalItemsCount={totalItemsCount}

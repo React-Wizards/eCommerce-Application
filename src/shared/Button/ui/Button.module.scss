@@ -5,3 +5,7 @@
     @apply min-h-[60px] rounded-[10px] text-[20px];
   }
 }
+
+.btn-disabled {
+  @apply bg-[#46A358]/[0.5];
+}

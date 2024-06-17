@@ -62,8 +62,85 @@ export const meApi = createApi({
       query: () => {
         return { url: '/active-cart', method: 'GET' };
       }
+    }),
+    createActiveCart: builder.mutation<Cart, void>({
+      query: () => {
+        return {
+          url: '/carts',
+          method: 'POST',
+          body: {
+            currency: 'USD'
+          }
+        };
+      }
+    }),
+    addProductToCart: builder.mutation<
+      Cart,
+      {
+        cartId: string | undefined;
+        cartVersion: number | undefined;
+        productId: string;
+        quantity: number;
+      }
+    >({
+      query: ({ cartVersion, cartId, productId }) => {
+        return {
+          url: `/carts/${cartId}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {
+            version: cartVersion,
+            actions: [
+              {
+                action: 'addLineItem',
+                productId,
+                variantId: 1,
+                quantity: 1
+              }
+            ]
+          }
+        };
+      }
+    }),
+    deleteProductFromCart: builder.mutation<
+      Cart,
+      {
+        cartId: string;
+        cartVersion: number;
+        lineItemId: string;
+        lineItemQuantity: number;
+      }
+    >({
+      query: ({ cartVersion, cartId, lineItemId, lineItemQuantity }) => {
+        return {
+          url: `/carts/${cartId}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {
+            version: cartVersion,
+            actions: [
+              {
+                action: 'removeLineItem',
+                lineItemId,
+                variantId: 1,
+                quantity: lineItemQuantity
+              }
+            ]
+          }
+        };
+      }
     })
   })
 });
 
-export const { useGetProfileMutation, useGetActiveCartMutation } = meApi;
+export const {
+  useGetProfileMutation,
+  useGetActiveCartMutation,
+  useCreateActiveCartMutation,
+  useAddProductToCartMutation,
+  useDeleteProductFromCartMutation
+} = meApi;

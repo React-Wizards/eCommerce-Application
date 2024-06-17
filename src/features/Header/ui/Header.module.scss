@@ -26,7 +26,7 @@
 .logoText {
   @apply text-[15px] text-[#46A358] font-["Cera_Pro_Bold"];
 
-  @media (max-width: 967px) {
+  @media (max-width: 888px) {
     @apply hidden;
   }
 }
@@ -35,10 +35,17 @@
   @apply flex items-center gap-2;
 }
 
+.page-links {
+  @apply flex justify-between gap-12;
+  @media (max-width: 640px) {
+    @apply hidden;
+  }
+}
+
 .headerControls {
   @apply flex justify-end items-center;
 
-  @media (max-width: 665px) {
+  @media (max-width: 599px) {
     @apply hidden;
   }
 }
@@ -50,19 +57,21 @@
     @apply bg-[#46A358] bg-opacity-50;
   }
 
-  @media (max-width: 665px) {
+  @media (max-width: 549px) {
     @apply hidden;
   }
 
   & > .btnLogo {
-    @apply h-9 px-2 py-1;
-    @media (min-width: 967px) {
+    @apply h-6 px-2;
+
+    @media (min-width: 767px) {
       @apply hidden;
     }
   }
 
   & > .btnText {
     @apply min-h-9 max-w-32 flex justify-center items-center;
+
     @media (max-width: 967px) {
       @apply hidden;
     }
@@ -77,15 +86,15 @@
     @apply scale-105;
   }
 
-  @media (min-width: 968px) {
+  @media (min-width: 768px) {
     @apply w-28;
   }
 
-  @media (max-width: 665px) {
+  @media (max-width: 549px) {
     @apply hidden;
   }
 
-  @media (max-width: 967px) {
+  @media (max-width: 767px) {
     & > .btnLogo {
       @apply h-6 px-2;
     }
@@ -99,7 +108,7 @@
 .burger-icon {
   @apply w-[40px] h-[40px];
 
-  @media (min-width: 666px) {
+  @media (min-width: 600px) {
     @apply hidden;
   }
 }
@@ -146,7 +155,7 @@
 }
 
 .searchBox {
-  @media (max-width: 665px) {
+  @media (max-width: 480px) {
     @apply hidden;
   }
 }

@@ -100,8 +100,6 @@ const ProductsContainer = () => {
     createCart
   ]);
 
-  console.log(cart);
-
   return (
     <div className={styles.productsContainer}>
       {isLoading ? <Loader /> : null}

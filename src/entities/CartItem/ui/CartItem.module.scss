@@ -1,0 +1,25 @@
+.wrapper {
+  @apply flex items-center gap-3;
+}
+
+.info {
+  @apply flex flex-col overflow-hidden text-ellipsis text-left;
+}
+
+.button {
+  @apply w-6 aspect-square bg-green-600 rounded-3xl select-none text-white;
+}
+
+.quantity {
+  @apply px-2;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}

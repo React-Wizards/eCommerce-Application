@@ -1,11 +1,9 @@
 import { Cart, ProductProjection } from '@commercetools/platform-sdk';
 import styles from './ProductsList.module.scss';
 import ProductCard from '@/widgets/ProductCard';
-import { Customer } from '@commercetools/platform-sdk';
 
 const ProductsList = (props: {
   products: Array<ProductProjection>;
-  customer: Customer | null;
   cart: Cart | null;
 }) => {
   return (
@@ -16,7 +14,6 @@ const ProductsList = (props: {
             <ProductCard
               key={product.id}
               product={product}
-              customer={props.customer}
               cart={props.cart}></ProductCard>
           );
         })

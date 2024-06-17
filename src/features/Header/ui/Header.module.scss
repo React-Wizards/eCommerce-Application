@@ -1,5 +1,5 @@
 .headerContainer {
-  @apply mx-auto px-10 pt-6 max-w-[1200px] flex justify-between border-b-[1px] border-[#46A358]/[0.5] pb-[20px];
+  @apply flex justify-between mb-8 border-b-[1px] border-[#46A358]/[0.5] pb-4;
 }
 
 .nav {
@@ -172,22 +172,8 @@
   }
 
   &:not([data-items-count=''])::after {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    top: 0px;
-    right: -6px;
-    z-index: 10;
+    @apply absolute min-w-[70%] aspect-square -top-1 -right-3 z-10 flex justify-center items-center text-white text-[0.625rem] bg-[#46a358] rounded-full;
     content: attr(data-items-count);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 10px;
-    background-color: #46a358;
-    border: 2px solid white;
-    border-radius: 50%;
-    box-sizing: content-box;
   }
 }
 

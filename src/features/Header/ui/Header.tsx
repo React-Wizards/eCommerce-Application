@@ -1,5 +1,6 @@
+import type { RootState } from '@/app/store';
+import type { Customer } from '@commercetools/platform-sdk';
 import { Link } from 'react-router-dom';
-import { Customer } from '@commercetools/platform-sdk';
 import { logout } from '@/entities/customer';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -14,17 +15,21 @@ import profileIcon from '@/shared/assets/img/profile-icon.svg';
 import infoIcon from '@/shared/assets/img/info.svg';
 import cartIcon from '@/shared/assets/img/cart.svg';
 import FiltersContainer from '@/widgets/FiltersContainer';
+import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 
-const Header = ({ customer }: { customer: Customer | null }) => {
+const Header = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const customer: Customer | null = useSelector<RootState, Customer | null>(
+    (store: RootState) => store.customer.user
+  );
 
   const toggleBurgerMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const cartItemsCoutn = 6;
+  const cartItemsCount = 1;
 
   return (
     <div className={styles.headerContainer}>
@@ -45,7 +50,7 @@ const Header = ({ customer }: { customer: Customer | null }) => {
           className={styles.cartLink}
           to='/cart'
           title='Checkout'
-          data-items-count={cartItemsCoutn || ''}>
+          data-items-count={cartItemsCount > 99 ? '99+' : cartItemsCount || ''}>
           <img className={styles.cartLogo} src={cartIcon} />
         </Link>
 

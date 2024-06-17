@@ -1,36 +1,37 @@
 import ProdViewControls from '@/widgets/ProdViewControls';
-import styles from './ProductsContainer.module.scss';
 import ProductsList from '@/widgets/ProductsList';
 import ProdPaginator from '@/widgets/ProdPaginator';
 import { useGetProductsByCategoryIdMutation } from '@/features/api/appApi';
-import { useAppSelector } from '@/app/store';
+import { type RootState, useAppSelector } from '@/app/store';
 import { setProducts } from '@/entities/product';
-import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
+import {
+  Cart,
+  ProductProjectionPagedQueryResponse
+} from '@commercetools/platform-sdk';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
   setCurrentPage,
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
-import Loader from '@/shared/Loader';
-import { Customer } from '@commercetools/platform-sdk';
-import { setCart } from '@/entities/cart';
-import { Cart } from '@commercetools/platform-sdk';
 import {
   useGetActiveCartMutation,
   useCreateActiveCartMutation
 } from '@/features/api/meApi';
+import Loader from '@/shared/Loader';
+import styles from './ProductsContainer.module.scss';
+import { setCart } from '@/entities/cart';
 
-const ProductsContainer = (props: {
-  searchText: string;
-  customer: Customer | null;
-}) => {
+const ProductsContainer = () => {
   const currentPage = useAppSelector((state) => state.productsView.currentPage);
   const pageSize = useAppSelector((state) => state.productsView.pageSize);
   const totalItemsCount = useAppSelector(
     (state) => state.productsView.totalItemsCount
   );
   const sortOption = useAppSelector((state) => state.productsView.sortOption);
+  const searchText: string = useAppSelector<RootState, string>(
+    (state: RootState): string => state.productsView.searchText
+  );
 
   const dispatch = useDispatch();
   const products = useAppSelector((state) => state.products.products);
@@ -57,7 +58,7 @@ const ProductsContainer = (props: {
           pageSize,
           currentPage,
           sortOption,
-          searchText: props.searchText,
+          searchText,
           priceRange,
           sizes
         }
@@ -72,7 +73,12 @@ const ProductsContainer = (props: {
         const activeCart: Cart = await requestCart().unwrap();
         dispatch(setCart(activeCart));
       } catch (error: unknown) {
-        if (error && error.status === 404) {
+        if (
+          typeof error === 'object' &&
+          error &&
+          'status' in error &&
+          error.status === 404
+        ) {
           const newCart: Cart = await createCart().unwrap();
           dispatch(setCart(newCart));
         }
@@ -84,7 +90,7 @@ const ProductsContainer = (props: {
     selectedCategory,
     currentPage,
     sortOption,
-    props.searchText,
+    searchText,
     requestProducts,
     pageSize,
     priceRange,
@@ -100,10 +106,7 @@ const ProductsContainer = (props: {
     <div className={styles.productsContainer}>
       {isLoading ? <Loader /> : null}
       <ProdViewControls />
-      <ProductsList
-        products={products}
-        customer={props.customer}
-        cart={cart}></ProductsList>
+      <ProductsList products={products} cart={cart}></ProductsList>
       <ProdPaginator
         currentPage={currentPage}
         totalItemsCount={totalItemsCount}

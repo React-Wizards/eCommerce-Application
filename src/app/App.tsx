@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '@/entities/customer';
 import { useGetProfileMutation } from '@/features/api/meApi';
 import { useEffect } from 'react';
+import Container from '@/shared/Container';
 
 const App = () => {
   const tokenStorage = new TokenStorage('ecom');
@@ -23,7 +24,11 @@ const App = () => {
     fetchData();
   }, []);
 
-  return <Router />;
+  return (
+    <Container>
+      <Router />
+    </Container>
+  );
 };
 
 export default App;

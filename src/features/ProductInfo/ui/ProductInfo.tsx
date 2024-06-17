@@ -16,6 +16,8 @@ import { useGetCategoriesMutation } from '@/features/api/appApi';
 import { Link } from 'react-router-dom';
 import { setCategories } from '@/entities/category';
 import { useDispatch } from 'react-redux';
+import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
+import Button from '@/shared/Button';
 
 interface IProps {
   product: ProductProjection;

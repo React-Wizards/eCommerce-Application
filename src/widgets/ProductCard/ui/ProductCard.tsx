@@ -6,17 +6,22 @@ import {
   defaultLocale
 } from '@/shared/constants/settings';
 import Button from '@/shared/Button';
-import { Customer } from '@commercetools/platform-sdk';
+import type { Customer } from '@commercetools/platform-sdk';
 import { useAddProductToCartMutation } from '@/features/api/meApi';
 import { Cart } from '@commercetools/platform-sdk';
 import Loader from '@/shared/Loader';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/app/store';
 
 const ProductCard = (props: {
   product: ProductProjection;
-  customer: Customer | null;
   cart: Cart | null;
 }) => {
+  const customer: Customer | null = useSelector<RootState, Customer | null>(
+    (store: RootState) => store.customer.user
+  );
+
   const currencySign: { [key: string]: string } = {
     EUR: '€',
     USD: '$',
@@ -106,7 +111,7 @@ const ProductCard = (props: {
           </div>
         </div>
       </Link>
-      {props.customer && (
+      {customer && (
         <Button
           text={
             !isClicked &&

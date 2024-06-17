@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import burgerMenuIcon from '@/shared/assets/img/burger-menu-icon.svg';
 import SearchBox from '@/widgets/SearchBox';
-
-import styles from './Header.module.scss';
 import { FaTimes } from 'react-icons/fa';
 import logo from '@/shared/assets/img/logo-horiz.svg';
 import loginIcon from '@/shared/assets/img/login-icon.svg';
@@ -16,6 +14,7 @@ import profileIcon from '@/shared/assets/img/profile-icon.svg';
 import infoIcon from '@/shared/assets/img/info.svg';
 import cartIcon from '@/shared/assets/img/cart.svg';
 import FiltersContainer from '@/widgets/FiltersContainer';
+import styles from './Header.module.scss';
 
 const Header = ({ customer }: { customer: Customer | null }) => {
   const dispatch = useDispatch();

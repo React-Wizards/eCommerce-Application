@@ -7,6 +7,7 @@ import { productsReducer, productsViewReducer } from '@/entities/product';
 import { categoriesReducer } from '@/entities/category';
 import { meApi } from '@/features/api/meApi';
 import { selectedProductReducer } from '@/entities/selectedProduct';
+import { cartReducer } from '@/entities/cart';
 
 const rootReducer = combineReducers({
   customer: customerReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   productsView: productsViewReducer,
   selectedProduct: selectedProductReducer,
+  cart: cartReducer,
   [appApi.reducerPath]: appApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer

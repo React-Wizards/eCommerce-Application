@@ -9,7 +9,6 @@ import getAppToken from '@/shared/api/accessToken';
 import { RootState } from '@/app/store';
 import { setCategories } from '@/entities/category/model/categorySlice';
 import { env } from '@/shared/constants';
-import FiltersContainer from '@/widgets/FiltersContainer';
 
 interface CategoryResponse {
   results: Category[];
@@ -84,7 +83,6 @@ const Categories = () => {
           ))}
         </ul>
       </div>
-      <FiltersContainer />
     </aside>
   );
 };

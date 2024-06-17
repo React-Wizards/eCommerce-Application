@@ -14,7 +14,6 @@ import registerIcon from '@/shared/assets/img/register-icon.svg';
 import profileIcon from '@/shared/assets/img/profile-icon.svg';
 import infoIcon from '@/shared/assets/img/info.svg';
 import cartIcon from '@/shared/assets/img/cart.svg';
-import FiltersContainer from '@/widgets/FiltersContainer';
 import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 
@@ -149,10 +148,6 @@ const Header = () => {
           </div>
           <div className={styles.searchBox}>
             <SearchBox />
-          </div>
-
-          <div className={styles.filterBox}>
-            <FiltersContainer />
           </div>
         </div>
       )}

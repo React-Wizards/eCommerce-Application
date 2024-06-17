@@ -1,5 +1,5 @@
 import type { RootState } from '@/app/store';
-import type { Customer } from '@commercetools/platform-sdk';
+import type { Cart, Customer } from '@commercetools/platform-sdk';
 import { Link } from 'react-router-dom';
 import { logout } from '@/entities/customer';
 import { useDispatch } from 'react-redux';
@@ -18,17 +18,18 @@ import { useSelector } from 'react-redux';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const customer: Customer | null = useSelector<RootState, Customer | null>(
     (store: RootState) => store.customer.user
   );
-
+  const cart: Cart | null = useSelector<RootState, Cart | null>(
+    (store: RootState): Cart | null => store.cart.cart
+  );
+  const cartItemsCount: number = cart?.totalLineItemQuantity || 0;
   const toggleBurgerMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  const cartItemsCount = 1;
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.headerContainer}>

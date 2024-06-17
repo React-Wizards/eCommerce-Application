@@ -12,14 +12,14 @@ import { Cart } from '@commercetools/platform-sdk';
 import Loader from '@/shared/Loader';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import type { RootState } from '@/app/store';
+import { useAppSelector, type RootState } from '@/app/store';
 
-const ProductCard = (props: {
-  product: ProductProjection;
-  cart: Cart | null;
-}) => {
+const ProductCard = ({ product }: { product: ProductProjection }) => {
   const customer: Customer | null = useSelector<RootState, Customer | null>(
     (store: RootState) => store.customer.user
+  );
+  const cart: Cart | null = useAppSelector<RootState, Cart | null>(
+    (state: RootState): Cart | null => state.cart.cart
   );
 
   const currencySign: { [key: string]: string } = {
@@ -28,7 +28,7 @@ const ProductCard = (props: {
     RUB: '₽'
   };
 
-  const prices = props.product.masterVariant.prices as Price[];
+  const prices = product.masterVariant.prices as Price[];
 
   const currencyPrice: Price = prices.filter(
     (price: Price) => price.value.currencyCode == defaultCurrencyCode
@@ -48,8 +48,6 @@ const ProductCard = (props: {
     ).toFixed(priceValue.fractionDigits)}`;
   };
 
-  // const description = props.product.description;
-
   const discountPercentage = currencyPrice.discounted
     ? Math.round(
         ((currencyPrice.value.centAmount -
@@ -63,14 +61,14 @@ const ProductCard = (props: {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const addToCart = async (selectedProductId: string): Promise<void> => {
-    if (props.cart) {
-      const productInCart = props.cart?.lineItems.filter(
+    if (cart) {
+      const productInCart = cart?.lineItems.filter(
         (item) => item.productId === selectedProductId
       );
       if (productInCart.length === 0) {
         await addProductToCart({
-          cartVersion: props.cart.version,
-          cartId: props.cart.id,
+          cartVersion: cart.version,
+          cartId: cart.id,
           productId: selectedProductId,
           quantity: 1
         });
@@ -81,23 +79,18 @@ const ProductCard = (props: {
   return (
     <div className={styles.productCard}>
       {isLoading ? <Loader /> : null}
-      <Link to={`/product/${props.product.key}`}>
+      <Link to={`/product/${product.key}`}>
         <div className={styles.imageContainer}>
           <img
             alt='product image'
             className={styles.productImage}
-            src={(props.product.masterVariant.images as Image[])[0].url}></img>
+            src={(product.masterVariant.images as Image[])[0].url}></img>
           {discountPercentage ? (
             <div
               className={styles.discount}>{`${discountPercentage}% off`}</div>
           ) : null}
         </div>
-        <div className={styles.productName}>
-          {props.product.name[defaultLocale]}
-        </div>
-        {/* <div className={styles.productDescription}>
-          {description ? description[defaultLocale] : null}
-        </div> */}
+        <div className={styles.productName}>{product.name[defaultLocale]}</div>
         <div className={styles.productPrice}>
           <div className={styles.actualPrice}>
             {currencyPrice.discounted
@@ -115,25 +108,23 @@ const ProductCard = (props: {
         <Button
           text={
             !isClicked &&
-            props.cart?.lineItems.filter(
-              (item) => item.productId === props.product.id
-            ).length === 0
+            cart?.lineItems.filter((item) => item.productId === product.id)
+              .length === 0
               ? 'Add to cart'
               : 'Added to cart'
           }
           disabled={
             isClicked ||
             !(
-              props.cart?.lineItems.filter(
-                (item) => item.productId === props.product.id
-              ).length === 0
+              cart?.lineItems.filter((item) => item.productId === product.id)
+                .length === 0
             )
               ? true
               : false
           }
           callback={() => {
             setIsClicked(true);
-            addToCart(props.product.id);
+            addToCart(product.id);
           }}
         />
       )}

@@ -1,5 +1,5 @@
 import type { RootState } from './store';
-import type { Customer } from '@commercetools/platform-sdk';
+import type { Category, Customer } from '@commercetools/platform-sdk';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LoginPage from '@/pages/LoginPage';
@@ -9,13 +9,15 @@ import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 import ProductPage from '@/pages/ProductPage';
 import CategoryPage from '@/pages/CategoryPage';
+import AboutPage from '@/pages/AboutPage';
+import CartPage from '@/pages/CartPage';
 
 const Router = () => {
   const customer: Customer | null = useSelector(
     (store: RootState): Customer | null => store.customer.user
   );
-  const categories = useSelector(
-    (state: RootState) => state.categories.categories
+  const categories: Category[] = useSelector<RootState, Category[]>(
+    (state: RootState): Category[] => state.categories.categories
   );
   return (
     <BrowserRouter>
@@ -36,11 +38,13 @@ const Router = () => {
           <Route index element={<Navigate to='/home' replace />} />
           <Route path=':categoryId' element={<CategoryPage />} />
         </Route>
+        <Route path='/about' element={<AboutPage />} />
+        <Route path='/cart' element={<CartPage />} />
         <Route path='/home/shop' element={<ShopPage />} />
         <Route path='*' element={<NotFound />} />
         <Route path='/home/all' element={<Home />} />
         <Route path='/home/category' element={<Home />} />
-        {categories.map((category) => (
+        {categories.map((category: Category) => (
           <Route
             path={'/home/category/' + category.slug['en-US']}
             key={category.id}

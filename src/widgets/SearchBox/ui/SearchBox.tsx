@@ -85,7 +85,8 @@ const SearchBox = () => {
       <button
         type='submit'
         className={styles.searchButton}
-        disabled={!searchForm.isFormValid}>
+        disabled={!searchForm.isFormValid}
+        title='Search produt'>
         <svg
           width='21'
           height='20'

@@ -63,13 +63,16 @@
 
   & > .btnLogo {
     @apply h-6 px-2;
+
     @media (min-width: 767px) {
       @apply hidden;
     }
   }
 
-  @media (max-width: 767px) {
-    & > .btnText {
+  & > .btnText {
+    @apply min-h-9 max-w-32 flex justify-center items-center;
+
+    @media (max-width: 967px) {
       @apply hidden;
     }
   }
@@ -148,11 +151,58 @@
 }
 
 .close-btn {
-  @apply p-2 h-auto w-auto absolute top-4 right-[45px] text-[#46A358] cursor-pointer;
+  @apply p-2 h-auto w-auto absolute top-4 right-[90px] text-[#46A358] cursor-pointer;
 }
 
 .searchBox {
   @media (max-width: 480px) {
     @apply hidden;
   }
+}
+
+.controlsWrapper {
+  @apply flex items-center;
+}
+
+.cartLink {
+  @apply mr-2 relative;
+
+  &:hover {
+    @apply scale-105;
+  }
+
+  &:not([data-items-count=''])::after {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 0px;
+    right: -6px;
+    z-index: 10;
+    content: attr(data-items-count);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
+    background-color: #46a358;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+}
+
+.cartLogo {
+  @apply h-[26px] w-[26px];
+}
+
+.aboutLink {
+  @apply ml-1;
+
+  &:hover {
+    @apply scale-105;
+  }
+}
+
+.aboutLogo {
+  @apply h-[40px] w-[40px];
 }

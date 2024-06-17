@@ -23,7 +23,10 @@ const ProductPage = () => {
     (store: RootState): Customer | null => store.customer.user
   );
 
-  const products = useAppSelector((state) => state.products.products);
+  const products: ProductProjection[] = useAppSelector<
+    RootState,
+    ProductProjection[]
+  >((state: RootState): ProductProjection[] => state.products.products);
   const [product, setProduct] = useState<ProductProjection>();
 
   const [requestProduct, { isLoading }] = useGetProductByKeyMutation();

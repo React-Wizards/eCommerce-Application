@@ -4,7 +4,11 @@ import ProductModal from '@/features/ProductModal';
 import ImgCarousel from '@/features/ImgCarousel';
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-const ProductSlider = (props: { product: ProductProjection }) => {
+interface IProps {
+  product: ProductProjection;
+}
+
+const ProductSlider = (props: IProps) => {
   const [currentImg, setCurrentImage] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 

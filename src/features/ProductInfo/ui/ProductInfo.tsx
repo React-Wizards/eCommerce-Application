@@ -16,17 +16,18 @@ import { useGetCategoriesMutation } from '@/features/api/appApi';
 import { Link } from 'react-router-dom';
 import { setCategories } from '@/entities/category';
 import { useDispatch } from 'react-redux';
-import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
-import Button from '@/shared/Button';
 
-const ProductInfo = (props: { product: ProductProjection }) => {
+interface IProps {
+  product: ProductProjection;
+}
+
+const ProductInfo = (props: IProps) => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
   const [requestCategories] = useGetCategoriesMutation();
   const [productCategories, setProductCategories] = useState<Category[]>([]);
   const currencyPrice = getPriceFromProduct(props.product, defaultCurrencyCode);
   const [selectedSize, setSelectedSize] = useState('');
-
   const cart = useAppSelector((state) => state.cart.cart);
   const [isInCart, setIsInCart] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);

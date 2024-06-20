@@ -1,0 +1,7 @@
+.wrapper {
+  @apply flex flex-col gap-1;
+}
+
+.title {
+  @apply font-cera-pro-bold text-[1.125rem] leading-4 text-[#3D3D3D] mb-2;
+}

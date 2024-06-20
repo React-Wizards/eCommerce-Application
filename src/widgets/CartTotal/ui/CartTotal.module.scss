@@ -1,0 +1,93 @@
+.wrapper {
+  @apply w-[21rem] sticky top-7 h-max;
+
+  @media screen and (max-width: 1280px) {
+    @apply static;
+    top: initial;
+  }
+}
+
+.title {
+  @apply font-cera-pro-bold text-[1.125rem] leading-4 text-[#3D3D3D] mb-3;
+}
+
+.description {
+  @apply font-cera-pro-regular text-sm leading-4 mb-2;
+}
+
+.divider {
+  @apply mb-3;
+}
+
+.coupon {
+  @apply flex h-10 border-[0.1875rem] border-solid border-[#46A358] bg-[#46A358] mb-7;
+
+  &__input {
+    @apply h-full p-3 pr-[auto];
+    outline: none;
+
+    &::placeholder {
+      @apply font-cera-pro-regular text-sm leading-[0.9375rem] text-[#A5A5A5] select-none;
+    }
+  }
+
+  &__apply {
+    @apply w-full h-full font-cera-pro-bold text-[0.9375rem] leading-4 text-white select-none;
+  }
+}
+
+.info {
+  @apply mb-7;
+}
+
+.subtotal {
+  @apply flex justify-between items-center mb-3;
+
+  &__text {
+    @apply font-cera-pro-regular text-[0.9375rem] leading-4 text-[#3D3D3D];
+  }
+
+  &__price {
+    @apply font-cera-pro-medium text-[1.125rem] leading-4 text-[#3D3D3D];
+  }
+}
+
+.discount {
+  @apply flex justify-between items-center mb-3;
+
+  &__text {
+    @apply font-cera-pro-regular text-[0.9375rem] leading-4 text-[#3D3D3D];
+  }
+
+  &__price {
+    @apply font-cera-pro-medium text-[1.125rem] leading-4 text-[#3D3D3D];
+  }
+}
+
+.coupon-discount {
+  @apply flex justify-between items-center mb-6;
+
+  &__text {
+    @apply font-cera-pro-regular text-[0.9375rem] leading-4 text-[#3D3D3D];
+  }
+
+  &__price {
+    @apply font-cera-pro-medium text-[1.125rem] leading-4 text-[#3D3D3D];
+  }
+}
+
+.total {
+  @apply flex justify-between items-center;
+
+  &__text {
+    @apply font-cera-pro-bold text-[1rem] leading-4 text-[#3D3D3D];
+  }
+
+  &__price {
+    @apply font-cera-pro-bold text-[1.125rem] leading-4 text-[#46A358];
+  }
+}
+
+.checkout {
+  @apply relative;
+}

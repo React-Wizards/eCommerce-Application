@@ -8,7 +8,7 @@ const Discounts = () => {
   const discounts: DiscountCode[] = useSelector<RootState, DiscountCode[]>(
     (store: RootState): DiscountCode[] => store.discounts.discounts
   );
-  console.log(discounts);
+
   return (
     <div className={styles.wrapper}>
       <p className={styles.title}>Discounts</p>

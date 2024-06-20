@@ -17,6 +17,7 @@ import { env } from '@/shared/constants';
 import { defaultLocale } from '@/shared/constants/settings';
 import { SizesType } from '@/entities/product/model/productsViewSlice';
 import { TokenResponse, authApi } from './authApi';
+import fetch from 'cross-fetch';
 
 const tokenStorage = new TokenStorage('ecom');
 
@@ -24,11 +25,14 @@ const appBaseQuery = fetchBaseQuery({
   baseUrl: `${env.API_URL}/${env.PROJECT_KEY}`,
   prepareHeaders: async (headers) => {
     const token = tokenStorage.getItem('app-token');
+
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
+
     return headers;
-  }
+  },
+  fetchFn: fetch
 });
 
 const appBaseQueryWithPreauth: BaseQueryFn<

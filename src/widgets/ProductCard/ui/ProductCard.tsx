@@ -5,15 +5,7 @@ import {
   defaultCurrencyCode,
   defaultLocale
 } from '@/shared/constants/settings';
-import Button from '@/shared/Button';
-import type { Customer, LineItem } from '@commercetools/platform-sdk';
-import { useAddProductToCartMutation } from '@/features/api/meApi';
-import { Cart } from '@commercetools/platform-sdk';
-import Loader from '@/shared/Loader';
-import { useSelector } from 'react-redux';
-import { useAppSelector, type RootState } from '@/app/store';
-import { setCart } from '@/entities/cart';
-import { useDispatch } from 'react-redux';
+import ToggleProductInCart from '@/features/ToggleProductInCart';
 
 type priceValueType = {
   type: string;
@@ -21,15 +13,7 @@ type priceValueType = {
   centAmount: number;
   fractionDigits: number;
 };
-
 const ProductCard = ({ product }: { product: ProductProjection }) => {
-  const customer: Customer | null = useSelector<RootState, Customer | null>(
-    (store: RootState) => store.customer.user
-  );
-  const cart: Cart | null = useAppSelector<RootState, Cart | null>(
-    (state: RootState): Cart | null => state.cart.cart
-  );
-  const dispatch = useDispatch();
   const currencySign: { [key: string]: string } = {
     EUR: '€',
     USD: '$',
@@ -53,73 +37,38 @@ const ProductCard = ({ product }: { product: ProductProjection }) => {
           100
       )
     : 0;
-  const [addProductToCart, { isLoading }] = useAddProductToCartMutation();
-  const hasInCart: boolean =
-    cart?.lineItems.some(
-      (cartItem: LineItem): boolean => cartItem.productId === product.id
-    ) || false;
-
-  const addToCart = async (): Promise<void> => {
-    if (!cart || hasInCart) {
-      return;
-    }
-
-    dispatch(
-      setCart(
-        await addProductToCart({
-          cartVersion: cart.version,
-          cartId: cart.id,
-          productId: product.id,
-          quantity: 1
-        }).unwrap()
-      )
-    );
-  };
 
   return (
-    <>
-      {isLoading && <Loader />}
-      <div className={styles.productCard}>
-        <Link to={`/product/${product.key}`}>
-          <div className={styles.imageContainer}>
-            <img
-              alt={product.name['en-US']}
-              className={styles.productImage}
-              src={product.masterVariant.images![0].url}></img>
-            {discountPercentage ? (
-              <div
-                className={styles.discount}>{`${discountPercentage}% off`}</div>
-            ) : null}
+    <div className={styles.productCard}>
+      <Link to={`/product/${product.key}`}>
+        <div className={styles.imageContainer}>
+          <img
+            alt={product.name['en-US']}
+            className={styles.productImage}
+            src={product.masterVariant.images![0].url}></img>
+          {discountPercentage ? (
+            <div
+              className={styles.discount}>{`${discountPercentage}% off`}</div>
+          ) : null}
+        </div>
+        <div className={styles.productName}>{product.name[defaultLocale]}</div>
+        <div className={styles.productPrice}>
+          <div className={styles.actualPrice}>
+            {formatPriceString(
+              currencyPrice.discounted
+                ? currencyPrice.discounted.value
+                : currencyPrice.value
+            )}
           </div>
-          <div className={styles.productName}>
-            {product.name[defaultLocale]}
+          <div className={styles.oldPrice}>
+            {currencyPrice.discounted
+              ? formatPriceString(currencyPrice.value)
+              : null}
           </div>
-          <div className={styles.productPrice}>
-            <div className={styles.actualPrice}>
-              {formatPriceString(
-                currencyPrice.discounted
-                  ? currencyPrice.discounted.value
-                  : currencyPrice.value
-              )}
-            </div>
-            <div className={styles.oldPrice}>
-              {currencyPrice.discounted
-                ? formatPriceString(currencyPrice.value)
-                : null}
-            </div>
-          </div>
-        </Link>
-        {customer && (
-          <Button
-            text={!hasInCart ? 'Add to cart' : 'Added to cart'}
-            disabled={hasInCart}
-            callback={() => {
-              addToCart();
-            }}
-          />
-        )}
-      </div>
-    </>
+        </div>
+      </Link>
+      <ToggleProductInCart product={product} />
+    </div>
   );
 };
 

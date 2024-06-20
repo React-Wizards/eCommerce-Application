@@ -7,9 +7,10 @@
 }
 
 .sort__text {
-  @apply select-none;
+  @apply mr-1 select-none;
 }
 
 .select {
-  @apply select-none cursor-pointer;
+  @apply select-none cursor-pointer p-1 bg-transparent;
+  outline: none;
 }

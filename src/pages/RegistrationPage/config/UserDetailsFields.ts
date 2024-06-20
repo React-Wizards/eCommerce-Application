@@ -1,4 +1,4 @@
-import { differentCase } from '../lib/validators/different-case';
+import differentCase from '../lib/validators/different-case';
 import email from '../lib/validators/e-mail';
 import minDigits from '../lib/validators/min-digits';
 import minLength from '../lib/validators/min-length';

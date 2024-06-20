@@ -1,4 +1,9 @@
-import type { Cart, Customer } from '@commercetools/platform-sdk';
+import type {
+  Cart,
+  Customer,
+  CustomerDraft,
+  CustomerSignInResult
+} from '@commercetools/platform-sdk';
 import {
   type BaseQueryFn,
   type FetchArgs,
@@ -9,20 +14,24 @@ import {
 import TokenStorage from '@/shared/api/tokenStorage';
 import { env } from '@/shared/constants';
 import { type TokenResponse, authApi } from './authApi';
+import fetch from 'cross-fetch';
 
 const tokenStorage = new TokenStorage('ecom');
 
 const meBaseQuery = fetchBaseQuery({
   baseUrl: `${env.API_URL}/${env.PROJECT_KEY}/me`,
   prepareHeaders: async (headers) => {
-    const token = tokenStorage.getItem('user-token');
+    const token: string | undefined =
+      tokenStorage.getItem('user-token') ||
+      tokenStorage.getItem('anonymous-user-token');
 
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
 
     return headers;
-  }
+  },
+  fetchFn: fetch
 });
 
 const meBaseQueryWithPreauth: BaseQueryFn<
@@ -63,6 +72,15 @@ export const meApi = createApi({
     getActiveCart: builder.mutation<Cart, void>({
       query: () => {
         return { url: '/active-cart', method: 'GET' };
+      }
+    }),
+    signUp: builder.mutation<CustomerSignInResult, { body: CustomerDraft }>({
+      query: ({ body }) => {
+        return {
+          url: `/signup`,
+          method: 'POST',
+          body
+        };
       }
     }),
     createActiveCart: builder.mutation<Cart, void>({
@@ -196,6 +214,7 @@ export const {
   useCreateActiveCartMutation,
   useAddProductToCartMutation,
   useDeleteProductFromCartMutation,
+  useSignUpMutation,
   useAddDiscountCodeMutation,
   useRecalculateMutation
 } = meApi;

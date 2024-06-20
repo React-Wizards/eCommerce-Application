@@ -13,12 +13,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { type RootState, useAppSelector } from '@/app/store';
 import { formatPriceString, getPriceFromProduct } from '@/shared/utils';
-import Button from '@/shared/Button';
 import { useGetCategoriesMutation } from '@/features/api/appApi';
-import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
 import { setCategories } from '@/entities/category';
-import { setCart } from '@/entities/cart';
 import styles from './ProductInfo.module.scss';
+import ToggleProductInCart from '@/features/ToggleProductInCart';
 
 const ProductInfo = () => {
   const dispatch = useDispatch();
@@ -28,10 +26,8 @@ const ProductInfo = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const cart = useAppSelector((state) => state.cart.cart);
   const [isInCart, setIsInCart] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
   const [lineItemId, setLineItemId] = useState<string>('');
   const [lineItemQuantity, setLineItemQuantity] = useState<number>(0);
-  const [removeFromCart] = useDeleteProductFromCartMutation();
   const product: ProductProjection = useSelector<RootState, ProductProjection>(
     (store: RootState): ProductProjection => store.selectedProduct.product!
   );
@@ -81,21 +77,6 @@ const ProductInfo = () => {
 
   const onSizeSelectHandler = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     setSelectedSize(e.currentTarget.id);
-  };
-
-  const removeProduct = async (): Promise<void> => {
-    if (cart) {
-      dispatch(
-        setCart(
-          await removeFromCart({
-            cartVersion: cart.version,
-            cartId: cart.id,
-            lineItemId: lineItemId,
-            lineItemQuantity: lineItemQuantity
-          }).unwrap()
-        )
-      );
-    }
   };
 
   return (
@@ -179,7 +160,6 @@ const ProductInfo = () => {
           </button>
         </div>
       </div>
-
       <div className={styles.propsBox}>
         <span className={styles.propName}>Categories: </span>
         <span className={styles.propValue}>
@@ -203,16 +183,7 @@ const ProductInfo = () => {
             : null}
         </span>
       </div>
-      {isInCart && (
-        <Button
-          text='Remove from Cart'
-          disabled={isClicked ? true : false}
-          callback={() => {
-            setIsClicked(true);
-            removeProduct();
-          }}
-        />
-      )}
+      <ToggleProductInCart product={product} />
     </div>
   );
 };

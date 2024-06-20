@@ -12,7 +12,8 @@ module.exports = {
     '.eslintrc.cjs',
     'tailwind.config.js',
     'postcss.config.js',
-    'jest.config.js'
+    'jest.config.js',
+    'fileTransformer.ts'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

@@ -9,6 +9,7 @@ import {
   ClientBuilder
 } from '@commercetools/sdk-client-v2';
 import { env } from '@/shared/constants';
+import fetch from 'cross-fetch';
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: env.API_URL,

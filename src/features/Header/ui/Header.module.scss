@@ -1,26 +1,29 @@
+.burger__wrapper {
+  @apply fixed flex justify-center top-0 pt-7 left-0 w-screen h-screen z-30 bg-white;
+}
+
 .headerContainer {
-  @apply flex justify-between mb-8 border-b-[1px] border-[#46A358]/[0.5] pb-4;
+  @apply flex justify-between items-center mb-8 border-b-[1px] border-[#46A358]/[0.5] pb-4;
 }
 
 .nav {
   @apply flex justify-between items-center;
-}
 
-.nav-item {
-  @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
-}
+  &-item {
+    @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
 
-.nav-item:hover {
-  @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
+    &:hover {
+      @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
+    }
+  }
 }
 
 .homeLink {
-  display: flex;
-  align-items: center;
+  @apply flex items-center;
 }
 
 .logo {
-  @apply mr-1.5 min-w-10;
+  @apply mr-1.5 min-w-10 select-none;
 }
 
 .logoText {
@@ -31,164 +34,26 @@
   }
 }
 
-.links {
-  @apply flex items-center gap-2;
-}
-
-.page-links {
-  @apply flex justify-between gap-12;
-  @media (max-width: 640px) {
+.searchBox {
+  @media screen and (max-width: 550px) {
     @apply hidden;
   }
 }
 
-.headerControls {
-  @apply flex justify-end items-center;
-
-  @media (max-width: 599px) {
+.controls__wrapper {
+  @media screen and (max-width: 1220px) {
     @apply hidden;
-  }
-}
-
-.user {
-  @apply px-2 flex items-center h-full text-[#46A358] font-["Cera_Pro_Bold"] cursor-pointer;
-
-  &:hover {
-    @apply bg-[#46A358] bg-opacity-50;
-  }
-
-  @media (max-width: 549px) {
-    @apply hidden;
-  }
-
-  & > .btnLogo {
-    @apply h-6 px-2;
-
-    @media (min-width: 767px) {
-      @apply hidden;
-    }
-  }
-
-  & > .btnText {
-    @apply min-h-9 max-w-32 flex justify-center items-center;
-
-    @media (max-width: 967px) {
-      @apply hidden;
-    }
-  }
-}
-
-.login,
-.register {
-  @apply flex gap-1 justify-center items-center h-9 bg-[#46A358] text-white font-medium  font-["Cera_Pro_Medium"] rounded-md cursor-pointer;
-
-  &:hover {
-    @apply scale-105;
-  }
-
-  @media (min-width: 768px) {
-    @apply w-28;
-  }
-
-  @media (max-width: 549px) {
-    @apply hidden;
-  }
-
-  @media (max-width: 767px) {
-    & > .btnLogo {
-      @apply h-6 px-2;
-    }
-
-    & > .btnText {
-      @apply hidden;
-    }
   }
 }
 
 .burger-icon {
   @apply w-[40px] h-[40px];
 
-  @media (min-width: 600px) {
+  @media (min-width: 1221px) {
     @apply hidden;
-  }
-}
-
-.burger-menu {
-  @apply flex flex-col basis-full w-full h-full bg-white top-0 left-0 fixed items-center justify-center gap-4 z-[200] overflow-auto;
-
-  & > .user {
-    @apply mt-10 h-9 flex justify-center;
-
-    & > .btnText {
-      @apply flex;
-    }
-  }
-
-  & > .searchBox {
-    @apply w-full flex justify-center;
-  }
-
-  & > .filterBox {
-    @apply w-[80%] m-auto text-sm;
-  }
-}
-
-.links-mobile {
-  @apply flex items-center gap-2;
-
-  & > .login,
-  & > .register {
-    @apply w-28 flex;
-
-    & > .btnLogo {
-      @apply h-5 block;
-    }
-
-    & > .btnText {
-      @apply block;
-    }
   }
 }
 
 .close-btn {
-  @apply p-2 h-auto w-auto absolute top-4 right-[90px] text-[#46A358] cursor-pointer;
-}
-
-.searchBox {
-  @media (max-width: 480px) {
-    @apply hidden;
-  }
-}
-
-.controlsWrapper {
-  @apply flex items-center;
-}
-
-.cartLink {
-  @apply mr-2 relative;
-
-  &:hover {
-    @apply scale-105;
-  }
-
-  &:not([data-items-count=''])::after {
-    @apply absolute min-w-[70%] aspect-square -top-1 -right-3 z-10 flex justify-center items-center text-white text-[0.625rem] bg-[#46a358] rounded-full;
-    content: attr(data-items-count);
-  }
-}
-
-.cartLogo {
-  @apply h-[26px] w-[26px];
-}
-
-.aboutLink {
-  @apply ml-1;
-
-  &:hover {
-    @apply scale-105;
-  }
-}
-
-.aboutLogo {
-  @apply h-[40px] w-[40px];
+  @apply p-2 h-auto w-auto absolute top-4 right-[2rem] text-[#46A358] cursor-pointer z-40;
 }

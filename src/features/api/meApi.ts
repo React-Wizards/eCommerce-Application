@@ -9,6 +9,7 @@ import {
 import TokenStorage from '@/shared/api/tokenStorage';
 import { env } from '@/shared/constants';
 import { type TokenResponse, authApi } from './authApi';
+import fetch from 'cross-fetch';
 
 const tokenStorage = new TokenStorage('ecom');
 
@@ -22,7 +23,8 @@ const meBaseQuery = fetchBaseQuery({
     }
 
     return headers;
-  }
+  },
+  fetchFn: fetch
 });
 
 const meBaseQueryWithPreauth: BaseQueryFn<

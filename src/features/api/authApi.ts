@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { env } from '@/shared/constants';
+import fetch from 'cross-fetch';
 
 export interface LoginRequest {
   username: string;
@@ -25,7 +26,8 @@ export const authApi = createApi({
       );
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       return headers;
-    }
+    },
+    fetchFn: fetch
   }),
   endpoints: (builder) => ({
     rootToken: builder.mutation<TokenResponse, void>({

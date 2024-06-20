@@ -1,40 +1,29 @@
-import { useNavigate } from 'react-router-dom';
+import Header from '@/features/Header';
+import { useSelector } from 'react-redux';
+import type { Cart } from '@commercetools/platform-sdk';
+import type { RootState } from '@/app/store';
+import EmptyCartMessage from '@/widgets/EmptyCartMessage';
+import CartList from '@/widgets/CartList';
+import CartTotal from '@/widgets/CartTotal';
 import styles from './CartPage.module.scss';
 
 const CartPage = () => {
-  const navigate = useNavigate();
-
-  const goHome = (): void => {
-    navigate('/home', {
-      replace: true
-    });
-  };
-
-  const goBack = (): void => {
-    navigate(-1);
-  };
+  const cart: Cart | null = useSelector<RootState, Cart | null>(
+    (store: RootState): Cart | null => store.cart.cart
+  );
 
   return (
-    <div className={styles.pageWrapper}>
-      <h1 className={styles.title}>Cart checkout...</h1>
-
-      <div className={styles.navigation}>
-        <button
-          className={styles.navigation__back}
-          onClick={() => {
-            goBack();
-          }}>
-          Go back
-        </button>
-        <button
-          className={styles.navigation__home}
-          onClick={() => {
-            goHome();
-          }}>
-          Home
-        </button>
-      </div>
-    </div>
+    <>
+      <Header />
+      {cart && cart.lineItems.length ? (
+        <div className={styles.wrapper}>
+          <CartList />
+          <CartTotal />
+        </div>
+      ) : (
+        <EmptyCartMessage />
+      )}
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
 import { useAppSelector } from '@/app/store';
-import styles from './ProdViewControls.module.scss';
 import { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSortOption } from '@/entities/product/model/productsViewSlice';
 import { defaultLocale } from '@/shared/constants/settings';
+import styles from './ProdViewControls.module.scss';
 
 const ProdViewControls = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,11 @@ const ProdViewControls = () => {
     <div className={styles.prodViewControls}>
       <span></span>
       <div className={styles.sortSelect}>
-        Sort by:
-        <select value={sortOption} onChange={onSortChangeHandler}>
+        <span className={styles.sort__text}>Sort by:</span>
+        <select
+          className={styles.select}
+          value={sortOption}
+          onChange={onSortChangeHandler}>
           {sortOptions.map((opt, idx) => (
             <option value={opt[0]} key={idx}>
               {opt[1]}

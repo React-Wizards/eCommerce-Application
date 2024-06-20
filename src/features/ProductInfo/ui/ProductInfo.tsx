@@ -1,34 +1,30 @@
-import {
+import type {
   Attribute,
   Category,
   ProductProjection,
   ProductVariant
 } from '@commercetools/platform-sdk';
-import styles from './ProductInfo.module.scss';
 import {
   defaultCurrencyCode,
   defaultLocale
 } from '@/shared/constants/settings';
-import { formatPriceString, getPriceFromProduct } from '@/shared/utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '@/app/store';
-import { useGetCategoriesMutation } from '@/features/api/appApi';
 import { Link } from 'react-router-dom';
-import { setCategories } from '@/entities/category';
-import { useDispatch } from 'react-redux';
-import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
+import { type RootState, useAppSelector } from '@/app/store';
+import { formatPriceString, getPriceFromProduct } from '@/shared/utils';
 import Button from '@/shared/Button';
+import { useGetCategoriesMutation } from '@/features/api/appApi';
+import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
+import { setCategories } from '@/entities/category';
+import { setCart } from '@/entities/cart';
+import styles from './ProductInfo.module.scss';
 
-interface IProps {
-  product: ProductProjection;
-}
-
-const ProductInfo = (props: IProps) => {
+const ProductInfo = () => {
   const dispatch = useDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
   const [requestCategories] = useGetCategoriesMutation();
   const [productCategories, setProductCategories] = useState<Category[]>([]);
-  const currencyPrice = getPriceFromProduct(props.product, defaultCurrencyCode);
   const [selectedSize, setSelectedSize] = useState('');
   const cart = useAppSelector((state) => state.cart.cart);
   const [isInCart, setIsInCart] = useState<boolean>(false);
@@ -36,21 +32,25 @@ const ProductInfo = (props: IProps) => {
   const [lineItemId, setLineItemId] = useState<string>('');
   const [lineItemQuantity, setLineItemQuantity] = useState<number>(0);
   const [removeFromCart] = useDeleteProductFromCartMutation();
+  const product: ProductProjection = useSelector<RootState, ProductProjection>(
+    (store: RootState): ProductProjection => store.selectedProduct.product!
+  );
+  const currencyPrice = getPriceFromProduct(product, defaultCurrencyCode);
 
   const productInCart = cart?.lineItems.filter(
-    (item) => item.productId === props.product.id
+    (item) => item.productId === product.id
   );
 
   useEffect(() => {
     setSelectedSize(
-      props.product.masterVariant.attributes?.filter(
+      product.masterVariant.attributes?.filter(
         (attr) => attr.name === 'size'
       )[0].value.key
     );
 
-    const productCategoriesIds = props.product.categories.map((c) => c.id);
+    const productCategoriesIds = product.categories.map((c) => c.id);
 
-    if (props.product?.categories) {
+    if (product?.categories) {
       if (categories.length) {
         setProductCategories(
           categories.filter((cat) => productCategoriesIds.includes(cat.id))
@@ -70,7 +70,6 @@ const ProductInfo = (props: IProps) => {
       setIsInCart(false);
     }
   }, [
-    props,
     categories,
     requestCategories,
     dispatch,
@@ -86,12 +85,16 @@ const ProductInfo = (props: IProps) => {
 
   const removeProduct = async (): Promise<void> => {
     if (cart) {
-      await removeFromCart({
-        cartVersion: cart.version,
-        cartId: cart.id,
-        lineItemId: lineItemId,
-        lineItemQuantity: lineItemQuantity
-      }).unwrap();
+      dispatch(
+        setCart(
+          await removeFromCart({
+            cartVersion: cart.version,
+            cartId: cart.id,
+            lineItemId: lineItemId,
+            lineItemQuantity: lineItemQuantity
+          }).unwrap()
+        )
+      );
     }
   };
 
@@ -99,7 +102,7 @@ const ProductInfo = (props: IProps) => {
     <div className={styles.container}>
       <div className={styles['product-header']}>
         <h1 className={styles['product-title']}>
-          {props.product.name[defaultLocale]}
+          {product.name[defaultLocale]}
         </h1>
         <div className={styles.productPrice}>
           <span className={styles['product-price-sale']}>
@@ -117,7 +120,7 @@ const ProductInfo = (props: IProps) => {
       <div>
         <h3 className={styles['product-subtitle']}>Short description:</h3>
         <p className={styles['product-description']}>
-          {props.product.description![defaultLocale]}
+          {product.description![defaultLocale]}
         </p>
       </div>
       <div>
@@ -130,7 +133,7 @@ const ProductInfo = (props: IProps) => {
               selectedSize === 'small' ? styles._selected : ''
             ].join(' ')}
             disabled={
-              ![props.product.masterVariant, ...props.product.variants].some(
+              ![product.masterVariant, ...product.variants].some(
                 (v: ProductVariant) =>
                   (v.attributes as Attribute[]).filter(
                     (attr) => attr.name === 'size'
@@ -147,7 +150,7 @@ const ProductInfo = (props: IProps) => {
               selectedSize === 'medium' ? styles._selected : ''
             ].join(' ')}
             disabled={
-              ![props.product.masterVariant, ...props.product.variants].some(
+              ![product.masterVariant, ...product.variants].some(
                 (v: ProductVariant) =>
                   (v.attributes as Attribute[]).filter(
                     (attr) => attr.name === 'size'
@@ -164,7 +167,7 @@ const ProductInfo = (props: IProps) => {
               selectedSize === 'large' ? styles._selected : ''
             ].join(' ')}
             disabled={
-              ![props.product.masterVariant, ...props.product.variants].some(
+              ![product.masterVariant, ...product.variants].some(
                 (v: ProductVariant) =>
                   (v.attributes as Attribute[]).filter(
                     (attr) => attr.name === 'size'
@@ -190,8 +193,8 @@ const ProductInfo = (props: IProps) => {
       <div className={styles.propsBox}>
         <span className={styles.propName}>SKU: </span>
         <span className={styles.propValue}>
-          {props.product
-            ? [props.product.masterVariant, ...props.product.variants].filter(
+          {product
+            ? [product.masterVariant, ...product.variants].filter(
                 (v) =>
                   (v.attributes as Attribute[]).filter(
                     (attr) => attr.name === 'size'

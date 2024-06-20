@@ -1,26 +1,40 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import type { DiscountCodePagedQueryResponse } from '@commercetools/platform-sdk';
+import TokenStorage from '@/shared/api/tokenStorage';
+import Container from '@/shared/Container';
+import {
+  useGetActiveCartMutation,
+  useGetProfileMutation
+} from '@/features/api/meApi';
+import { useGetDiscountsMutation } from '@/features/api/appApi';
+import { login } from '@/entities/customer';
+import { setCart } from '@/entities/cart';
+import { setDiscounts } from '@/entities/discounts';
 import Router from './Router';
 import './App.scss';
-import TokenStorage from '@/shared/api/tokenStorage';
-import { Customer } from '@commercetools/platform-sdk';
-import { useDispatch } from 'react-redux';
-import { login } from '@/entities/customer';
-import { useGetProfileMutation } from '@/features/api/meApi';
-import { useEffect } from 'react';
-import Container from '@/shared/Container';
 
 const App = () => {
   const tokenStorage = new TokenStorage('ecom');
-  const dispatch = useDispatch();
   const [requestProfile] = useGetProfileMutation();
+  const [getActiveCart] = useGetActiveCartMutation();
+  const [getDiscounts] = useGetDiscountsMutation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       const token = tokenStorage.getItem('user-token');
+      const responseDiscounts: DiscountCodePagedQueryResponse =
+        await getDiscounts().unwrap();
+
       if (token) {
-        const profile: Customer = await requestProfile().unwrap();
-        dispatch(login(profile));
+        dispatch(login(await requestProfile().unwrap()));
+        dispatch(setCart(await getActiveCart().unwrap()));
       }
+
+      dispatch(setDiscounts(responseDiscounts.results));
     }
+
     fetchData();
   }, []);
 

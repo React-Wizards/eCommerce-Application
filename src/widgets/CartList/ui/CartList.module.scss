@@ -1,3 +1,48 @@
+.wrapper {
+  @apply w-full max-w-3xl flex items-center flex-col gap-3;
+}
+
 .cart {
-  @apply max-w-3xl;
+  @apply text-center min-w-[29.375rem];
+}
+
+.head {
+  @apply font-cera-pro-medium text-base leading-4 text-[#3D3D3D];
+
+  &__cell {
+    @apply w-40 max-w-full;
+
+    &:first-child {
+      @apply w-80;
+
+      @media screen and (max-width: 680px) {
+        @apply w-40;
+      }
+    }
+
+    @media screen and (max-width: 610px) {
+      &:nth-child(3) {
+        @apply w-40;
+      }
+
+      @apply w-20;
+    }
+
+    @media screen and (max-width: 550px) {
+      &:nth-child(2) {
+        @apply hidden;
+      }
+    }
+  }
+}
+
+.body {
+  @media screen and (max-width: 680px) {
+    @apply h-10;
+  }
+}
+
+.clear {
+  @apply w-80 max-w-full py-3 font-cera-pro-bold text-[0.9375rem] leading-4 text-white bg-[#46A358] select-none;
+  border-radius: 3px;
 }

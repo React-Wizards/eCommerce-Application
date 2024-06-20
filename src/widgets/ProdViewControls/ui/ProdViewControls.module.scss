@@ -5,3 +5,11 @@
 .sortSelect {
   @apply text-[15px];
 }
+
+.sort__text {
+  @apply select-none;
+}
+
+.select {
+  @apply select-none cursor-pointer;
+}

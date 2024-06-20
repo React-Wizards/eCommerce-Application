@@ -1,4 +1,4 @@
-import { Cart } from '@commercetools/platform-sdk';
+import type { Cart } from '@commercetools/platform-sdk';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
   }
 });
 
-const { setCart } = cartSlice.actions;
+const { setCart, clearCart } = cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 
-export { setCart, cartReducer };
+export { setCart, clearCart, cartReducer };

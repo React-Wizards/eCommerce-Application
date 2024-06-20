@@ -1,11 +1,10 @@
 import CategoryFilter from '@/widgets/CategoryFilter';
-import styles from './FiltersContainer.module.scss';
 import {
   useGetCategoriesMutation,
   useGetProductsByCategoryIdMutation
 } from '@/features/api/appApi';
 import { setCategories } from '@/entities/category';
-import {
+import type {
   Category,
   CategoryPagedQueryResponse,
   Price,
@@ -22,6 +21,7 @@ import {
 } from '@/shared/constants/settings';
 import PriceFilter from '@/widgets/PriceFilter';
 import SizeFilter from '@/widgets/SizeFilter';
+import styles from './FiltersContainer.module.scss';
 
 const FiltersContainer = () => {
   const dispatch = useDispatch();

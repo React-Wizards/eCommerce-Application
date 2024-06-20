@@ -6,17 +6,17 @@ import type {
   ProductProjectionPagedQueryResponse
 } from '@commercetools/platform-sdk';
 import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
+  type BaseQueryFn,
+  type FetchArgs,
+  type FetchBaseQueryError,
   createApi,
   fetchBaseQuery
 } from '@reduxjs/toolkit/query/react';
 import TokenStorage from '@/shared/api/tokenStorage';
-import { TokenResponse, authApi } from './authApi';
 import { env } from '@/shared/constants';
 import { defaultLocale } from '@/shared/constants/settings';
 import { SizesType } from '@/entities/product/model/productsViewSlice';
+import { TokenResponse, authApi } from './authApi';
 
 const tokenStorage = new TokenStorage('ecom');
 
@@ -37,6 +37,7 @@ const appBaseQueryWithPreauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const appToken = tokenStorage.getItem('app-token');
+
   if (!appToken) {
     const tokenRequestResult: TokenResponse = await api
       .dispatch(authApi.endpoints.rootToken.initiate())
@@ -47,20 +48,22 @@ const appBaseQueryWithPreauth: BaseQueryFn<
       tokenRequestResult.expires_in
     );
   }
-  let result = await appBaseQuery(args, api, extraOptions);
+
+  const result = await appBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
     const tokenRequestResult: TokenResponse = await api
       .dispatch(authApi.endpoints.rootToken.initiate())
       .unwrap();
+
     tokenStorage.setItem(
       'app-token',
       tokenRequestResult.access_token,
       tokenRequestResult.expires_in
     );
   }
-  result = await appBaseQuery(args, api, extraOptions);
-  return result;
+
+  return appBaseQuery(args, api, extraOptions);
 };
 
 export const appApi = createApi({
@@ -146,17 +149,17 @@ export const appApi = createApi({
     }),
     getDiscounts: builder.mutation<DiscountCodePagedQueryResponse, void>({
       query: () => {
-        return { url: '/product-discounts', method: 'GET' };
+        return { url: '/discount-codes', method: 'GET' };
       }
     }),
     getDiscountById: builder.mutation<DiscountCodePagedQueryResponse, string>({
       query: (discountId) => {
-        return { url: `product-discounts/${discountId}`, method: 'GET' };
+        return { url: `/discount-codes/${discountId}`, method: 'GET' };
       }
     }),
     getDiscountByKey: builder.mutation<DiscountCodePagedQueryResponse, string>({
       query: (productKey) => {
-        return { url: `product-discounts/key=${productKey}`, method: 'GET' };
+        return { url: `/discount-codes/key=${productKey}`, method: 'GET' };
       }
     })
   })
@@ -168,6 +171,7 @@ export const {
   useGetProductsByCategoryIdMutation,
   useGetCategoriesMutation,
   useGetCategoryByIdMutation,
+  useGetDiscountsMutation,
   useGetDiscountByIdMutation,
   useGetDiscountByKeyMutation
 } = appApi;

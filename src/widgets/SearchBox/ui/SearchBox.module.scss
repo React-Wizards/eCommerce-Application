@@ -6,6 +6,10 @@
 
 .searchInput {
   @apply rounded-[5px] appearance-none max-h-10 pl-3.5 pr-20 py-3 border border-[#EAEAEA] focus:outline-none focus:border-[#46A358] sm:text-sm font-["Cera_Pro_Regular"] box-border;
+
+  &::placeholder {
+    @apply font-cera-pro-regular text-[0.875rem] leading-4 text-[#A5A5A5] select-none;
+  }
 }
 
 .searchButton {
@@ -36,6 +40,7 @@
   right: 60px;
   padding: 10px;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     font-weight: bold;

@@ -1,7 +1,7 @@
-import styles from './ImgCarousel.module.scss';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDot, RxDotFilled } from 'react-icons/rx';
 import { useState } from 'react';
+import styles from './ImgCarousel.module.scss';
 
 const ImgCarousel = ({
   classname,

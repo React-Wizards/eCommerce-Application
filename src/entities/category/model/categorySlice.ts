@@ -1,4 +1,4 @@
-import { Category } from '@commercetools/platform-sdk';
+import type { Category } from '@commercetools/platform-sdk';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 

@@ -18,7 +18,7 @@ const Button = ({
   return (
     <button
       className={
-        disabled ? `${styles['btn-disabled']} ${styles['btn']}` : styles['btn']
+        disabled ? `${styles['btn_disabled']} ${styles['btn']}` : styles['btn']
       }
       type={submit ? 'submit' : 'button'}
       onClick={callback}

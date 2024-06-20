@@ -13,7 +13,6 @@ const CategoryFilter = (props: {
   categorySizes: Map<string, number> | undefined;
 }) => {
   const dispatch = useDispatch();
-
   const onCategoryClickHandler = (categoryId: string) => {
     dispatch(setSelectedCategoryId(categoryId));
     dispatch(setCurrentPage(1));

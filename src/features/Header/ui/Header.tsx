@@ -1,35 +1,17 @@
-import type { RootState } from '@/app/store';
-import type { Customer } from '@commercetools/platform-sdk';
 import { Link } from 'react-router-dom';
-import { logout } from '@/entities/customer';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import burgerMenuIcon from '@/shared/assets/img/burger-menu-icon.svg';
-import SearchBox from '@/widgets/SearchBox';
 import { FaTimes } from 'react-icons/fa';
+import burgerMenuIcon from '@/shared/assets/img/burger-menu-icon.svg';
 import logo from '@/shared/assets/img/logo-horiz.svg';
-import loginIcon from '@/shared/assets/img/login-icon.svg';
-import logoutIcon from '@/shared/assets/img/logout-icon.svg';
-import registerIcon from '@/shared/assets/img/register-icon.svg';
-import profileIcon from '@/shared/assets/img/profile-icon.svg';
-import infoIcon from '@/shared/assets/img/info.svg';
-import cartIcon from '@/shared/assets/img/cart.svg';
-import FiltersContainer from '@/widgets/FiltersContainer';
-import { useSelector } from 'react-redux';
+import SearchBox from '@/widgets/SearchBox';
+import Controls from '@/features/Controls';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  const customer: Customer | null = useSelector<RootState, Customer | null>(
-    (store: RootState) => store.customer.user
-  );
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleBurgerMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev: boolean): boolean => !prev);
   };
-
-  const cartItemsCount = 1;
 
   return (
     <div className={styles.headerContainer}>
@@ -45,118 +27,30 @@ const Header = () => {
       <div className={styles.searchBox}>
         <SearchBox />
       </div>
-      <div className={styles.controlsWrapper}>
-        <Link
-          className={styles.cartLink}
-          to='/cart'
-          title='Checkout'
-          data-items-count={cartItemsCount > 99 ? '99+' : cartItemsCount || ''}>
-          <img className={styles.cartLogo} src={cartIcon} />
-        </Link>
-
-        <div className={styles.headerControls}>
-          {customer ? (
-            <Link
-              to={'/profile'}
-              className={styles.user}
-              title={`${customer.firstName} ${customer.lastName} profile`}>
-              <img className={styles.btnLogo} src={profileIcon} />
-              <span
-                className={
-                  styles.btnText
-                }>{`${customer.firstName} ${customer.lastName}`}</span>
-            </Link>
-          ) : null}
-          <nav className={styles.nav}>
-            <div className={styles.links}>
-              {customer ? (
-                <div
-                  className={styles.login}
-                  onClick={(): void => {
-                    dispatch(logout());
-                  }}
-                  title='Sign out'>
-                  <img className={styles.btnLogo} src={logoutIcon} />
-                  <span className={styles.btnText}>Logout</span>
-                </div>
-              ) : (
-                <Link className={styles.login} to='/login' title='Sign in'>
-                  <img className={styles.btnLogo} src={loginIcon} />
-                  <span className={styles.btnText}>Login</span>
-                </Link>
-              )}
-              <Link className={styles.register} to='/register' title='Sign up'>
-                <img className={styles.btnLogo} src={registerIcon} />
-                <span className={styles.btnText}>Register</span>
-              </Link>
-            </div>
-          </nav>
-        </div>
-
-        <img
-          className={styles['burger-icon']}
-          src={burgerMenuIcon}
-          alt='Burger Menu Icon'
-          onClick={() => toggleBurgerMenu()}
-        />
-
-        <Link className={styles.aboutLink} to='/about' title='About our team'>
-          <img className={styles.aboutLogo} src={infoIcon} />
-        </Link>
+      <div className={styles.controls__wrapper}>
+        <Controls />
       </div>
-
+      <img
+        className={styles['burger-icon']}
+        src={burgerMenuIcon}
+        alt='Burger Menu Icon'
+        onClick={() => toggleBurgerMenu()}
+      />
       {isOpen && (
-        <div className={styles['burger-menu']}>
+        <>
           <FaTimes
             className={styles['close-btn']}
             onClick={() => {
-              setIsOpen(false);
+              toggleBurgerMenu();
             }}
           />
-          {customer ? (
-            <Link
-              to={'/profile'}
-              className={styles.user}
-              title={`${customer.firstName} ${customer.lastName}`}>
-              <img className={styles.btnLogo} src={profileIcon} />
-              <span
-                className={
-                  styles.btnText
-                }>{`${customer.firstName} ${customer.lastName}`}</span>
-            </Link>
-          ) : null}
-
-          <div className={styles['links-mobile']}>
-            {customer ? (
-              <div
-                className={styles.login}
-                onClick={(): void => {
-                  dispatch(logout());
-                }}>
-                <img className={styles.btnLogo} src={logoutIcon} />
-                <span className={styles.btnText}>Logout</span>
-              </div>
-            ) : (
-              <Link className={styles.login} to='/login'>
-                <img className={styles.btnLogo} src={loginIcon} />
-                <span className={styles.BtnText}>Login</span>
-              </Link>
-            )}
-            <Link className={styles.register} to='/register'>
-              <img className={styles.btnLogo} src={registerIcon} />
-              <span className={styles.btnText}>Register</span>
-            </Link>
+          <div className={styles.burger__wrapper}>
+            <Controls />
           </div>
-          <div className={styles.searchBox}>
-            <SearchBox />
-          </div>
-
-          <div className={styles.filterBox}>
-            <FiltersContainer />
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
 };
+
 export default Header;

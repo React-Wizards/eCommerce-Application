@@ -1,92 +1,74 @@
-import CartItem from '@/entities/CartItem';
-import { useEffect } from 'react';
-import styles from './CartList.module.scss';
-import TokenStorage from '@/shared/api/tokenStorage';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store';
-import { Customer } from '@commercetools/platform-sdk';
-import image1 from '@/shared/assets/img/product-1.1.png';
-import image2 from '@/shared/assets/img/product-1.2.png';
-import image3 from '@/shared/assets/img/product-1.3.png';
-
-interface IBasket {
-  id: number;
-  name: string;
-  price: number;
-  size: string;
-  image: string;
-  quantity: number;
-}
+import type { Cart, LineItem } from '@commercetools/platform-sdk';
+import type { RootState } from '@/app/store';
+import CartItem from '@/entities/CartItem';
+import styles from './CartList.module.scss';
+import { useDeleteProductFromCartMutation } from '@/features/api/meApi';
+import { useDispatch } from 'react-redux';
+import { setCart } from '@/entities/cart';
+import Loader from '@/shared/Loader';
 
 const CartList = () => {
-  const testBasket: IBasket[] = [
-    {
-      id: 0,
-      name: 'Barberton Daisy',
-      price: 119,
-      size: 'M',
-      image: image1,
-      quantity: 2
-    },
-    {
-      id: 1,
-      name: 'Blushing Bromeliad',
-      price: 139,
-      size: 'S',
-      image: image2,
-      quantity: 6
-    },
-    {
-      id: 2,
-      name: 'Aluminum Plant',
-      price: 179,
-      size: 'L',
-      image: image3,
-      quantity: 9
-    }
-  ];
-  const customer: Customer = useSelector<RootState, Customer>(
-    (store: RootState): Customer => store.customer.user!
+  const cart: Cart = useSelector<RootState, Cart>(
+    (store: RootState): Cart => store.cart.cart!
   );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!customer) {
-        return;
-      }
-
-      try {
-        const tokenStorage = new TokenStorage('ecom');
-        const token: string | undefined = tokenStorage.getItem('user-token');
-
-        if (!token) {
-          return;
-        }
-      } catch (error: unknown) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [customer]);
+  const [deleteProductFromCart, { isLoading }] =
+    useDeleteProductFromCartMutation();
+  const dispatch = useDispatch();
 
   return (
     <>
-      <table className={styles.cart}>
-        <thead>
-          <tr>
-            <td>Products</td>
-            <td>Price</td>
-            <td>Quantity</td>
-            <td>Total</td>
-          </tr>
-        </thead>
-        <tbody>
-          {testBasket.map(({ id, ...basket }: IBasket) => (
-            <CartItem key={id} basket={basket} />
-          ))}
-        </tbody>
-      </table>
+      {isLoading && <Loader />}
+      {
+        <div className={styles.wrapper}>
+          <table className={styles.cart}>
+            <thead className={styles.head}>
+              <tr className={styles.head__row}>
+                <td className={styles.head__cell}>Products</td>
+                <td className={styles.head__cell}>Price</td>
+                <td className={styles.head__cell}>Quantity</td>
+                <td className={styles.head__cell}>Total</td>
+              </tr>
+            </thead>
+            <tbody className={styles.body}>
+              {cart.lineItems.map((lineItem: LineItem) => (
+                <CartItem key={lineItem.id} lineItem={lineItem} />
+              ))}
+            </tbody>
+          </table>
+          <button
+            className={styles.clear}
+            onClick={(): void => {
+              let prevCartId: string = cart.id;
+              let prevCartVersion: number = cart.version;
+
+              const removeCart = async () => {
+                for (const { id } of cart.lineItems) {
+                  const newCart: Cart = await deleteProductFromCart({
+                    cartId: prevCartId,
+                    cartVersion: prevCartVersion,
+                    lineItemId: id
+                  }).unwrap();
+
+                  prevCartId = newCart.id;
+                  prevCartVersion = newCart.version;
+
+                  dispatch(
+                    setCart({
+                      ...newCart,
+                      totalLineItemQuantity: 0,
+                      lineItems: []
+                    })
+                  );
+                }
+              };
+
+              removeCart();
+            }}>
+            Clear Cart
+          </button>
+        </div>
+      }
     </>
   );
 };

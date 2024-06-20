@@ -1,26 +1,26 @@
-import styles from './ProductSlider.module.scss';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import type { ProductProjection } from '@commercetools/platform-sdk';
+import { type RootState } from '@/app/store';
 import ProductModal from '@/features/ProductModal';
 import ImgCarousel from '@/features/ImgCarousel';
-import { ProductProjection } from '@commercetools/platform-sdk';
+import styles from './ProductSlider.module.scss';
 
-interface IProps {
-  product: ProductProjection;
-}
-
-const ProductSlider = (props: IProps) => {
+const ProductSlider = () => {
   const [currentImg, setCurrentImage] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-
+  const product: ProductProjection = useSelector<RootState, ProductProjection>(
+    (store: RootState): ProductProjection => store.selectedProduct.product!
+  );
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     setImages(
-      [props.product.masterVariant, ...props.product.variants]
+      [product.masterVariant, ...product.variants]
         .flatMap((v) => v.images)
         .map((i) => i?.url || '')
     );
-  }, [props.product]);
+  }, [product]);
 
   return (
     <div>

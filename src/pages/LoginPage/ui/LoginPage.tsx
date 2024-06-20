@@ -1,16 +1,16 @@
 import { type FormEvent, useState } from 'react';
-import { Customer, type CustomerSignin } from '@commercetools/platform-sdk';
+import type { Customer, CustomerSignin } from '@commercetools/platform-sdk';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '@/entities/customer/model/customerSlice';
-import Input from '@/features/InputLogin';
 import Modal from '@/shared/ErrorModal';
 import Button from '@/shared/Button';
 import logo from '@/shared/assets/img/logo.svg';
-import styles from './LoginPage.module.scss';
+import TokenStorage from '@/shared/api';
 import { TokenResponse, useMeTokenMutation } from '@/features/api/authApi';
-import TokenStorage from '@/shared/api/tokenStorage';
 import { useGetProfileMutation } from '@/features/api/meApi';
+import Input from '@/features/InputLogin';
+import { login } from '@/entities/customer/model/customerSlice';
+import styles from './LoginPage.module.scss';
 
 const LoginPage = () => {
   const [customer, setCustomer] = useState<CustomerSignin>(

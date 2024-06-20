@@ -3,7 +3,7 @@
 }
 
 .pageButton {
-  @apply w-[35px] h-[35px] ml-2.5 rounded-[3px] cursor-pointer flex justify-center items-center border border-[#E5E5E5];
+  @apply w-[35px] h-[35px] ml-2.5 rounded-[3px] cursor-pointer flex justify-center items-center border border-[#E5E5E5] select-none;
 
   &:hover {
     @apply border-2 border-[#46A358];

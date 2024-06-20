@@ -27,7 +27,7 @@
 }
 
 .form-header {
-  @apply relative mb-4 flex justify-center gap-3;
+  @apply relative mb-4 flex justify-center gap-3 select-none;
 }
 
 .form-header__link {
@@ -63,7 +63,7 @@
 }
 
 .register-button {
-  @apply w-[300px] h-[45px] rounded-[5px] text-white bg-[#46A358];
+  @apply w-[300px] h-[45px] rounded-[5px] text-white bg-[#46A358] select-none;
 
   &:disabled {
     @apply bg-gray-400 text-gray-300;

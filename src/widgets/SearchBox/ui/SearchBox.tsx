@@ -67,6 +67,7 @@ const SearchBox = () => {
         <input
           type='text'
           className={styles.searchInput}
+          placeholder='Find your plants'
           tabIndex={0}
           value={searchTextInput.value}
           onChange={onSearchTextChangeHandler}

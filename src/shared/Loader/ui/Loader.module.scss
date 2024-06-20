@@ -1,5 +1,5 @@
 .overlay {
-  @apply flex justify-center items-center fixed top-0 left-0 w-screen h-screen z-50 bg-[#fafafa] opacity-50;
+  @apply flex justify-center items-center fixed top-0 left-0 w-screen h-screen z-50 bg-[#fafafa] opacity-50 select-none;
 }
 
 .preloader {

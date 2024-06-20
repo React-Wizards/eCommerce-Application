@@ -17,7 +17,7 @@
 }
 
 .login-header {
-  @apply flex justify-center gap-3;
+  @apply flex justify-center gap-3 select-none;
 }
 
 .login-caption,
@@ -54,5 +54,5 @@
 }
 
 .img-wrapper {
-  @apply flex justify-center;
+  @apply flex justify-center select-none;
 }

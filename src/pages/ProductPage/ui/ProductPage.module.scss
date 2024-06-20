@@ -16,6 +16,7 @@
 
 .container {
   @apply mt-[90px] max-w-[1200px] min-w-[350px];
+
   @media (max-width: 640px) {
     @apply mt-[45px];
   }

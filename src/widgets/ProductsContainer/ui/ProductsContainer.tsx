@@ -4,10 +4,7 @@ import ProdPaginator from '@/widgets/ProdPaginator';
 import { useGetProductsByCategoryIdMutation } from '@/features/api/appApi';
 import { type RootState, useAppSelector } from '@/app/store';
 import { setProducts } from '@/entities/product';
-import type {
-  Cart,
-  ProductProjectionPagedQueryResponse
-} from '@commercetools/platform-sdk';
+import type { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
@@ -43,7 +40,7 @@ const ProductsContainer = () => {
     dispatch(setCurrentPage(p));
   };
 
-  const [requestCart] = useGetActiveCartMutation();
+  const [getCart] = useGetActiveCartMutation();
   const [createCart] = useCreateActiveCartMutation();
 
   useEffect(() => {
@@ -62,12 +59,10 @@ const ProductsContainer = () => {
       dispatch(setProducts(result.results));
       dispatch(setTotalItemsCount(result.total || 0));
     }
-    fetchData();
 
     async function fetchActiveCart() {
       try {
-        const activeCart: Cart = await requestCart().unwrap();
-        dispatch(setCart(activeCart));
+        dispatch(setCart(await getCart().unwrap()));
       } catch (error: unknown) {
         if (
           typeof error === 'object' &&
@@ -75,12 +70,12 @@ const ProductsContainer = () => {
           'status' in error &&
           error.status === 404
         ) {
-          const newCart: Cart = await createCart().unwrap();
-          dispatch(setCart(newCart));
+          dispatch(setCart(await createCart().unwrap()));
         }
       }
     }
 
+    fetchData();
     fetchActiveCart();
   }, [
     selectedCategoryId,
@@ -92,7 +87,7 @@ const ProductsContainer = () => {
     priceRange,
     sizes,
     dispatch,
-    requestCart,
+    getCart,
     createCart
   ]);
 

@@ -1,14 +1,14 @@
-import { Cart, Customer } from '@commercetools/platform-sdk';
+import type { Cart, Customer } from '@commercetools/platform-sdk';
 import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
+  type BaseQueryFn,
+  type FetchArgs,
+  type FetchBaseQueryError,
   createApi,
   fetchBaseQuery
 } from '@reduxjs/toolkit/query/react';
 import TokenStorage from '@/shared/api/tokenStorage';
-import { TokenResponse, authApi } from './authApi';
 import { env } from '@/shared/constants';
+import { type TokenResponse, authApi } from './authApi';
 
 const tokenStorage = new TokenStorage('ecom');
 
@@ -16,9 +16,11 @@ const meBaseQuery = fetchBaseQuery({
   baseUrl: `${env.API_URL}/${env.PROJECT_KEY}/me`,
   prepareHeaders: async (headers) => {
     const token = tokenStorage.getItem('user-token');
+
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
+
     return headers;
   }
 });
@@ -46,7 +48,7 @@ const meBaseQueryWithPreauth: BaseQueryFn<
     );
   }
 
-  return await meBaseQuery(args, api, extraOptions);
+  return meBaseQuery(args, api, extraOptions);
 };
 
 export const meApi = createApi({
@@ -83,7 +85,7 @@ export const meApi = createApi({
         quantity: number;
       }
     >({
-      query: ({ cartVersion, cartId, productId }) => {
+      query: ({ cartVersion, cartId, productId, quantity }) => {
         return {
           url: `/carts/${cartId}`,
           method: 'POST',
@@ -96,8 +98,7 @@ export const meApi = createApi({
               {
                 action: 'addLineItem',
                 productId,
-                variantId: 1,
-                quantity: 1
+                quantity
               }
             ]
           }
@@ -110,7 +111,7 @@ export const meApi = createApi({
         cartId: string;
         cartVersion: number;
         lineItemId: string;
-        lineItemQuantity: number;
+        lineItemQuantity?: number;
       }
     >({
       query: ({ cartVersion, cartId, lineItemId, lineItemQuantity }) => {
@@ -133,6 +134,58 @@ export const meApi = createApi({
           }
         };
       }
+    }),
+    addDiscountCode: builder.mutation<
+      Cart,
+      {
+        cartId: string;
+        cartVersion: number;
+        code: string;
+      }
+    >({
+      query: ({ cartVersion, cartId, code }) => {
+        return {
+          url: `/carts/${cartId}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {
+            version: cartVersion,
+            actions: [
+              {
+                action: 'addDiscountCode',
+                code
+              }
+            ]
+          }
+        };
+      }
+    }),
+    recalculate: builder.mutation<
+      Cart,
+      {
+        cartId: string | undefined;
+        cartVersion: number | undefined;
+      }
+    >({
+      query: ({ cartVersion, cartId }) => {
+        return {
+          url: `/carts/${cartId}`,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {
+            version: cartVersion,
+            actions: [
+              {
+                action: 'recalculate'
+              }
+            ]
+          }
+        };
+      }
     })
   })
 });
@@ -142,5 +195,7 @@ export const {
   useGetActiveCartMutation,
   useCreateActiveCartMutation,
   useAddProductToCartMutation,
-  useDeleteProductFromCartMutation
+  useDeleteProductFromCartMutation,
+  useAddDiscountCodeMutation,
+  useRecalculateMutation
 } = meApi;

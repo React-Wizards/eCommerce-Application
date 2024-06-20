@@ -1,13 +1,14 @@
+import { type TypedUseSelectorHook, useSelector } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { customerReducer } from '@/entities/customer';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { appApi } from '@/features/api/appApi';
 import { authApi } from '@/features/api/authApi';
+import { meApi } from '@/features/api/meApi';
+import { customerReducer } from '@/entities/customer';
 import { productsReducer, productsViewReducer } from '@/entities/product';
 import { categoriesReducer } from '@/entities/category';
-import { meApi } from '@/features/api/meApi';
-import { selectedProductReducer } from '@/entities/selectedProduct';
 import { cartReducer } from '@/entities/cart';
+import { selectedProductReducer } from '@/entities/selectedProduct';
+import { discountsReducer } from '@/entities/discounts';
 
 const rootReducer = combineReducers({
   customer: customerReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   productsView: productsViewReducer,
   selectedProduct: selectedProductReducer,
   cart: cartReducer,
+  discounts: discountsReducer,
   [appApi.reducerPath]: appApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [meApi.reducerPath]: meApi.reducer

@@ -4,7 +4,8 @@ export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.ts?$': 'ts-jest',
-    '^.+\\.(css|scss|svg|jpg|jpeg|png)$': '<rootDir>/fileTransformer.ts'
+    '^.+\\.(svg|jpg|jpeg|png)$': '<rootDir>/fileTransformer.ts',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform'
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   moduleNameMapper: {

@@ -9,6 +9,7 @@ module.exports = {
   ],
   ignorePatterns: [
     'dist',
+    'coverage',
     '.eslintrc.cjs',
     'tailwind.config.js',
     'postcss.config.js',

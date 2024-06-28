@@ -1,0 +1,35 @@
+.container {
+  @apply mt-10;
+}
+
+.title {
+  @apply text-m font-bold text-[#3D3D3D] font-["Cera_Pro_Bold"] mb-5;
+}
+
+.range-container {
+  @apply pt-3 pb-3;
+}
+
+.slider {
+  @apply relative w-[100%] h-1 bg-[#46A358]/[0.2] rounded-[6px];
+}
+
+.slider {
+  :global {
+    .thumb {
+      @apply rounded-[50%] border-[3px] border-solid border-white cursor-pointer w-5 h-5 bg-[#46A358] pointer-events-auto top-[-8px];
+      &.active {
+        @apply border-white;
+      }
+    }
+  }
+}
+
+.values {
+  @apply mt-2 font-["Cera_Pro_Regular"] text-[15px];
+}
+
+.min-range,
+.max-range {
+  @apply font-bold text-[#46A358];
+}

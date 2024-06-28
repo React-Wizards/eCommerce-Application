@@ -11,6 +11,9 @@ import { useGetProfileMutation } from '@/features/api/meApi';
 import Input from '@/features/InputLogin';
 import { login } from '@/entities/customer/model/customerSlice';
 import styles from './LoginPage.module.scss';
+import { TokenResponse, useMeTokenMutation } from '@/features/api/authApi';
+import TokenStorage from '@/shared/api/tokenStorage';
+import { useGetProfileMutation } from '@/features/api/meApi';
 
 const LoginPage = () => {
   const [customer, setCustomer] = useState<CustomerSignin>(
@@ -24,6 +27,9 @@ const LoginPage = () => {
   const [getUserToken] = useMeTokenMutation();
   const tokenStorage = new TokenStorage('ecom');
 
+  const [getUserToken] = useMeTokenMutation();
+  const tokenStorage = new TokenStorage('ecom');
+
   function CustomerErrorHandler(message: string): void {
     seIsVisible(true);
     setErrorMessage(message);
@@ -31,7 +37,10 @@ const LoginPage = () => {
     setTimeout(() => {
       seIsVisible(false);
     }, 3000);
+    }, 3000);
   }
+
+  const [requestProfile] = useGetProfileMutation();
 
   const [requestProfile] = useGetProfileMutation();
 
@@ -42,7 +51,31 @@ const LoginPage = () => {
       password: customer.password
     };
 
+    const _credentials = {
+      username: customer.email,
+      password: customer.password
+    };
+
     try {
+      const result: TokenResponse = await getUserToken(_credentials).unwrap();
+      if (result.access_token) {
+        tokenStorage.setItem(
+          'user-token',
+          result.access_token,
+          result.expires_in
+        );
+      }
+      if (result.refresh_token) {
+        tokenStorage.setItem(
+          'user-refresh-token',
+          result.refresh_token,
+          17280000
+        );
+      }
+
+      const profile = (await requestProfile().unwrap()) as Customer;
+      dispatch(login(profile));
+
       const result: TokenResponse = await getUserToken(_credentials).unwrap();
       if (result.access_token) {
         tokenStorage.setItem(

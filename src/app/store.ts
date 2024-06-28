@@ -31,10 +31,21 @@ export const store = configureStore({
       authApi.middleware,
       meApi.middleware
     )
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      appApi.middleware,
+      authApi.middleware,
+      meApi.middleware
+    )
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 export type AppDispatch = typeof store.dispatch;
+export const AppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppSelector = useSelector.withTypes<RootState>();
 export const AppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppSelector = useSelector.withTypes<RootState>();

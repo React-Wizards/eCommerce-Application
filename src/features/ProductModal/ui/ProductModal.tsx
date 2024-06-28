@@ -1,6 +1,6 @@
-import styles from './ProductModal.module.scss';
 import Modal from 'react-modal';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import styles from './ProductModal.module.scss';
 
 const ProductModal = ({
   isOpen,

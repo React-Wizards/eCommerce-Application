@@ -1,10 +1,10 @@
 .container {
   @apply max-w-[50%];
-  @media screen and (max-width: 950px) {
+  @media (max-width: 950px) {
     @apply max-w-[45%];
   }
-  @media screen and (max-width: 640px) {
-    @apply max-w-[80%] mb-4;
+  @media (max-width: 640px) {
+    @apply max-w-[80%] mb-4 mx-auto;
   }
 }
 
@@ -14,21 +14,21 @@
 
 .product-title {
   @apply text-[#3D3D3D] font-["Cera_Pro_Bold"] text-[28px] leading-4 mb-[21px];
-  @media screen and (max-width: 415px) {
+  @media (max-width: 415px) {
     @apply text-[20px];
   }
 }
 
 .product-price-sale {
   @apply text-[#46A358] font-["Cera_Pro_Bold"] text-[22px] leading-4 mr-2;
-  @media screen and (max-width: 415px) {
+  @media (max-width: 415px) {
     @apply text-[20px];
   }
 }
 
 .product-price {
-  @apply text-[#3D3D3D] font-["Cera_Pro_Bold"] text-[16px] leading-4 line-through;
-  @media screen and (max-width: 415px) {
+  @apply text-gray-400 font-["Cera_Pro_Bold"] text-[16px] leading-4 line-through;
+  @media (max-width: 415px) {
     @apply text-[18px];
   }
 }
@@ -46,5 +46,53 @@
 }
 
 .size-btn {
-  @apply rounded-[50%] cursor-pointer border border-[#EAEAEA] w-[28px] h-[28px];
+  @apply text-[#727272] rounded-[50%] cursor-pointer border border-[#EAEAEA] w-[28px] h-[28px];
+
+  &:not(:disabled):hover {
+    @apply bg-[#46A358] bg-opacity-50;
+  }
+
+  &:disabled {
+    @apply text-gray-300 bg-gray-100;
+  }
+
+  &._selected {
+    @apply text-[#46A358] border-[#46A358] font-["Cera_Pro_Bold"];
+  }
+}
+
+.productPrice {
+  @apply font-["Cera_Pro_Bold"] flex gap-1.5;
+}
+
+.propsBox {
+  @apply my-2 text-sm;
+}
+
+.propName {
+  @apply text-[#A5A5A5];
+}
+
+.propValue {
+  @apply text-[#727272];
+
+  & > a {
+    @apply after:content-[',\_'] last:after:content-[''];
+
+    &:hover {
+      @apply text-[#46A358] underline;
+    }
+  }
+}
+
+.productPrice {
+  @apply font-["Cera_Pro_Bold"] flex gap-1.5;
+}
+
+.actualPrice {
+  @apply text-[#46A358];
+}
+
+.oldPrice {
+  @apply line-through text-gray-400;
 }

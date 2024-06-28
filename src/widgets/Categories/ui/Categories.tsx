@@ -5,10 +5,8 @@ import { useCookies } from 'react-cookie';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import getAppToken from '@/shared/api/accessToken';
+import { getAuthToken } from '@/shared/api';
 import { RootState } from '@/app/store';
-import PriceRange from '@/widgets/PriceRange';
-import Size from '@/widgets/Size';
 import { setCategories } from '@/entities/category/model/categorySlice';
 import { env } from '@/shared/constants';
 
@@ -26,7 +24,7 @@ const Categories = () => {
       if (cookies['AppToken'] !== 'undefined') {
         setAppToken(cookies['AppToken']);
       } else {
-        const token = await getAppToken();
+        const token = await getAuthToken();
         setCookie('AppToken', token);
         setAppToken(token);
       }
@@ -64,8 +62,8 @@ const Categories = () => {
     getCategories();
   }, []);
 
-  const categories = useSelector(
-    (state: RootState) => state.categories.categories
+  const categories: Category[] = useSelector<RootState, Category[]>(
+    (state: RootState): Category[] => state.categories.categories
   );
 
   return (
@@ -85,8 +83,6 @@ const Categories = () => {
           ))}
         </ul>
       </div>
-      <PriceRange />
-      <Size />
     </aside>
   );
 };

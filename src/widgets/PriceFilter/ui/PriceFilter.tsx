@@ -1,9 +1,9 @@
-import styles from './PriceFilter.module.scss';
 import { useDispatch } from 'react-redux';
 import { setPriceRange } from '@/entities/product/model/productsViewSlice';
 import ReactSlider from 'react-slider';
 import { useEffect, useState } from 'react';
 import Button from '@/shared/Button';
+import styles from './PriceFilter.module.scss';
 
 const PriceFilter = (props: {
   priceRange: { min: number; max: number };

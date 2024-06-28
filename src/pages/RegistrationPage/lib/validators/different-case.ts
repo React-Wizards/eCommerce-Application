@@ -11,4 +11,4 @@ const differentCase: (opt?: string) => Validator<string> = (
       : null;
 };
 
-export { differentCase };
+export default differentCase;

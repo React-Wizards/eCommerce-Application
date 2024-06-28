@@ -1,0 +1,59 @@
+.burger__wrapper {
+  @apply fixed flex justify-center top-0 pt-7 left-0 w-screen h-screen z-30 bg-white;
+}
+
+.headerContainer {
+  @apply flex justify-between items-center mb-8 border-b-[1px] border-[#46A358]/[0.5] pb-4;
+}
+
+.nav {
+  @apply flex justify-between items-center;
+
+  &-item {
+    @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
+
+    &:hover {
+      @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
+    }
+  }
+}
+
+.homeLink {
+  @apply flex items-center;
+}
+
+.logo {
+  @apply mr-1.5 min-w-10 select-none;
+}
+
+.logoText {
+  @apply text-[15px] text-[#46A358] font-["Cera_Pro_Bold"];
+
+  @media (max-width: 888px) {
+    @apply hidden;
+  }
+}
+
+.searchBox {
+  @media screen and (max-width: 550px) {
+    @apply hidden;
+  }
+}
+
+.controls__wrapper {
+  @media screen and (max-width: 1220px) {
+    @apply hidden;
+  }
+}
+
+.burger-icon {
+  @apply w-[40px] h-[40px];
+
+  @media (min-width: 1221px) {
+    @apply hidden;
+  }
+}
+
+.close-btn {
+  @apply p-2 h-auto w-auto absolute top-4 right-[2rem] text-[#46A358] cursor-pointer z-40;
+}

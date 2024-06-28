@@ -1,8 +1,7 @@
 import type {
   BaseAddress,
-  ClientResponse,
-  CustomerSignInResult,
-  MyCustomerDraft
+  CustomerDraft,
+  CustomerSignInResult
 } from '@commercetools/platform-sdk';
 import type { ValidableField } from '../model/types';
 import {
@@ -18,7 +17,6 @@ import { login } from '@/entities/customer';
 import BillingAddress from '@/widgets/BillingAddress';
 import ShippingAddress from '@/widgets/ShippingAddress';
 import Modal from '@/shared/ErrorModal';
-import { authRoot } from '@/shared/api';
 import passwordConfirm from '../lib/validators/password-confirm';
 import postCode from '../lib/validators/post-code';
 import useFormValidation from '../model/useFormValidation';
@@ -27,6 +25,10 @@ import { BillingAddressFields } from '../config/BillingAddressFields';
 import { ShippingAddressFields } from '../config/ShippingAddressFields';
 import logo from '@/shared/assets/img/logo.svg';
 import styles from './RegistrationPage.module.scss';
+import { useSignUpMutation } from '@/features/api/meApi';
+import { setCart } from '@/entities/cart';
+
+type TypeCountryCode = 'Belarus' | 'Germany' | 'Kazakhstan' | 'Russia' | 'USA';
 
 const RegistrationPage = () => {
   const validableUserDetailsFields = UserDetailsFields();
@@ -47,7 +49,7 @@ const RegistrationPage = () => {
     Kazakhstan: 'KZ',
     USA: 'US'
   };
-
+  const [signUp] = useSignUpMutation();
   const passwordField = validableUserDetailsFields.filter(
     (field) => field.id == 'password1'
   )[0];
@@ -152,12 +154,14 @@ const RegistrationPage = () => {
   ): Promise<void> => {
     event.preventDefault();
 
+    const code: TypeCountryCode = getFieldById(
+      validableBillingAddressFields,
+      'billing-country'
+    ).value as TypeCountryCode;
+
     const billingAddress: BaseAddress = {
       key: 'address1',
-      country:
-        countryCode[
-          getFieldById(validableBillingAddressFields, 'billing-country').value
-        ],
+      country: countryCode[code],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(validableBillingAddressFields, 'billing-address')
@@ -175,10 +179,7 @@ const RegistrationPage = () => {
 
     const shippingAddress: BaseAddress = {
       key: 'address2',
-      country:
-        countryCode[
-          getFieldById(validableBillingAddressFields, 'billing-country').value
-        ],
+      country: countryCode[code],
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
       lastName: getFieldById(validableUserDetailsFields, 'lastname').value,
       streetName: getFieldById(
@@ -197,7 +198,7 @@ const RegistrationPage = () => {
       email: getFieldById(validableUserDetailsFields, 'email').value
     };
 
-    const newCustomer: MyCustomerDraft = {
+    const newCustomer: CustomerDraft = {
       email: getFieldById(validableUserDetailsFields, 'email').value,
       password: getFieldById(validableUserDetailsFields, 'password1').value,
       firstName: getFieldById(validableUserDetailsFields, 'firstname').value,
@@ -210,34 +211,20 @@ const RegistrationPage = () => {
     if (!isSameAddress) {
       newCustomer.addresses?.push(shippingAddress);
     }
-    console.log(newCustomer);
 
     try {
-      const customer: ClientResponse<CustomerSignInResult> = await authRoot
-        .me()
-        .signup()
-        .post({
-          body: newCustomer
-        })
-        .execute();
-
-      await authRoot
-        .login()
-        .post({
-          body: {
-            email: newCustomer.email,
-            password: newCustomer.password
-          }
-        })
-        .execute();
-
+      const customer: CustomerSignInResult = await signUp({
+        body: newCustomer
+      }).unwrap();
       navigate('/home');
-      dispatch(login(customer.body.customer));
+
+      dispatch(login(customer.customer));
+      dispatch(setCart(customer.cart!));
     } catch (error: unknown) {
       if (error instanceof Error) {
         handleCustomerSignUpError(error.message);
       } else {
-        console.error(`Unknown error! ${error}`);
+        console.error(error);
       }
     } finally {
       setIsLoading(false);

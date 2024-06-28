@@ -1,40 +1,34 @@
-import { Image, Price, ProductProjection } from '@commercetools/platform-sdk';
+import { Price, ProductProjection } from '@commercetools/platform-sdk';
 import styles from './ProductCard.module.scss';
 import { Link } from 'react-router-dom';
 import {
   defaultCurrencyCode,
   defaultLocale
 } from '@/shared/constants/settings';
+import ToggleProductInCart from '@/features/ToggleProductInCart';
 
-const ProductCard = (props: { product: ProductProjection }) => {
+type priceValueType = {
+  type: string;
+  currencyCode: string;
+  centAmount: number;
+  fractionDigits: number;
+};
+const ProductCard = ({ product }: { product: ProductProjection }) => {
   const currencySign: { [key: string]: string } = {
     EUR: '€',
     USD: '$',
     RUB: '₽'
   };
-
-  const prices = props.product.masterVariant.prices as Price[];
-
-  const currencyPrice: Price = prices.filter(
+  const prices: Price[] = product.masterVariant.prices!;
+  const currencyPrice: Price = prices.find(
     (price: Price) => price.value.currencyCode == defaultCurrencyCode
-  )[0];
-
-  type priceValueType = {
-    type: string;
-    currencyCode: string;
-    centAmount: number;
-    fractionDigits: number;
-  };
-
+  )!;
   const formatPriceString = (priceValue: priceValueType) => {
     return `${currencySign[currencyPrice.value.currencyCode]} ${(
       priceValue.centAmount /
       10 ** priceValue.fractionDigits
     ).toFixed(priceValue.fractionDigits)}`;
   };
-
-  const description = props.product.description;
-
   const discountPercentage = currencyPrice.discounted
     ? Math.round(
         ((currencyPrice.value.centAmount -
@@ -46,28 +40,25 @@ const ProductCard = (props: { product: ProductProjection }) => {
 
   return (
     <div className={styles.productCard}>
-      <Link to={`/product/${props.product.key}`}>
+      <Link to={`/product/${product.key}`}>
         <div className={styles.imageContainer}>
           <img
-            alt='product image'
+            alt={product.name['en-US']}
             className={styles.productImage}
-            src={(props.product.masterVariant.images as Image[])[0].url}></img>
+            src={product.masterVariant.images![0].url}></img>
           {discountPercentage ? (
             <div
               className={styles.discount}>{`${discountPercentage}% off`}</div>
           ) : null}
         </div>
-        <div className={styles.productName}>
-          {props.product.name[defaultLocale]}
-        </div>
-        <div className={styles.productDescription}>
-          {description ? description[defaultLocale] : null}
-        </div>
+        <div className={styles.productName}>{product.name[defaultLocale]}</div>
         <div className={styles.productPrice}>
           <div className={styles.actualPrice}>
-            {currencyPrice.discounted
-              ? formatPriceString(currencyPrice.discounted.value)
-              : formatPriceString(currencyPrice.value)}
+            {formatPriceString(
+              currencyPrice.discounted
+                ? currencyPrice.discounted.value
+                : currencyPrice.value
+            )}
           </div>
           <div className={styles.oldPrice}>
             {currencyPrice.discounted
@@ -76,6 +67,7 @@ const ProductCard = (props: { product: ProductProjection }) => {
           </div>
         </div>
       </Link>
+      <ToggleProductInCart product={product} />
     </div>
   );
 };

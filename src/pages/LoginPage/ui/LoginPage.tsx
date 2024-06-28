@@ -1,12 +1,15 @@
 import { type FormEvent, useState } from 'react';
-import { Customer, type CustomerSignin } from '@commercetools/platform-sdk';
+import type { Customer, CustomerSignin } from '@commercetools/platform-sdk';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '@/entities/customer/model/customerSlice';
-import Input from '@/features/InputLogin';
 import Modal from '@/shared/ErrorModal';
 import Button from '@/shared/Button';
 import logo from '@/shared/assets/img/logo.svg';
+import TokenStorage from '@/shared/api';
+import { TokenResponse, useMeTokenMutation } from '@/features/api/authApi';
+import { useGetProfileMutation } from '@/features/api/meApi';
+import Input from '@/features/InputLogin';
+import { login } from '@/entities/customer/model/customerSlice';
 import styles from './LoginPage.module.scss';
 import { TokenResponse, useMeTokenMutation } from '@/features/api/authApi';
 import TokenStorage from '@/shared/api/tokenStorage';
@@ -24,6 +27,9 @@ const LoginPage = () => {
   const [getUserToken] = useMeTokenMutation();
   const tokenStorage = new TokenStorage('ecom');
 
+  const [getUserToken] = useMeTokenMutation();
+  const tokenStorage = new TokenStorage('ecom');
+
   function CustomerErrorHandler(message: string): void {
     seIsVisible(true);
     setErrorMessage(message);
@@ -31,7 +37,10 @@ const LoginPage = () => {
     setTimeout(() => {
       seIsVisible(false);
     }, 3000);
+    }, 3000);
   }
+
+  const [requestProfile] = useGetProfileMutation();
 
   const [requestProfile] = useGetProfileMutation();
 
@@ -42,7 +51,31 @@ const LoginPage = () => {
       password: customer.password
     };
 
+    const _credentials = {
+      username: customer.email,
+      password: customer.password
+    };
+
     try {
+      const result: TokenResponse = await getUserToken(_credentials).unwrap();
+      if (result.access_token) {
+        tokenStorage.setItem(
+          'user-token',
+          result.access_token,
+          result.expires_in
+        );
+      }
+      if (result.refresh_token) {
+        tokenStorage.setItem(
+          'user-refresh-token',
+          result.refresh_token,
+          17280000
+        );
+      }
+
+      const profile = (await requestProfile().unwrap()) as Customer;
+      dispatch(login(profile));
+
       const result: TokenResponse = await getUserToken(_credentials).unwrap();
       if (result.access_token) {
         tokenStorage.setItem(

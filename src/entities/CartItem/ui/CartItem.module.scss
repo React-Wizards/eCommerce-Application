@@ -1,0 +1,82 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.wrapper {
+  @apply flex items-center gap-3;
+}
+
+.row {
+  @apply relative;
+}
+
+.cell {
+  @apply relative;
+
+  &__wrapper {
+    @apply flex flex-col items-center gap-1;
+  }
+
+  &__price {
+    @apply font-cera-pro-medium text-base leading-4 text-[#727272];
+
+    &_discounted {
+      @apply line-through;
+    }
+  }
+
+  &__quantity {
+    @apply font-cera-pro-regular;
+  }
+
+  &__total {
+    @apply font-cera-pro-bold text-base leading-4 text-[#46A358];
+  }
+
+  @media screen and (max-width: 550px) {
+    &:nth-child(2) {
+      @apply hidden;
+    }
+  }
+}
+
+.info {
+  &__text {
+    @apply font-cera-pro-medium text-base leading-4 text-[#3D3D3D];
+  }
+
+  @apply flex flex-col overflow-hidden text-ellipsis text-left;
+}
+
+.button {
+  @apply w-6 aspect-square bg-green-600 rounded-3xl select-none;
+
+  &__text {
+    @apply font-cera-pro-regular text-lg text-white;
+  }
+}
+
+.quantity {
+  @apply w-12 border-2 border-solid border-[#46A358] px-2 mx-1 text-center font-cera-pro-regular text-[1.0625rem] leading-[0.625rem] text-[#3D3D3D];
+  outline: none;
+}
+
+.image {
+  @apply max-w-[6.25rem] aspect-square select-none;
+}
+
+.delete {
+  &__icon {
+    @apply text-[#727272];
+
+    &:hover {
+      @apply text-red-600;
+    }
+  }
+}

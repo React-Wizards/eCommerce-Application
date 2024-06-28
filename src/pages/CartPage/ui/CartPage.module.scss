@@ -1,0 +1,7 @@
+.wrapper {
+  @apply flex justify-between;
+
+  @media screen and (max-width: 1280px) {
+    @apply flex-col gap-10 items-center;
+  }
+}

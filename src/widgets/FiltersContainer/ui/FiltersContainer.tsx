@@ -1,21 +1,17 @@
 import CategoryFilter from '@/widgets/CategoryFilter';
-import styles from './FiltersContainer.module.scss';
 import {
   useGetCategoriesMutation,
   useGetProductsByCategoryIdMutation
 } from '@/features/api/appApi';
 import { setCategories } from '@/entities/category';
-import {
+import type {
   Category,
   CategoryPagedQueryResponse,
   Price,
   ProductProjection,
   ProductProjectionPagedQueryResponse
 } from '@commercetools/platform-sdk';
-import {
-  setPriceRange,
-  setSelectedCategoryId
-} from '@/entities/product/model/productsViewSlice';
+import { setPriceRange } from '@/entities/product/model/productsViewSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/app/store';
@@ -25,6 +21,7 @@ import {
 } from '@/shared/constants/settings';
 import PriceFilter from '@/widgets/PriceFilter';
 import SizeFilter from '@/widgets/SizeFilter';
+import styles from './FiltersContainer.module.scss';
 
 const FiltersContainer = () => {
   const dispatch = useDispatch();
@@ -49,7 +46,6 @@ const FiltersContainer = () => {
       const fetchedCategories = (result as { data: CategoryPagedQueryResponse })
         .data.results;
       dispatch(setCategories(fetchedCategories));
-      dispatch(setSelectedCategoryId(fetchedCategories[0].id));
 
       const sizes = new Map<string, number>();
       fetchedCategories.forEach(async (category: Category) => {

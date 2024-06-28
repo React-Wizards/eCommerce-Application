@@ -1,6 +1,6 @@
 .mobile-slider-container {
   @apply max-w-[414px] h-[380px] w-full m-auto py-8 px-4 relative;
-  @media screen and (min-width: 641px) {
+  @media (min-width: 641px) {
     @apply hidden;
   }
 }
@@ -10,12 +10,16 @@
 }
 
 .slider-item {
-  @apply w-full h-full rounded-2xl bg-center bg-cover duration-500;
+  @apply w-full h-full rounded-2xl bg-center bg-contain bg-no-repeat duration-500;
 }
 
 .arrow-left,
 .arrow-right {
   @apply absolute top-[50%] -translate-x-0 translate-y-[-50%] text-xl rounded-full p-2 bg-black/20 text-white cursor-pointer;
+
+  &:hover {
+    @apply bg-[#46A358];
+  }
 }
 
 .arrow-left {

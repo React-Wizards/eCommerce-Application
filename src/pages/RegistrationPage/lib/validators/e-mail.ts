@@ -5,7 +5,9 @@ const REGEX =
 
 const ERROR_MESSAGE = 'The e-mail address must be formatted properly';
 
-const email: () => Validator<string> = (errorMessage = ERROR_MESSAGE) => {
+const email: (errorMessage?: string) => Validator<string> = (
+  errorMessage = ERROR_MESSAGE
+) => {
   return async (value) => (REGEX.test(value) ? null : errorMessage);
 };
 

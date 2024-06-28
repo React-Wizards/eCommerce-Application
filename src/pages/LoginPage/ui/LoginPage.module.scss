@@ -3,7 +3,7 @@
 }
 
 .login-wrapper-desktop {
-  @media screen and (max-width: 449px) {
+  @media (max-width: 449px) {
     @apply hidden;
   }
 }
@@ -11,13 +11,13 @@
 .login-wrapper-mobile {
   @apply max-w-[414px] min-w-[360px] min-h-[600px] max-h-[700px] pt-[89px] px-[28px] pb-[37px] border-0 rounded-[40px];
 
-  @media screen and (min-width: 449px) {
+  @media (min-width: 449px) {
     @apply hidden;
   }
 }
 
 .login-header {
-  @apply flex justify-center gap-3;
+  @apply flex justify-center gap-3 select-none;
 }
 
 .login-caption,
@@ -32,7 +32,7 @@
 .login-caption {
   @apply text-[#46A358];
 
-  @media screen and (max-width: 449px) {
+  @media (max-width: 449px) {
     @apply text-[#3D3D3D];
   }
 }
@@ -40,7 +40,7 @@
 .login-link {
   @apply text-[#3D3D3D];
 
-  @media screen and (max-width: 449px) {
+  @media (max-width: 449px) {
     @apply text-[#46A358] text-[15px] ml-1;
   }
 }
@@ -54,5 +54,5 @@
 }
 
 .img-wrapper {
-  @apply flex justify-center;
+  @apply flex justify-center select-none;
 }

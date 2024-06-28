@@ -1,0 +1,19 @@
+.wrapper {
+  @apply w-max mx-auto text-center;
+}
+
+.image {
+  @apply max-w-full mb-5 select-none;
+}
+
+.title {
+  @apply font-cera-pro-bold text-[1.125rem] leading-4 text-[#3D3D3D] mb-3;
+}
+
+.button {
+  @apply bg-[#46A358] rounded-md py-3 px-6 text-white font-cera-pro-bold text-[0.9375rem] leading-4 select-none;
+
+  &:hover {
+    @apply scale-105;
+  }
+}

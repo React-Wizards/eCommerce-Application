@@ -79,7 +79,8 @@ const LoginPage = () => {
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-desktop']
-        ].join(' ')}>
+        ].join(' ')}
+      >
         <div className={styles['login-header']}>
           <Link className={styles['login-caption']} to='/login'>
             Login
@@ -104,7 +105,8 @@ const LoginPage = () => {
         className={[
           styles['login-wrapper'],
           styles['login-wrapper-mobile']
-        ].join(' ')}>
+        ].join(' ')}
+      >
         <Link className={styles['img-wrapper']} to='/home'>
           <img src={logo} alt='Green shop Logo' />
         </Link>

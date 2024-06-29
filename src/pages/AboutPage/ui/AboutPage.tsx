@@ -24,7 +24,8 @@ const AboutPage = () => {
         <Link
           to='/home'
           className={styles.homeLink}
-          title='Green Shop home page'>
+          title='Green Shop home page'
+        >
           <img className={styles.logo} src={logo} alt='logo' />
           <span className={styles.logoText}>GREENSHOP</span>
         </Link>
@@ -33,7 +34,8 @@ const AboutPage = () => {
           className={styles.navigation__back}
           onClick={() => {
             goBack();
-          }}>
+          }}
+        >
           Go back
         </button>
       </nav>
@@ -53,7 +55,8 @@ const AboutPage = () => {
             id={String(ind)}
             onClick={() => {
               toggleActiveCard(String(ind));
-            }}>
+            }}
+          >
             <div className={styles.contentWrapper}>
               <div className={styles.imagesContainer}>
                 <img
@@ -84,7 +87,8 @@ const AboutPage = () => {
                 className={styles.memberLink}
                 href={member.github}
                 target='_blank'
-                rel='noopener noreferrer'>
+                rel='noopener noreferrer'
+              >
                 {member.github}
               </a>
             </div>

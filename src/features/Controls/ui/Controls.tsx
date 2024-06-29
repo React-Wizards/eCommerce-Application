@@ -28,7 +28,8 @@ const Controls = () => {
         className={styles.cartLink}
         to='/cart'
         title='Checkout'
-        data-items-count={cartItemsCount > 99 ? '99+' : cartItemsCount || ''}>
+        data-items-count={cartItemsCount > 99 ? '99+' : cartItemsCount || ''}
+      >
         <img className={styles.cartLogo} src={cartIcon} />
       </Link>
       <div className={styles.headerControls}>
@@ -36,12 +37,12 @@ const Controls = () => {
           <Link
             to={'/profile'}
             className={styles.user}
-            title={`${customer.firstName} ${customer.lastName} profile`}>
+            title={`${customer.firstName} ${customer.lastName} profile`}
+          >
             <img className={styles.btnLogo} src={profileIcon} />
             <span
-              className={
-                styles.btnText
-              }>{`${customer.firstName} ${customer.lastName}`}</span>
+              className={styles.btnText}
+            >{`${customer.firstName} ${customer.lastName}`}</span>
           </Link>
         ) : null}
         <nav className={styles.nav}>
@@ -55,7 +56,8 @@ const Controls = () => {
                   dispatch(logout());
                   tokenStorage.clearItems();
                 }}
-                title='Sign out'>
+                title='Sign out'
+              >
                 <img className={styles.btnLogo} src={logoutIcon} />
                 <span className={styles.btnText}>Logout</span>
               </div>

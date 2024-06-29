@@ -19,7 +19,8 @@ const Header = () => {
         <Link
           to='/home'
           className={styles.homeLink}
-          title='Green Shop home page'>
+          title='Green Shop home page'
+        >
           <img className={styles.logo} src={logo} alt='logo' />
           <span className={styles.logoText}>GREENSHOP</span>
         </Link>

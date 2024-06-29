@@ -28,7 +28,8 @@ const ProdViewControls = () => {
         <select
           className={styles.select}
           value={sortOption}
-          onChange={onSortChangeHandler}>
+          onChange={onSortChangeHandler}
+        >
           {sortOptions.map((opt, idx) => (
             <option value={opt[0]} key={idx}>
               {opt[1]}

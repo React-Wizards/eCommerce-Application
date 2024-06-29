@@ -273,7 +273,8 @@ const RegistrationPage = () => {
               <button
                 type='submit'
                 className={styles['register-button']}
-                disabled={!registrationForm.isFormValid || isLoading}>
+                disabled={!registrationForm.isFormValid || isLoading}
+              >
                 Register
               </button>
             </div>

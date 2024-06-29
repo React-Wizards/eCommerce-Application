@@ -23,7 +23,8 @@ const Button = ({
       type={submit ? 'submit' : 'button'}
       onClick={callback}
       disabled={disabled}
-      autoFocus={focus}>
+      autoFocus={focus}
+    >
       {text}
     </button>
   );

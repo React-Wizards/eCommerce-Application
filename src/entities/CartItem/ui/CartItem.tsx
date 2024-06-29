@@ -110,7 +110,8 @@ const CartItem = ({ lineItem }: IProps) => {
       <td className={styles.cell}>
         <div className={styles.cell__wrapper}>
           <span
-            className={`${styles.cell__price} ${lineItem.price.discounted ? styles.cell__price_discounted : ''}`}>
+            className={`${styles.cell__price} ${lineItem.price.discounted ? styles.cell__price_discounted : ''}`}
+          >
             {formatPriceString(lineItem.price.value)}
           </span>
           {lineItem.price.discounted && (
@@ -125,7 +126,8 @@ const CartItem = ({ lineItem }: IProps) => {
           className={styles.button}
           onClick={() => {
             setquantity((prev: number): number => Math.max(0, prev - 1));
-          }}>
+          }}
+        >
           <span className={styles.button__text}>-</span>
         </button>
         <input
@@ -144,7 +146,8 @@ const CartItem = ({ lineItem }: IProps) => {
           className={styles.button}
           onClick={() => {
             setquantity((prev: number): number => prev + 1);
-          }}>
+          }}
+        >
           <span className={styles.button__text}>+</span>
         </button>
       </td>
@@ -168,7 +171,8 @@ const CartItem = ({ lineItem }: IProps) => {
             };
 
             clearCart();
-          }}>
+          }}
+        >
           <FaRegTrashCan className={styles.delete__icon} size={22} />
         </button>
       </td>

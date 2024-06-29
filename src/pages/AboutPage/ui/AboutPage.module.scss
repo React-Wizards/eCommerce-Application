@@ -42,7 +42,7 @@
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-areas: '1 2' '3 4';
+  grid-template-areas: "1 2" "3 4";
   background: radial-gradient(
     circle,
     rgba(255, 255, 255, 1) 0%,
@@ -55,7 +55,7 @@
   }
 
   @media (max-aspect-ratio: 1/1) {
-    grid-template-areas: '1' '2' '3' '4';
+    grid-template-areas: "1" "2" "3" "4";
     padding: 20px 30px;
   }
 }
@@ -266,7 +266,7 @@
 
 .memberName {
   font-weight: bold;
-  font-family: 'Cera Pro Bold';
+  font-family: "Cera Pro Bold";
   font-size: larger;
   color: #46a358;
   grid-area: n;

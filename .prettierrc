@@ -23,12 +23,6 @@
         "parser": "scss",
         "singleQuote": false
       }
-    },
-    {
-      "files": ["**/*.md"],
-      "options": {
-        "parser": "md"
-      }
     }
   ]
 }

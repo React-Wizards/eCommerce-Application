@@ -1,7 +1,7 @@
 .from-text__left {
   @apply text-sm font-["Cera_Pro_Regular"] flex;
 
-  @media screen and (max-width: 712px) {
+  @media (max-width: 712px) {
     @apply ml-[26px];
   }
 }
@@ -9,7 +9,7 @@
 .from-text__right {
   @apply text-sm font-["Cera_Pro_Regular"] flex justify-end;
 
-  @media screen and (max-width: 712px) {
+  @media (max-width: 712px) {
     @apply mr-[26px];
   }
 }

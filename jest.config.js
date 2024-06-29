@@ -1,10 +1,14 @@
 export default {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.ts?$': 'ts-jest'
+    '^.+\\.ts?$': 'ts-jest',
+    '^.+\\.(svg|jpg|jpeg|png)$': '<rootDir>/fileTransformer.ts',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform'
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/']
-  // testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-  // "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  }
 };

@@ -3,7 +3,7 @@ import { env } from '@/shared/constants';
 
 const basicAuth = btoa(`${env.CLIENT_ID}:${env.CLIENT_SECRET}`);
 
-const getAuthToken = async () => {
+export const getAuthToken = async () => {
   const tokenResponse = await axios.post(
     `${env.AUTH_URL}/oauth/token`,
     new URLSearchParams({
@@ -19,5 +19,3 @@ const getAuthToken = async () => {
   );
   return tokenResponse.data.access_token;
 };
-
-export default getAuthToken;

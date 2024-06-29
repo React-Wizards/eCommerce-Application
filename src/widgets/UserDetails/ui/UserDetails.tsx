@@ -33,7 +33,8 @@ const UserDetails = (props: { fieldsList: Array<ValidableField> }) => {
         <label
           className='input-label'
           key={ind}
-          data-error-message={field.error || ''}>
+          data-error-message={field.error || ''}
+        >
           <p className='field-name'>{!!field.value && field.placeHolder}</p>
           <input
             id={field.id}

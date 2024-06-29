@@ -1,0 +1,26 @@
+.title {
+  @apply text-[#46A358] font-["Cera_Pro_Bold"] underline decoration-[#46A358] mb-[30px];
+}
+
+.description {
+  @apply text-[#727272];
+}
+
+.description-text {
+  @apply text-sm text-[#727272] mb-[20px] font-["Cera_Pro_Regular"];
+}
+
+.subtitle {
+  @apply text-sm font-["Cera_Pro_Bold"] text-[#3D3D3D];
+}
+
+.container {
+  @apply mt-[90px] max-w-[1200px] min-w-[350px];
+
+  @media (max-width: 640px) {
+    @apply mt-[45px];
+  }
+  @media (max-width: 415px) {
+    @apply hidden;
+  }
+}

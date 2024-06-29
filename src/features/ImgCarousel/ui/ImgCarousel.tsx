@@ -1,7 +1,7 @@
-import styles from './ImgCarousel.module.scss';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
+import { RxDot, RxDotFilled } from 'react-icons/rx';
 import { useState } from 'react';
+import styles from './ImgCarousel.module.scss';
 
 const ImgCarousel = ({
   classname,
@@ -24,16 +24,16 @@ const ImgCarousel = ({
     setCurrentIndex(newIndex);
   };
 
-  const goToSlide = (slide: string, slideIndex: number) => {
+  const goToSlide = (slideIndex: number) => {
     setCurrentIndex(slideIndex);
-    console.log(slide);
   };
 
   return (
     <div className={styles[`${classname}`]}>
       <div
         style={{ backgroundImage: `url(${imgArr[currentIndex]})` }}
-        className={styles['slider-item']}></div>
+        className={styles['slider-item']}
+      ></div>
       <div className={styles['arrow-left']}>
         <BsChevronCompactLeft size={15} onClick={prevSlide} />
       </div>
@@ -41,12 +41,13 @@ const ImgCarousel = ({
         <BsChevronCompactRight size={15} onClick={nextSlide} />
       </div>
       <div className={styles['slider-navs']}>
-        {imgArr.map((slide, slideIndex) => (
+        {imgArr.map((_, slideIndex) => (
           <div
             key={slideIndex}
             className={styles['slider-nav']}
-            onClick={() => goToSlide(slide, slideIndex)}>
-            <RxDotFilled />
+            onClick={() => goToSlide(slideIndex)}
+          >
+            {slideIndex == currentIndex ? <RxDotFilled /> : <RxDot />}
           </div>
         ))}
       </div>

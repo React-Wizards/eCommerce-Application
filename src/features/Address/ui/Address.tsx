@@ -7,38 +7,54 @@ const Address = (props: {
 }) => {
   return (
     <div className={styles['adress-wrapper']}>
-      {props.fieldsList.map((field, ind) => (
-        <label
-          className='input-label'
-          key={ind}
-          data-error-message={field.error || ''}>
-          <p className='field-name'>{!!field.value && field.placeHolder}</p>
-          {field.type == 'select' ? (
-            <select
-              value={field.value}
-              className={styles['coutnry-select']}
-              onChange={field.onChangeHandler}
-              disabled={props.isDisabled}>
-              {field.options?.map((opt, idx) => (
-                <option value={opt} key={idx}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <input
-              id={field.id}
-              type={field.type}
-              value={field.value}
-              className={styles['input-field']}
-              placeholder={field.placeHolder}
-              onChange={field.onChangeHandler}
-              onBlur={field.onBlurHandler}
-              disabled={props.isDisabled}
-            />
-          )}
-        </label>
-      ))}
+      {props.fieldsList.map(
+        (
+          {
+            type,
+            value,
+            options,
+            id,
+            error,
+            placeHolder,
+            onChangeHandler,
+            onBlurHandler
+          },
+          ind
+        ) => (
+          <label
+            className='input-label'
+            key={ind}
+            data-error-message={error || ''}
+          >
+            <p className='field-name'>{!!value && placeHolder}</p>
+            {type == 'select' ? (
+              <select
+                value={value}
+                className={styles['coutnry-select']}
+                onChange={onChangeHandler}
+                disabled={props.isDisabled}
+              >
+                {options?.map((opt, idx) => (
+                  <option value={opt} key={idx}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                id={id}
+                type={type}
+                value={value}
+                className={styles['input-field']}
+                placeholder={placeHolder}
+                onChange={onChangeHandler}
+                onBlur={onBlurHandler}
+                disabled={props.isDisabled}
+              />
+            )}
+          </label>
+        )
+      )}
     </div>
   );
 };

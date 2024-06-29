@@ -1,26 +1,29 @@
 import { useState } from 'react';
 import styles from './ProdPaginator.module.scss';
 
-const ProdPaginator = (props: {
+interface IProps {
   currentPage: number;
   pageSize: number;
   totalItemsCount: number;
   onPageButtonClickHandler: (n: number) => void;
-}) => {
-  const pagesCount = Math.ceil(props.totalItemsCount / props.pageSize);
+}
 
-  const pages: Array<number> = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
-  const portionSize = 4;
-
-  const portionCount = Math.ceil(pagesCount / portionSize);
-  const [portionNumber, setPortionNumber] = useState(1);
-
-  const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-  const rightPortionPageNumber = portionNumber * portionSize;
+const ProdPaginator = ({
+  currentPage,
+  pageSize,
+  totalItemsCount,
+  onPageButtonClickHandler
+}: IProps) => {
+  const [portionNumber, setPortionNumber] = useState<number>(1);
+  const pagesCount: number = Math.ceil(totalItemsCount / pageSize);
+  const pages: number[] = Array.from(
+    { length: pagesCount },
+    (_, index: number): number => index + 1
+  );
+  const portionSize: number = 4;
+  const portionCount: number = Math.ceil(pagesCount / portionSize);
+  const leftPortionPageNumber: number = (portionNumber - 1) * portionSize + 1;
+  const rightPortionPageNumber: number = portionNumber * portionSize;
 
   return (
     <div className={styles.prodPaginatorContrainer}>
@@ -29,7 +32,8 @@ const ProdPaginator = (props: {
           className={styles.pageButton}
           onClick={() => {
             setPortionNumber(portionNumber - 1);
-          }}>
+          }}
+        >
           {'<'}
         </div>
       )}
@@ -43,12 +47,13 @@ const ProdPaginator = (props: {
             <div
               className={[
                 styles.pageButton,
-                p === props.currentPage ? styles.currentPageButton : ''
+                p === currentPage ? styles.currentPageButton : ''
               ].join(' ')}
               key={p}
               onClick={() => {
-                props.onPageButtonClickHandler(p);
-              }}>
+                onPageButtonClickHandler(p);
+              }}
+            >
               {p}
             </div>
           );
@@ -58,7 +63,8 @@ const ProdPaginator = (props: {
           className={styles.pageButton}
           onClick={() => {
             setPortionNumber(portionNumber + 1);
-          }}>
+          }}
+        >
           {'>'}
         </div>
       )}

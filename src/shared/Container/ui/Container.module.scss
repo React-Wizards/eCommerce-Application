@@ -1,0 +1,7 @@
+.container {
+  @apply mx-auto px-20 py-6 max-w-[100rem];
+
+  @media screen and (max-width: 50rem) {
+    @apply px-10;
+  }
+}

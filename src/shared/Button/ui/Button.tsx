@@ -17,11 +17,14 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={styles['btn']}
+      className={
+        disabled ? `${styles['btn_disabled']} ${styles['btn']}` : styles['btn']
+      }
       type={submit ? 'submit' : 'button'}
       onClick={callback}
       disabled={disabled}
-      autoFocus={focus}>
+      autoFocus={focus}
+    >
       {text}
     </button>
   );

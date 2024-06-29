@@ -1,7 +1,7 @@
 import type { Validator } from '../../model/types';
 
 const DEFAULT_MIN_AGE = 18;
-const ERROR_MESSAGE = 'The age must be above than ';
+const ERROR_MESSAGE = 'The age must be above than';
 const MILLIS_IN_YEAR = 1000 * 60 * 60 * 24 * 365.2425;
 
 const notYounger: (opt?: number) => Validator<string> = (

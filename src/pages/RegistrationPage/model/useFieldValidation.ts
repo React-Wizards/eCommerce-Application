@@ -2,7 +2,7 @@ import { type ChangeEvent, useCallback, useState } from 'react';
 import type { Field } from './types';
 import validateValue from '../lib/validators';
 
-function useFieldValidation(fieldDefinition: Field) /* : ValidableField */ {
+function useFieldValidation(fieldDefinition: Field) {
   const [value, setVal] = useState('');
   const [error, setErr] = useState<string | null>(null);
 

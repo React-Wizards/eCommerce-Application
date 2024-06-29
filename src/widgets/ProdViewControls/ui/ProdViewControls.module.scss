@@ -5,3 +5,12 @@
 .sortSelect {
   @apply text-[15px];
 }
+
+.sort__text {
+  @apply mr-1 select-none;
+}
+
+.select {
+  @apply select-none cursor-pointer p-1 bg-transparent;
+  outline: none;
+}

@@ -1,49 +1,57 @@
 import ProdViewControls from '@/widgets/ProdViewControls';
-import styles from './ProductsContainer.module.scss';
 import ProductsList from '@/widgets/ProductsList';
 import ProdPaginator from '@/widgets/ProdPaginator';
 import { useGetProductsByCategoryIdMutation } from '@/features/api/appApi';
-import { useAppSelector } from '@/app/store';
+import { type RootState, useAppSelector } from '@/app/store';
 import { setProducts } from '@/entities/product';
-import { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
+import type { ProductProjectionPagedQueryResponse } from '@commercetools/platform-sdk';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import {
+  type ProductsViewState,
   setCurrentPage,
   setTotalItemsCount
 } from '@/entities/product/model/productsViewSlice';
+import {
+  useGetActiveCartMutation,
+  useCreateActiveCartMutation
+} from '@/features/api/meApi';
 import Loader from '@/shared/Loader';
+import { setCart } from '@/entities/cart';
+import styles from './ProductsContainer.module.scss';
 
-const ProductsContainer = (props: { searchText: string }) => {
-  const currentPage = useAppSelector((state) => state.productsView.currentPage);
-  const pageSize = useAppSelector((state) => state.productsView.pageSize);
-  const totalItemsCount = useAppSelector(
-    (state) => state.productsView.totalItemsCount
+const ProductsContainer = () => {
+  const {
+    selectedCategoryId,
+    totalItemsCount,
+    currentPage,
+    sortOption,
+    searchText,
+    priceRange,
+    pageSize,
+    sizes
+  }: ProductsViewState = useAppSelector<RootState, ProductsViewState>(
+    (store): ProductsViewState => store.productsView
   );
-  const sortOption = useAppSelector((state) => state.productsView.sortOption);
-
   const dispatch = useDispatch();
-  const products = useAppSelector((state) => state.products.products);
   const [requestProducts, { isLoading }] = useGetProductsByCategoryIdMutation();
-  const selectedCategory = useAppSelector(
-    (state) => state.productsView.selectedCategoryId
-  );
-  const priceRange = useAppSelector((state) => state.productsView.priceRange);
-  const sizes = useAppSelector((state) => state.productsView.sizes);
 
   const setCurrentPageHandler = (p: number) => {
     dispatch(setCurrentPage(p));
   };
 
+  const [getCart] = useGetActiveCartMutation();
+  const [createCart] = useCreateActiveCartMutation();
+
   useEffect(() => {
     async function fetchData() {
       const result: ProductProjectionPagedQueryResponse = await requestProducts(
         {
-          categoryId: selectedCategory,
+          categoryId: selectedCategoryId,
           pageSize,
           currentPage,
           sortOption,
-          searchText: props.searchText,
+          searchText,
           priceRange,
           sizes
         }
@@ -51,24 +59,43 @@ const ProductsContainer = (props: { searchText: string }) => {
       dispatch(setProducts(result.results));
       dispatch(setTotalItemsCount(result.total || 0));
     }
+
+    async function fetchActiveCart() {
+      try {
+        dispatch(setCart(await getCart().unwrap()));
+      } catch (error: unknown) {
+        if (
+          typeof error === 'object' &&
+          error &&
+          'status' in error &&
+          error.status === 404
+        ) {
+          dispatch(setCart(await createCart().unwrap()));
+        }
+      }
+    }
+
     fetchData();
+    fetchActiveCart();
   }, [
-    selectedCategory,
+    selectedCategoryId,
     currentPage,
     sortOption,
-    props.searchText,
+    searchText,
     requestProducts,
     pageSize,
     priceRange,
     sizes,
-    dispatch
+    dispatch,
+    getCart,
+    createCart
   ]);
 
   return (
     <div className={styles.productsContainer}>
-      {isLoading ? <Loader /> : null}
+      {isLoading && <Loader />}
       <ProdViewControls />
-      <ProductsList products={products}></ProductsList>
+      <ProductsList></ProductsList>
       <ProdPaginator
         currentPage={currentPage}
         totalItemsCount={totalItemsCount}

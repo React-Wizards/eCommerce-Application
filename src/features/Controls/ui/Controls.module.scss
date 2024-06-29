@@ -1,0 +1,78 @@
+.controlsWrapper {
+  @apply w-max h-max flex items-center gap-5;
+}
+
+.cartLink {
+  @apply mr-2 relative select-none;
+
+  &:hover {
+    @apply scale-105;
+  }
+
+  &:not([data-items-count=""])::after {
+    @apply absolute min-w-[70%] aspect-square -top-1 -right-3 z-10 flex justify-center items-center text-white text-[0.625rem] bg-[#46a358] rounded-full;
+    content: attr(data-items-count);
+  }
+}
+
+.headerControls {
+  @apply flex justify-end items-center gap-3;
+}
+
+.user {
+  @apply w-[7.5rem] p-2 border-2 border-solid border-[#46A358] flex items-center h-full text-[#46A358] font-["Cera_Pro_Bold"] select-none cursor-pointer;
+  border-radius: 10px;
+
+  &:hover {
+    @apply bg-[#46A358] bg-opacity-50;
+  }
+
+  & > .btnLogo {
+    @apply h-6 px-2;
+  }
+
+  & > .btnText {
+    @apply block w-full overflow-ellipsis overflow-hidden;
+  }
+}
+
+.nav {
+  @apply flex justify-between items-center;
+
+  &-item {
+    @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
+
+    &:hover {
+      @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
+    }
+  }
+}
+
+.links {
+  @apply flex items-center gap-2 select-none;
+}
+
+.login,
+.register {
+  @apply w-28 flex gap-1 justify-center items-center h-9 bg-[#46A358] text-white font-medium  font-["Cera_Pro_Medium"] rounded-md cursor-pointer;
+
+  &:hover {
+    @apply scale-105;
+  }
+
+  & > .btnLogo {
+    @apply h-6;
+  }
+}
+
+.aboutLink {
+  @apply ml-1;
+
+  &:hover {
+    @apply scale-105;
+  }
+}
+
+.aboutLogo {
+  @apply h-[40px] w-[40px] select-none;
+}

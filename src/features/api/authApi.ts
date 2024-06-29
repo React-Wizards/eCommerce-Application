@@ -1,5 +1,6 @@
-import { env } from '@/shared/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { env } from '@/shared/constants';
+import fetch from 'cross-fetch';
 
 export interface LoginRequest {
   username: string;
@@ -25,7 +26,8 @@ export const authApi = createApi({
       );
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       return headers;
-    }
+    },
+    fetchFn: fetch
   }),
   endpoints: (builder) => ({
     rootToken: builder.mutation<TokenResponse, void>({
@@ -65,12 +67,16 @@ export const authApi = createApi({
         url: `/oauth/${env.PROJECT_KEY}/anonymous/token`,
         method: 'POST',
         params: {
-          grant_type: 'client_credentials',
-          scope: `view_published_products:${env.PROJECT_KEY} manage_my_orders:${env.PROJECT_KEY} manage_my_profile:${env.PROJECT_KEY}`
+          grant_type: 'client_credentials'
         }
       })
     })
   })
 });
 
-export const { useRootTokenMutation, useMeTokenMutation } = authApi;
+export const {
+  useRootTokenMutation,
+  useMeTokenMutation,
+  useAnonymousTokenMutation,
+  useRefreshTokenMutation
+} = authApi;

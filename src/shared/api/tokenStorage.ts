@@ -11,6 +11,7 @@ export interface CookieOptions {
 
 export default class TokenStorage {
   private prefix: string;
+
   constructor(prefix: string) {
     this.prefix = prefix;
   }

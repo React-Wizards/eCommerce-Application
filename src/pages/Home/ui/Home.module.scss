@@ -11,15 +11,7 @@
 }
 
 .nav {
-  @apply flex justify-between items-center border-b-[1px] border-[#46A358]/[0.5] pb-[20px];
-}
-
-.nav-item {
-  @apply text-[#3D3D3D] font-["Cera_Pro_Regular"];
-}
-
-.nav-item:hover {
-  @apply text-[#46A358] font-["Cera_Pro_Bold"] border-b-2 border-[#46A358];
+  @apply flex justify-between items-center;
 }
 
 .logo {
@@ -28,21 +20,11 @@
 
 .links {
   @apply flex items-center gap-2;
-  @media screen and (max-width: 640px) {
-    @apply hidden;
-  }
-}
-
-.page-links {
-  @apply flex justify-between gap-12;
-  @media screen and (max-width: 640px) {
-    @apply hidden;
-  }
 }
 
 .login,
 .register {
-  @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium  font-["Cera_Pro_Medium"];
+  @apply flex justify-center items-center w-28 h-9 bg-[#46A358] text-white font-medium font-["Cera_Pro_Medium"];
   border-radius: 6px;
 }
 

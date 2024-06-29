@@ -32,7 +32,8 @@ const ImgCarousel = ({
     <div className={styles[`${classname}`]}>
       <div
         style={{ backgroundImage: `url(${imgArr[currentIndex]})` }}
-        className={styles['slider-item']}></div>
+        className={styles['slider-item']}
+      ></div>
       <div className={styles['arrow-left']}>
         <BsChevronCompactLeft size={15} onClick={prevSlide} />
       </div>
@@ -44,7 +45,8 @@ const ImgCarousel = ({
           <div
             key={slideIndex}
             className={styles['slider-nav']}
-            onClick={() => goToSlide(slideIndex)}>
+            onClick={() => goToSlide(slideIndex)}
+          >
             {slideIndex == currentIndex ? <RxDotFilled /> : <RxDot />}
           </div>
         ))}

@@ -45,10 +45,12 @@ const ProductCard = ({ product }: { product: ProductProjection }) => {
           <img
             alt={product.name['en-US']}
             className={styles.productImage}
-            src={product.masterVariant.images![0].url}></img>
+            src={product.masterVariant.images![0].url}
+          ></img>
           {discountPercentage ? (
             <div
-              className={styles.discount}>{`${discountPercentage}% off`}</div>
+              className={styles.discount}
+            >{`${discountPercentage}% off`}</div>
           ) : null}
         </div>
         <div className={styles.productName}>{product.name[defaultLocale]}</div>

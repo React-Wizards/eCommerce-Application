@@ -32,7 +32,8 @@ const ProdPaginator = ({
           className={styles.pageButton}
           onClick={() => {
             setPortionNumber(portionNumber - 1);
-          }}>
+          }}
+        >
           {'<'}
         </div>
       )}
@@ -51,7 +52,8 @@ const ProdPaginator = ({
               key={p}
               onClick={() => {
                 onPageButtonClickHandler(p);
-              }}>
+              }}
+            >
               {p}
             </div>
           );
@@ -61,7 +63,8 @@ const ProdPaginator = ({
           className={styles.pageButton}
           onClick={() => {
             setPortionNumber(portionNumber + 1);
-          }}>
+          }}
+        >
           {'>'}
         </div>
       )}

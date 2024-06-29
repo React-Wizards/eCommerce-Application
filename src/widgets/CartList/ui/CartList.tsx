@@ -64,7 +64,8 @@ const CartList = () => {
               };
 
               removeCart();
-            }}>
+            }}
+          >
             Clear Cart
           </button>
         </div>

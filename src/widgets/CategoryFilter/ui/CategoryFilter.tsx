@@ -32,14 +32,14 @@ const CategoryFilter = (props: {
               onClick={() => {
                 onCategoryClickHandler(category.id);
               }}
-              key={category.id}>
+              key={category.id}
+            >
               <div className={styles.categoryName}>
                 {category.name[defaultLocale]}
               </div>
               <div
-                className={
-                  styles.categorySize
-                }>{`(${props.categorySizes?.get(category.id) || 0})`}</div>
+                className={styles.categorySize}
+              >{`(${props.categorySizes?.get(category.id) || 0})`}</div>
             </li>
           );
         })}

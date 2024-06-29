@@ -24,14 +24,16 @@ const Address = (props: {
           <label
             className='input-label'
             key={ind}
-            data-error-message={error || ''}>
+            data-error-message={error || ''}
+          >
             <p className='field-name'>{!!value && placeHolder}</p>
             {type == 'select' ? (
               <select
                 value={value}
                 className={styles['coutnry-select']}
                 onChange={onChangeHandler}
-                disabled={props.isDisabled}>
+                disabled={props.isDisabled}
+              >
                 {options?.map((opt, idx) => (
                   <option value={opt} key={idx}>
                     {opt}

@@ -29,14 +29,16 @@ const NotFound = () => {
             className={styles.navigation__back}
             onClick={() => {
               goBack();
-            }}>
+            }}
+          >
             Go back
           </button>
           <button
             className={styles.navigation__home}
             onClick={() => {
               goHome();
-            }}>
+            }}
+          >
             Home
           </button>
         </div>

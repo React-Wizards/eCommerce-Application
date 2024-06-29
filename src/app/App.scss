@@ -4,27 +4,27 @@
 
 @layer base {
   @font-face {
-    font-family: 'Cera Pro Medium';
+    font-family: "Cera Pro Medium";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/Cera-Pro-Medium.otf');
+    src: url("/fonts/Cera-Pro-Medium.otf");
   }
 
   @font-face {
-    font-family: 'Cera Pro Regular';
+    font-family: "Cera Pro Regular";
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/Cera-Pro-Regular.otf');
+    src: url("/fonts/Cera-Pro-Regular.otf");
   }
 
   @font-face {
-    font-family: 'Cera Pro Bold';
+    font-family: "Cera Pro Bold";
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/fonts/Cera-Pro-Bold.otf');
+    src: url("/fonts/Cera-Pro-Bold.otf");
   }
 
   .input-label {
@@ -49,20 +49,20 @@
       font-size: smaller;
     }
 
-    &:not([data-error-message='']) > input {
+    &:not([data-error-message=""]) > input {
       box-shadow: 0 0 10px red;
     }
 
-    &:not([data-error-message=''])::before {
+    &:not([data-error-message=""])::before {
       position: absolute;
-      content: '⚠️';
+      content: "⚠️";
       font-size: larger;
       top: calc(50% - 16px);
       left: -25px;
       z-index: 10;
     }
 
-    & > input[type='date']::before {
+    & > input[type="date"]::before {
       content: attr(data-placeholder);
       position: absolute;
       color: gray;
@@ -71,18 +71,18 @@
       left: 105px;
     }
 
-    & > input[type='date']:focus::before {
+    & > input[type="date"]:focus::before {
       display: none;
     }
 
-    & > input[type='date']:valid::before {
+    & > input[type="date"]:valid::before {
       display: none;
     }
 
-    & > input[type='password'] {
+    & > input[type="password"] {
       padding-right: 30px;
     }
-    & > input[type='password']::-ms-reveal {
+    & > input[type="password"]::-ms-reveal {
       display: none;
     }
   }

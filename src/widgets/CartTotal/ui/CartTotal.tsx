@@ -71,7 +71,8 @@ const CartTotal = () => {
             };
 
             fetchCode();
-          }}>
+          }}
+        >
           Apply
         </button>
       </div>
@@ -89,9 +90,8 @@ const CartTotal = () => {
             Coupon Discount
           </span>
           <span
-            className={
-              styles['coupon-discount__price']
-            }>{`(-) ${couponDiscount}`}</span>
+            className={styles['coupon-discount__price']}
+          >{`(-) ${couponDiscount}`}</span>
         </div>
         <div className={styles.total}>
           <span className={styles.total__text}>Total</span>

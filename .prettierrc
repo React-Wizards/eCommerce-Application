@@ -8,5 +8,27 @@
   "jsxSingleQuote": true,
   "endOfLine": "lf",
   "bracketSpacing": true,
-  "bracketSameLine": true
+  "bracketSameLine": false,
+  "overrides": [
+    {
+      "files": ["**/*.html"],
+      "options": {
+        "parser": "html",
+        "singleQuote": false
+      }
+    },
+    {
+      "files": ["**/*.scss"],
+      "options": {
+        "parser": "scss",
+        "singleQuote": false
+      }
+    },
+    {
+      "files": ["**/*.md"],
+      "options": {
+        "parser": "md"
+      }
+    }
+  ]
 }

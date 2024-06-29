@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LoginPage from '@/pages/LoginPage';
 import RegistrationPage from '@/pages/RegistrationPage';
-import ShopPage from '@/pages/Shop';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 import ProductPage from '@/pages/ProductPage';

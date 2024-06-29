@@ -17,7 +17,8 @@ const ProductModal = ({
       overlayClassName={styles['modal-overlay']}
       className={styles['modal-window']}
       ariaHideApp={false}
-      onRequestClose={() => onClose()}>
+      onRequestClose={() => onClose()}
+    >
       <IoCloseCircleOutline
         className={styles['modal-close-btn']}
         onClick={() => onClose()}

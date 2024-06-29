@@ -9,7 +9,7 @@
     @apply scale-105;
   }
 
-  &:not([data-items-count=''])::after {
+  &:not([data-items-count=""])::after {
     @apply absolute min-w-[70%] aspect-square -top-1 -right-3 z-10 flex justify-center items-center text-white text-[0.625rem] bg-[#46a358] rounded-full;
     content: attr(data-items-count);
   }

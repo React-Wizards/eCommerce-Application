@@ -121,7 +121,8 @@ const ProductInfo = () => {
                   )[0].value.key === 'small'
               )
             }
-            onClick={onSizeSelectHandler}>
+            onClick={onSizeSelectHandler}
+          >
             S
           </button>
           <button
@@ -138,7 +139,8 @@ const ProductInfo = () => {
                   )[0].value.key === 'medium'
               )
             }
-            onClick={onSizeSelectHandler}>
+            onClick={onSizeSelectHandler}
+          >
             M
           </button>
           <button
@@ -155,7 +157,8 @@ const ProductInfo = () => {
                   )[0].value.key === 'large'
               )
             }
-            onClick={onSizeSelectHandler}>
+            onClick={onSizeSelectHandler}
+          >
             L
           </button>
         </div>

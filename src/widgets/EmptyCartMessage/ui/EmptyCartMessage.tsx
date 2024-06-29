@@ -13,7 +13,8 @@ const EmptyCartMessage = () => {
         className={styles.button}
         onClick={() => {
           navigate('/home');
-        }}>
+        }}
+      >
         Go to shop
       </button>
     </div>

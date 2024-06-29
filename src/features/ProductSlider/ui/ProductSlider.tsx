@@ -50,7 +50,8 @@ const ProductSlider = () => {
         isOpen={modalIsOpen}
         onClose={() => {
           setModalIsOpen(false);
-        }}>
+        }}
+      >
         <ImgCarousel classname={'slider-container'} imgArr={images} />
       </ProductModal>
     </div>
